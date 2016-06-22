@@ -157,7 +157,14 @@ class OpenSessionOverview extends React.Component {
               <div className="session-attendees">
                 <Icon name="users"></Icon>
                 <span> {rsvp_contact_ids.length} attendee{rsvp_contact_ids.length !== 1 && 's'}</span>
-              </div>}
+              {user && user.role === 'admin' && session.session_type === 'info-session' &&
+                <a
+                    href={`https://www.adminium.io/resources/open_session_rsvps?where%5Bopen_session_id%5D=${session.id}`}
+                    target="_blank">
+                &nbsp;see in adminium
+                </a>}
+              </div>
+            }
           </div>
         </div>
       </div>
