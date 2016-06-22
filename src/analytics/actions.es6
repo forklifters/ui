@@ -23,7 +23,8 @@ function appInfo() {
     return {
         app: app(),
         appDisplayName: get(global, '__env.config.app.displayName', '').toLowerCase(),
-        uiAnalytics: true
+        uiAnalytics: true,
+        uiAnalyticsBackport: false
     }
 }
 
@@ -36,7 +37,7 @@ function isImpersonating() {
     const inCookie = has(cookies, 'Tf-Impersonating');
 
     if (inEnv || inCookie) {
-        log('No analytics for impersonating users.');
+        has(global, 'console.log') && console.log("No analytics for impersonating users.");
         return true;
     }
 
