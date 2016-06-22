@@ -36,7 +36,7 @@ function isImpersonating() {
     const inCookie = has(cookies, 'Tf-Impersonating');
 
     if (inEnv || inCookie) {
-        log('No analyitcs for impersonating users.');
+        log('No analytics for impersonating users.');
         return true;
     }
 
