@@ -32,13 +32,15 @@ function isLoggedIn() {
 }
 
 function isImpersonating() {
-    const impersonating = has(global, '__env.user.real_admin_tf_login');
+    const inEnv = has(global, '__env.user.real_admin_tf_login');
+    const inCookie = has(cookies, 'Tf-Impersonating');
 
-    if (impersonating) {
-        log('No analyitcs for impersonating users.');
+    if (inEnv || inCookie) {
+        log('No analytics for impersonating users.');
+        return true;
     }
 
-    return impersonating;
+    return false;
 }
 
 // Lots of ways of trying to find the user's email
