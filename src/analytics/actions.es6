@@ -37,7 +37,7 @@ function isImpersonating() {
     const inCookie = has(cookies, 'Tf-Impersonating');
 
     if (inEnv || inCookie) {
-        has(global, 'console.log') && console.log("No analytics for impersonating users.");
+        console.log("No analytics for impersonating users.");
         return true;
     }
 
@@ -105,7 +105,7 @@ function fallback(callback, postData) {
 function mountSegmentIO() {
     let analytics = global.analytics = global.analytics || [];
     if (!analytics.initialize) {
-        if (analytics.invoked) global.console && console.error && console.error("Segment snippet included twice.");
+        if (analytics.invoked) window.console && console.error && console.error("Segment snippet included twice.");
         else {
             analytics.invoked = !0;
             analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "group", "track", "ready", "alias", "page", "once", "off", "on"];
