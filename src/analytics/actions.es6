@@ -176,7 +176,7 @@ function load(writeKey) {
 
     // If in prod, load Mouseflow and set custom mouseflowPath
     // which allows us to track subdomains more easily.
-    if (_.has(__env, 'env.debug') && __env.env.debug == false) {
+    if (has(__env, 'env.debug') && __env.env.debug == false) {
       var mouseflowPath = document.domain + document.location.pathname;
       var _mfq = _mfq || [];
       (function() {
