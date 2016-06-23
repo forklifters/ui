@@ -137,6 +137,10 @@ function mountSegmentIO() {
 }
 
 function load(writeKey) {
+    if (isImpersonating()) {
+      return;
+    }
+
     if (global.analytics) {
         return global.analytics;
     }
