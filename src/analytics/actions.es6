@@ -174,6 +174,19 @@ function load(writeKey) {
     // Configure with write key
     global.analytics.load(writeKey);
 
+    // If in prod, load Mouseflow and set custom mouseflowPath
+    // which allows us to track subdomains more easily.
+    if (has(__env, 'env.debug') && __env.env.debug == false) {
+      window.mouseflowPath = document.domain + document.location.pathname;
+      var _mfq = _mfq || [];
+      (function() {
+        var mf = document.createElement("script");
+        mf.type = "text/javascript"; mf.async = true;
+        mf.src = "//cdn.mouseflow.com/projects/fca2d039-aa07-4f63-8a5c-29f193acc66d.js";
+        document.getElementsByTagName("head")[0].appendChild(mf);
+      })();
+    }
+
     return global.analytics;
 }
 
