@@ -50,7 +50,7 @@ const processFetch = function (refetch, error, response, body) {
         time: "2015-09-23T03:17:30.280968"
         verb: "request-nps"
     */
-    
+
     if (refetch) {
       NotificationActions.fetchNotifications();
     }
