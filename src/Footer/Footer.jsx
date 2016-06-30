@@ -107,7 +107,7 @@ function generateSections(config) {
           'mobile': true
         },
         {
-          'name': 'Site security',
+          'name': 'Responsible disclosure',
           'location': `${wwwUrl}/responsible-disclosure/`,
           'mobile': true
         },
