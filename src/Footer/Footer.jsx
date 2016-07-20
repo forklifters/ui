@@ -17,13 +17,13 @@ function generateSections(config) {
       'heading': 'Courses',
       'links': [
         {
-          'name': 'Part Time Career Path',
-          'location': `${wwwUrl}/courses/web-development-career-path/`,
+          'name': 'Flexible Bootcamp',
+          'location': `${wwwUrl}/bootcamp/web-development/flexible/`,
           'mobile': false
         },
         {
-          'name': 'Full Time Career Path',
-          'location': `${wwwUrl}/courses/full-time-career-path/`,
+          'name': 'Full Time Bootcamp',
+          'location': `${wwwUrl}/bootcamp/web-development/full-time/`,
           'mobile': false
         },
         {
@@ -102,13 +102,13 @@ function generateSections(config) {
           'mobile': false
         },
         {
-          'name': 'Mission',
+          'name': 'Our mission',
           'location': `${wwwUrl}/about/`,
           'mobile': true
         },
         {
-          'name': 'Responsible disclosure',
-          'location': `${wwwUrl}/responsible-disclosure/`,
+          'name': 'Hiring network',
+          'location': `${wwwUrl}/hire-developers/`,
           'mobile': true
         },
         {
@@ -195,6 +195,12 @@ class LegalLinks extends React.Component {
           location={`${config.www.url}/support/`}
           name="Support"
           mobile={false}/>
+      <span className="middot-desktop margin-span">·</span>
+      <SectionLink
+          className="margin-span"
+          location={`${config.www.url}/responsible-disclosure/`}
+          name="Responsible disclosure"
+          mobile={true}/>
     </div>
   }
 }
