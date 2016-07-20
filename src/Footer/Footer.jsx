@@ -18,12 +18,12 @@ function generateSections(config) {
       'links': [
         {
           'name': 'Flexible Bootcamp',
-          'location': `${wwwUrl}/courses/web-development-career-path/`,
+          'location': `${wwwUrl}/bootcamp/web-development/flexible/`,
           'mobile': false
         },
         {
           'name': 'Full Time Bootcamp',
-          'location': `${wwwUrl}/courses/full-time-career-path/`,
+          'location': `${wwwUrl}/bootcamp/web-development/full-time/`,
           'mobile': false
         },
         {
