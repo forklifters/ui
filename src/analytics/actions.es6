@@ -25,7 +25,7 @@ function is(thing, type) {
         case 'object':
             return Object.prototype.toString.call(thing) === '[object Object]'
         case 'string':
-            return Object.prototype.toString.call(thing) === '[object String'
+            return Object.prototype.toString.call(thing) === '[object String]'
         case 'undefined':
             return Object.prototype.toString.call(thing) === '[object Undefined]'
         default:
