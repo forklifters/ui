@@ -31,7 +31,6 @@ function is(thing, type) {
         default:
             throw new Error(`Type "${type}" not recognized.`)
     }
-    return typeof(thing) === type
 }
 
 function isEmail(string) {
