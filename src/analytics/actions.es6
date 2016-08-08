@@ -15,6 +15,22 @@ const cookies = zipObject(map(document.cookie.split('; '), function(cookie) {
 }));
 
 function is(thing, type) {
+    switch (type) {
+        case 'array':
+            return Object.prototype.toString.call(thing) === '[object Array]'
+        case 'function':
+            return Object.prototype.toString.call(thing) === '[object Function]'
+        case 'number':
+            return Object.prototype.toString.call(thing) === '[object Number]'
+        case 'object':
+            return Object.prototype.toString.call(thing) === '[object Object]'
+        case 'string':
+            return Object.prototype.toString.call(thing) === '[object String'
+        case 'undefined':
+            return Object.prototype.toString.call(thing) === '[object Undefined]'
+        default:
+            throw new Error(`Type "${type}" not recognized.`)
+    }
     return typeof(thing) === type
 }
 
