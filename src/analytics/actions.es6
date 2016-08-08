@@ -1,6 +1,5 @@
 const log = require('debug')('ui:analytics');
 const Qs = require('qs');
-const is = require('is_js');
 const superagent = require('superagent');
 
 const get = require('lodash/object/get')
@@ -14,6 +13,15 @@ const cookies = zipObject(map(document.cookie.split('; '), function(cookie) {
     let [name, value] = cookie.split('=');
     return [name, decodeURIComponent(value)];
 }));
+
+function is(thing, type) {
+    return typeof(thing) === type
+}
+
+function isEmail(string) {
+    // Copied from is_js (see https://github.com/arasatasaygin/is.js/blob/master/is.js#L331)
+    return /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i.test(string)
+}
 
 function app() {
     return get(global, '__env.config.app.name', '').toLowerCase();
@@ -29,7 +37,7 @@ function appInfo() {
 }
 
 function isLoggedIn() {
-    return has(global, '__env.user') && is.object(global.__env.user);
+    return has(global, '__env.user') && is(global.__env.user, 'object');
 }
 
 function isImpersonating() {
@@ -81,7 +89,7 @@ function getUserId(id) {
     }
 
     // If logged out, set the id to the mixpanel ID,
-    if (is.function(get(window, 'mixpanel.get_distinct_id'))) {
+    if (is(get(window, 'mixpanel.get_distinct_id'), 'function')) {
         return window.mixpanel.get_distinct_id();
     }
 
@@ -98,7 +106,7 @@ function fallback(callback, postData) {
         send(postData).
         withCredentials().
         end((error, response) => {
-            is.function(callback) && callback();
+            is(callback, 'function') && callback();
         });
 }
 
@@ -197,9 +205,9 @@ function identify(id, traits, options, fn) {
     }
 
     // Argument reshuffling, from original library.
-    if (is.function(options)) fn = options, options = null;
-    if (is.function(traits)) fn = traits, options = null, traits = null;
-    if (is.object(id)) options = traits, traits = id, id = null;
+    if (is(options, 'function')) fn = options, options = null;
+    if (is(traits, 'function')) fn = traits, options = null, traits = null;
+    if (is(id, 'object')) options = traits, traits = id, id = null;
 
     let email = tryEmail();
 
@@ -212,7 +220,7 @@ function identify(id, traits, options, fn) {
     // 4. Once logged in, you can safely identify by their email
 
     // If someone is passing in an email, let's assign it to the traits
-    if (id && is.email(id)) {
+    if (id && isEmail(id)) {
         traits.email = id;
     }
 
@@ -235,9 +243,9 @@ function alias(to, from, options, fn) {
     }
 
     // Argument reshuffling, from original library.
-    if (is.function(options)) fn = options, options = null;
-    if (is.function(from)) fn = from, options = null, from = null;
-    if (is.object(from)) options = from, from = null;
+    if (is(options, 'function')) fn = options, options = null;
+    if (is(from, 'function')) fn = from, options = null, from = null;
+    if (is(from, 'object')) options = from, from = null;
 
     global.analytics &&
         global.analytics.alias(to, from, options, fn);
@@ -260,8 +268,8 @@ function track(event, properties, options, fn) {
     }
 
     // Argument reshuffling, from original library.
-    if (is.function(options)) fn = options, options = null;
-    if (is.function(properties)) fn = properties, options = null, properties = null;
+    if (is(options, 'function')) fn = options, options = null;
+    if (is(properties, 'function')) fn = properties, options = null, properties = null;
     const localInfo = {
         email: tryEmail()
     }
@@ -297,12 +305,12 @@ function page(category, name, properties, options, fn) {
     }
 
     // Argument reshuffling, from original library.
-    if (is.function(options)) fn = options, options = null;
-    if (is.function(properties)) fn = properties, options = properties = null;
-    if (is.function(name)) fn = name, options = properties = name = null;
-    if (is.object(category)) options = name, properties = category, name = category = null;
-    if (is.object(name)) options = properties, properties = name, name = null;
-    if (is.string(category) && !is.string(name)) name = category, category = null;
+    if (is(options, 'function')) fn = options, options = null;
+    if (is(properties, 'function')) fn = properties, options = properties = null;
+    if (is(name, 'function')) fn = name, options = properties = name = null;
+    if (is(category, 'object')) options = name, properties = category, name = category = null;
+    if (is(name, 'object')) options = properties, properties = name, name = null;
+    if (is(category, 'string') && !is(name, 'string')) name = category, category = null;
 
     properties = defaults(properties || {}, appInfo(), get(global, '__env.user', {}));
 
