@@ -70,6 +70,10 @@ else {
         }
     }
 
+    if (/dashboard-project-hunt-link/.test(user.access)) {
+        menu.push(config.projectHunt)
+    }
+
     menu.push(config.refer);
     menu.push(config.slack);
     menu.push(config.settings);
