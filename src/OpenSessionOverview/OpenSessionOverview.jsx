@@ -9,6 +9,8 @@ const {Tag} = require('../Tag');
 
 require('./open-session-overview.less');
 
+const FALLBACK_QA_DESCRIPTION = 'Have questions? Get answers! Check out the topic tags to the right. If you see one that fits your question, feel free to hop in the session. You can stay for the full hour or just long enough to get your answer. Ask about projects, concepts, or the industry.'
+
 class OverviewContent extends React.Component {
   render() {
     const {session} = this.props;
@@ -18,7 +20,7 @@ class OverviewContent extends React.Component {
         <h3 className="title" itemProp="name">{title}</h3>
         <p className="host-name">with {host.name}</p>
         <p className="overview-description" itemProp="description">
-          {description}
+          {description || FALLBACK_QA_DESCRIPTION}
         </p>
       </div>
       );
