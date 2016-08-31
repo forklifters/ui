@@ -18,7 +18,7 @@ class OverviewContent extends React.Component {
         <h3 className="title" itemProp="name">{title}</h3>
         <p className="host-name">with {host.name}</p>
         <p className="overview-description" itemProp="description">
-          {session.isWorkshop() ? description : host.about}
+          {description}
         </p>
       </div>
       );
