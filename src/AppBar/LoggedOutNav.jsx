@@ -3,6 +3,51 @@ const React = require('react')
 
 const {Icon} = require('../Icon');
 
+const courseDropdownItems = [
+  {
+    href: '/courses/',
+    imageUrl: '//tf-assets-prod.s3.amazonaws.com/wow-next/splash-nav/master-a-new-skill.gz.svg',
+    title: 'Skills courses',
+  },
+  {
+    href: '/training-for-teams',
+    imageUrl: '//tf-assets-prod.s3.amazonaws.com/splash/nav-icons/corporate-round.gz.svg',
+    title: 'Training for teams'
+  },
+]
+
+const educationDropdownItems = [
+  {
+    href: '/mentorship/',
+    imageUrl: '//tf-assets-prod.s3.amazonaws.com/splash/nav-icons/mentorship.gz.svg',
+    title: '1-on-1 mentorship',
+  },
+  {
+    href: '/career-prep/',
+    imageUrl: '//tf-assets-prod.s3.amazonaws.com/splash/nav-icons/career-services.gz.svg',
+    title: 'Career prep',
+  },
+  {
+    href: '/bootcamp-job-guarantee/',
+    imageUrl: '//tf-assets-prod.s3.amazonaws.com/splash/nav-icons/guarantee.gz.svg',
+    title: 'Job guarantee',
+  },
+  {
+    href: '/bootcamp-job-stats/',
+    imageUrl: '//tf-assets-prod.s3.amazonaws.com/splash/nav-icons/jobs-report.gz.svg',
+    title: 'Student outcomes',
+  },
+]
+
+const NavDropdownItem = ({ config, href, imageUrl, title }) => {
+  return <li className="splash-nav-dropdown-item">
+    <a className="splash-nav-dropdown-padding" href={`${config.www.url}${href}?rel=nav`}>
+      <img src={imageUrl} />
+      <h4 className="splash-nav-dropdown-title">{title}</h4>
+    </a>
+  </li>
+}
+
 class LoggedOutNav extends React.Component {
   constructor(props) {
     super(props)
@@ -67,32 +112,38 @@ class LoggedOutNav extends React.Component {
               Courses <Icon name={coursesDDVisible ? 'navigateup' : 'navigatedown'}/>
             </a>
 
-            <div id="splash-nav-courses-dropdown" className={cx("splash-nav-dropdown", {"splash-nav-dropdown__visible": coursesDDVisible})}>
+            <div
+                id="splash-nav-courses-dropdown"
+                className={cx(
+                  "splash-nav-dropdown",
+                  {"splash-nav-dropdown__visible": coursesDDVisible})}>
               <ul>
                 <li className="splash-nav-dropdown-item">
                   <div className="splash-nav-dropdown-padding">
                     <a className="splash-nav-bootcamp-link" href={`${config.www.url}/bootcamp/web-development/?rel=nav`}>
-                      <img className="splash-nav-dropdown-image__wdcp" src="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.gz.svg" />
-                      <h4 className="splash-nav-dropdown-title splash-nav-dropdown-title__wdcp">Web Development Bootcamp</h4>
+                      <img
+                          className="splash-nav-dropdown-image__wdcp"
+                          src="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.gz.svg" />
+                      <h4 className="splash-nav-dropdown-title splash-nav-dropdown-title__wdcp">
+                        Web Development Bootcamp
+                      </h4>
                     </a>
                     <div className="splash-nav-dropdown-cp-links">
-                      <a href={`${config.www.url}/bootcamp/web-development/flexible/?rel=nav`}>Flexible</a>
-                      <a href={`${config.www.url}/bootcamp/web-development/full-time/?rel=nav`}>Full Time</a>
+                      <a href={`${config.www.url}/bootcamp/web-development/flexible/?rel=nav`}>
+                        Flexible
+                      </a>
+                      <a href={`${config.www.url}/bootcamp/web-development/full-time/?rel=nav`}>
+                        Full Time
+                      </a>
                     </div>
                   </div>
                 </li>
-                <li className="splash-nav-dropdown-item">
-                  <a className="splash-nav-dropdown-padding" href={`${config.www.url}/courses/?rel=nav`}>
-                    <img src="//tf-assets-prod.s3.amazonaws.com/wow-next/splash-nav/master-a-new-skill.gz.svg" />
-                    <h4 className="splash-nav-dropdown-title">Skills courses</h4>
-                  </a>
-                </li>
-                <li className="splash-nav-dropdown-item">
-                  <a className="splash-nav-dropdown-padding" href={`${config.www.url}/training-for-teams/?rel=nav`}>
-                    <img src="//tf-assets-prod.s3.amazonaws.com/splash/nav-icons/corporate-round.gz.svg" />
-                    <h4 className="splash-nav-dropdown-title">Corporate training</h4>
-                  </a>
-                </li>
+                {courseDropdownItems.map((item, idx) => <NavDropdownItem
+                    config={config}
+                    key={idx}
+                    href={item.href}
+                    imageUrl={item.imageUrl}
+                    title={item.title} />)}
               </ul>
             </div>
           </li>
@@ -105,42 +156,34 @@ class LoggedOutNav extends React.Component {
               How it works <Icon name={educationDDVisible ? 'navigateup' : 'navigatedown'} />
             </a>
 
-              <div id="splash-nav-education-dropdown" className={cx("splash-nav-dropdown", {"splash-nav-dropdown__visible": educationDDVisible})}>
-                <ul>
-                  <li className="splash-nav-dropdown-item">
-                    <a className="splash-nav-dropdown-padding" href={`${config.www.url}/mentorship/?rel=nav`}>
-                      <img src="//tf-assets-prod.s3.amazonaws.com/splash/nav-icons/mentorship.gz.svg" />
-                      <h4 className="splash-nav-dropdown-title">1-on-1 mentorship</h4>
-                    </a>
-                  </li>
-                  <li className="splash-nav-dropdown-item">
-                    <a className="splash-nav-dropdown-padding" href={`${config.www.url}/career-prep/?rel=nav`}>
-                      <img src="//tf-assets-prod.s3.amazonaws.com/splash/nav-icons/career-services.gz.svg" />
-                      <h4 className="splash-nav-dropdown-title">Career prep</h4>
-                    </a>
-                  </li>
-                  <li className="splash-nav-dropdown-item">
-                    <a className="splash-nav-dropdown-padding" href={`${config.www.url}/career-path-job-guarantee/?rel=nav`}>
-                      <img src="//tf-assets-prod.s3.amazonaws.com/splash/nav-icons/guarantee.gz.svg" />
-                      <h4 className="splash-nav-dropdown-title">Job guarantee</h4>
-                    </a>
-                  </li>
-                  <li className="splash-nav-dropdown-item">
-                    <a className="splash-nav-dropdown-padding" href={`${config.www.url}/bootcamp-jobs-stats/?rel=nav`}>
-                      <img src="//tf-assets-prod.s3.amazonaws.com/splash/nav-icons/jobs-report.gz.svg" />
-                      <h4 className="splash-nav-dropdown-title">Student outcomes</h4>
-                    </a>
-                  </li>
-                </ul>
-              </div>
+            <div
+                id="splash-nav-education-dropdown"
+                className={cx(
+                  "splash-nav-dropdown",
+                  {"splash-nav-dropdown__visible": educationDDVisible})}>
+              <ul>
+                {educationDropdownItems.map((item, idx) => <NavDropdownItem
+                    config={config}
+                    key={idx}
+                    href={item.href}
+                    imageUrl={item.imageUrl}
+                    title={item.title} />)}
+              </ul>
+            </div>
           </li>
 
-          <li className="splash-nav-item"><a href={`${config.www.url}/reviews/?rel=nav`}>Reviews</a></li>
-          <li className="splash-nav-item"><a href={`${config.www.url}/pricing/?rel=nav`}>Pricing</a></li>
+          <li className="splash-nav-item">
+            <a href={`${config.www.url}/reviews/?rel=nav`}>Reviews</a>
+          </li>
+          <li className="splash-nav-item">
+            <a href={`${config.www.url}/pricing/?rel=nav`}>Pricing</a>
+          </li>
         </ul>
 
         <ul className="splash-nav-secondary">
-          <li className="splash-nav-item"><a href={`${config.dashboard.url}/?rel=nav`}>Sign in</a></li>
+          <li className="splash-nav-item">
+            <a href={`${config.dashboard.url}/?rel=nav`}>Sign in</a>
+          </li>
         </ul>
       </div>
     </div>
