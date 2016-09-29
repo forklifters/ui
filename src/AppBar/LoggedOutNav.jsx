@@ -33,7 +33,7 @@ const educationDropdownItems = [
     title: 'Job guarantee',
   },
   {
-    href: '/bootcamp-job-stats/',
+    href: '/bootcamp-jobs-stats/',
     imageUrl: '//tf-assets-prod.s3.amazonaws.com/splash/nav-icons/jobs-report.gz.svg',
     title: 'Student outcomes',
   },
