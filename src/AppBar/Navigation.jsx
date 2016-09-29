@@ -7,6 +7,7 @@ const uniqueId = require('lodash/utility/uniqueId');
 // TUI Components
 const {Icon} = require('../Icon');
 const {Gravatar} = require('../Gravatar');
+const {LoggedOutNav} = require('./LoggedOutNav');
 const {NavLink} = require('./NavLink');
 const {Notifications} = require('./notifications/Notifications');
 const {CourseLink} = require('./CourseLink');
@@ -120,101 +121,11 @@ class AppNav extends React.Component {
         )
     }
 
-    renderCourseDropdown() {
-      const {config} = this.props;
-      const dropdownContentClasses = cx("app-nav-course-dropdown-content",
-        {"app-nav-course-dropdown-content__visible" : this.state.isCourseDropdownVisible});
-
-      return (
-        <div className="app-nav-course-dropdown">
-          <span className='app-nav-link'
-                onClick={this._toggleCourseDropdown}>Courses
-            <Icon className='app-nav-link-down-arrow' name='navigatedown' />
-          </span>
-          <div onMouseEnter={this._handleMouseEnter}
-               className={dropdownContentClasses}>
-            <div className="app-nav-section-header">Become a developer</div>
-            <div className="app-nav-courses">
-              <CourseLink href={`${config.www.url}/bootcamp/web-development/flexible/`}
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.gz.svg"
-                          name="Flexible Bootcamp" />
-              <CourseLink href={`${config.www.url}/bootcamp/web-development/full-time/`}
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.gz.svg"
-                          name="Full Time Bootcamp" />
-            </div>
-            <div className="app-nav-section-header">Master a new skill</div>
-            <div className="app-nav-courses">
-              <CourseLink href={`${config.www.url}/courses/learn-web-development-online/`}
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/frontend.gz.svg"
-                          name="Frontend Development" />
-              <CourseLink href={`${config.www.url}/courses/learn-ux-online/`}
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/uxd.gz.svg"
-                          name="User Experience Design" />
-              <CourseLink href={`${config.www.url}/courses/learn-angularjs-online/`}
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/angular.gz.svg"
-                          name="Frontend in AngularJS" />
-              <CourseLink href={`${config.www.url}/courses/learn-web-design-online/`}
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/design.gz.svg"
-                          name="Modern Web Design" />
-              <CourseLink href={`${config.www.url}/courses/learn-python-online/`}
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/python.gz.svg"
-                          name="Programming in Python" />
-              <CourseLink href={`${config.www.url}/courses/learn-swift-programming-online/`}
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/swift.gz.svg"
-                          name="iOS Programming in Swift" />
-              <CourseLink href={`${config.www.url}/courses/learn-ruby-on-rails-online/`}
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/ruby.gz.svg"
-                          name="Web Development in Rails" />
-              <CourseLink href={`${config.www.url}/courses/learn-android-programming-online/`}
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/android.gz.svg"
-                          name="Android Mobile Development" />
-              <CourseLink href={`${config.www.url}/courses/learn-nodejs-online/`}
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/node.gz.svg"
-                          name="Backend in Node.js" />
-              <CourseLink href={`${config.www.url}/courses/learn-data-science-online/`}
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/data.gz.svg"
-                          name="Data Science in Python" />
-            </div>
-            <div className="app-nav-courses app-nav-courses__center">
-              <CourseLink href={`${config.www.url}/courses/`}
-                          name="Explore all courses"
-                          arrow={true} />
-            </div>
-          </div>
-        </div>);
-    }
-
     renderUnauthed(config) {
         const navClassName = cx(
             'app-nav', {'app-nav__visible': this.state.isMenuVisible});
 
-        return (
-            <div className='app-nav-container app-nav-container__unauthed'>
-                <nav onMouseLeave={this._handleMouseLeave}
-                     className={navClassName} rel="main-navigation">
-                    <a href={`${linkSet.home.url}/?rel=nav`}>
-                      <div dangerouslySetInnerHTML={{__html: require('./images/blue_full_logo.svg')}}/>
-                    </a>
-                    <ul onMouseEnter={this._handleMouseEnter}
-                        className='app-nav-list'>
-                        {linkSet.insertCourseDropdown && this.renderCourseDropdown()}
-                        {linkSet.insertCourseDropdown && <li key="courseDropdown">
-                            <NavLink className='app-nav-link__mobile-only'
-                                     displayName='Courses'
-                                     url={`${config.www.url}/courses/`} />
-                          </li>}
-                        {linkSet.menu.map(
-                            (link) => <li key={uniqueId('link_')}>
-                                <NavLink
-                                    className='app-nav-link__in-menu'
-                                    {...link}/></li>)}
-                    </ul>
-                    <a className='app-nav-link app-nav-link__toggle' onClick={this._toggleMenu}>
-                        <span alt='Menu' className='app-nav-burger'></span>
-                    </a>
-                </nav>
-            </div>
-        )
+        return <LoggedOutNav config={config} />
     }
 
     render() {
