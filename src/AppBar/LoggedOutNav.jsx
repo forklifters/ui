@@ -71,7 +71,7 @@ class LoggedOutNav extends React.Component {
               <ul>
                 <li className="splash-nav-dropdown-item">
                   <div className="splash-nav-dropdown-padding">
-                    <a href={`${config.www.url}/bootcamp/web-development/?rel=nav`}>
+                    <a className="splash-nav-bootcamp-link" href={`${config.www.url}/bootcamp/web-development/?rel=nav`}>
                       <img className="splash-nav-dropdown-image__wdcp" src="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.gz.svg" />
                       <h4 className="splash-nav-dropdown-title splash-nav-dropdown-title__wdcp">Web Development Bootcamp</h4>
                     </a>
