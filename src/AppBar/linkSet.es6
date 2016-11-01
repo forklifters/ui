@@ -45,7 +45,6 @@ else {
         defaults(home, config.dashboard);
         main.push(home);
 
-        menu.push(config.activity);
         main.push(config.qaSessions);
         menu.push(config.takeStudent);
     }
