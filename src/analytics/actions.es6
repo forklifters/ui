@@ -71,7 +71,7 @@ function isImpersonating() {
 function tryEmail() {
     // Check if the user is logged in
     if (has(global, '__env.user.tf_login')) {
-        return global.__env.user.tf_login;
+        return global.__env.user.tf_login.toLowerCase();
     }
 
     // Check the URL parameters
@@ -81,13 +81,13 @@ function tryEmail() {
 
     // Try the cookies
     if (cookies.user_email) {
-        return cookies.user_email;
+        return cookies.user_email.toLowerCase();
     }
 
     // Check the form fields
     const emailFields = document.querySelectorAll('[name="email"]');
     if (emailFields.length && emailFields[0].value.length) {
-        return emailFields[0].value;
+        return emailFields[0].value.toLowerCase();
     }
 }
 
@@ -236,7 +236,7 @@ function identify(id, traits, options, fn) {
 
     // If someone is passing in an email, let's assign it to the traits
     if (id && isEmail(id)) {
-        traits.email = id;
+        traits.email = id.toLowerCase();
     }
 
     id = getUserId(id);
