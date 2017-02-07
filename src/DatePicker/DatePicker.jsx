@@ -1,4 +1,5 @@
 const React = require('react');
+const ReactDOM = require('react-dom')
 const moment = require('moment-timezone');
 const cx = require('classnames');
 const _ = require('lodash');
@@ -44,18 +45,29 @@ class Day extends React.Component {
 class DatePicker extends React.Component {
   static displayName = "DatePicker"
 
+  static defaultProps = {
+    defaultDate: moment(),
+  }
+
   constructor() {
     super();
     this.state = {
-      visible: false,
-      days: [],
       activeIndex: null,
-      monthsNavigated: 0
+      days: [],
+      monthsNavigated: 0,
+      value: null,
+      visible: false,
     }
   }
 
   componentDidMount() {
     this._generateDays(this.props.defaultDate);
+
+    document.addEventListener('click', this._checkClickAway.bind(this))
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this._checkClickAway.bind(this))
   }
 
   componentWillReceiveProps(newProps) {
@@ -97,12 +109,22 @@ class DatePicker extends React.Component {
     });
   }
 
+  _checkClickAway(event) {
+    const domNode = ReactDOM.findDOMNode(this.dropdownButton)
+    if (domNode && !domNode.contains(event.target)) {
+      this.setState({visible: false});
+    }
+  }
+
   _handleClick(event, newDay) {
     const {days} = this.state;
     const {handleChange} = this.props;
     const newActiveIndex = _.findIndex(days, {dayOfYear: newDay});
 
-    this.setState({activeIndex: newActiveIndex});
+    this.setState({
+      activeIndex: newActiveIndex,
+      value: days[newActiveIndex].dateObj,
+    });
     this._toggleOpen();
 
     handleChange(days[newActiveIndex].dateObj);
@@ -123,8 +145,8 @@ class DatePicker extends React.Component {
   }
 
   render() {
-    const {className} = this.props;
-    const {days, activeIndex, monthsNavigated, visible} = this.state;
+    const {className, placeholder} = this.props;
+    const {days, activeIndex, monthsNavigated, value, visible} = this.state;
     const activeDay = days[activeIndex] && days[activeIndex].dateObj;
     const datePickerClasses = cx('date-picker', {hidden: !visible});
 
@@ -132,8 +154,9 @@ class DatePicker extends React.Component {
       <div className={cx("date-picker-container", className)}>
         <div
             className="button date-picker-button"
-            onClick={this._toggleOpen.bind(this)}>
-          {moment(activeDay).format('MM/DD/YYYY')}
+            onClick={this._toggleOpen.bind(this)}
+            ref={c => this.dropdownButton = c}>
+          {!value && placeholder ? placeholder : moment(activeDay).format('MM/DD/YYYY')}
           <span className="icon-navigatedown" aria-hidden="true"></span>
         </div>
         <div className={datePickerClasses}>
