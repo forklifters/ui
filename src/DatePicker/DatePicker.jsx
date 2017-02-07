@@ -111,12 +111,10 @@ class DatePicker extends React.Component {
   }
 
   _checkClickAway(event) {
-    const buttonDomNode = ReactDOM.findDOMNode(this.dropdownButton)
-    const calendarDomNode = ReactDOM.findDOMNode(this.calendar)
     // Close the picker if the click wasn't on the dropdown button or calendar
     if (
-        (buttonDomNode && !buttonDomNode.contains(event.target)) &&
-        (calendarDomNode && !calendarDomNode.contains(event.target))) {
+        (this.dropdownButton && !this.dropdownButton.contains(event.target)) &&
+        (this.calendar && !this.calendar.contains(event.target))) {
       this.setState({visible: false});
     }
   }
