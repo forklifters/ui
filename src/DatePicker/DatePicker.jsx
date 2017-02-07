@@ -1,5 +1,4 @@
 const React = require('react');
-const ReactDOM = require('react-dom')
 const moment = require('moment-timezone');
 const cx = require('classnames');
 const _ = require('lodash');
