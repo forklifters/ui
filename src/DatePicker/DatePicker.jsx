@@ -3,6 +3,7 @@ const ReactDOM = require('react-dom')
 const moment = require('moment-timezone');
 const cx = require('classnames');
 const _ = require('lodash');
+const { Icon } = require('../Icon')
 
 require('./datepicker.less');
 
@@ -161,14 +162,14 @@ class DatePicker extends React.Component {
             onClick={this._toggleOpen.bind(this)}
             ref={c => this.dropdownButton = c}>
           {!value && placeholder ? placeholder : moment(activeDay).format('MM/DD/YYYY')}
-          <span className="icon-navigatedown" aria-hidden="true"></span>
+          <Icon name="navigatedown" />
         </div>
         <div className={datePickerClasses} ref={c => this.calendar = c}>
-          <span
-              className="icon-navigateleft" aria-hidden="true"
+          <Icon
+              name="navigateleft"
               onClick={this._navigateBack.bind(this)} />
-          <span
-              className="icon-navigateright" aria-hidden="true"
+          <Icon
+              name="navigateright"
               onClick={this._navigateForward.bind(this)} />
           <div className="selected-day">
             {moment(activeDay).format('dddd, MMMM Do')}
