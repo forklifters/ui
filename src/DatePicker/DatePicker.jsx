@@ -110,8 +110,12 @@ class DatePicker extends React.Component {
   }
 
   _checkClickAway(event) {
-    const domNode = ReactDOM.findDOMNode(this.dropdownButton)
-    if (domNode && !domNode.contains(event.target)) {
+    const buttonDomNode = ReactDOM.findDOMNode(this.dropdownButton)
+    const calendarDomNode = ReactDOM.findDOMNode(this.calendar)
+    // Close the picker if the click wasn't on the dropdown button or calendar
+    if (
+        (buttonDomNode && !buttonDomNode.contains(event.target)) &&
+        (calendarDomNode && !calendarDomNode.contains(event.target))) {
       this.setState({visible: false});
     }
   }
@@ -159,13 +163,13 @@ class DatePicker extends React.Component {
           {!value && placeholder ? placeholder : moment(activeDay).format('MM/DD/YYYY')}
           <span className="icon-navigatedown" aria-hidden="true"></span>
         </div>
-        <div className={datePickerClasses}>
-        <span
-            className="icon-navigateleft" aria-hidden="true"
-            onClick={this._navigateBack.bind(this)}></span>
-        <span
-            className="icon-navigateright" aria-hidden="true"
-            onClick={this._navigateForward.bind(this)}></span>
+        <div className={datePickerClasses} ref={c => this.calendar = c}>
+          <span
+              className="icon-navigateleft" aria-hidden="true"
+              onClick={this._navigateBack.bind(this)} />
+          <span
+              className="icon-navigateright" aria-hidden="true"
+              onClick={this._navigateForward.bind(this)} />
           <div className="selected-day">
             {moment(activeDay).format('dddd, MMMM Do')}
           </div>
