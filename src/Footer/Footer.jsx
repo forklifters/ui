@@ -239,7 +239,7 @@ class Footer extends React.Component {
                 <Icon name="twitter"/>
               </a>
             </div>
-            {sections.map(section => <FooterColumn {...section}/>)}
+            {sections.map((section, idx) => <FooterColumn {...section} key={idx} />)}
             <SectionLink
                 className="support-mobile"
                 location={`${config.www.url}/support`}
