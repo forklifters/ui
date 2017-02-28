@@ -46,7 +46,11 @@ else {
         main.push(home);
 
         main.push(config.qaSessions);
-        menu.push(config.takeStudent);
+        menu.push({
+            displayName: 'Available Students',
+            host: config.lark.host,
+            url: config.lark.url + '/available-students/'
+        });
     }
     // Student links
     else {
