@@ -48,7 +48,7 @@ class NavLink extends React.Component {
                         className,
                         "app-nav-link",
                         {active, disabled})}
-                    href={url + '?rel=nav'}
+                    href={url}
                     target={external ? "_blank" : "_self"}>
                 {icon &&
                     <Icon className="app-nav-icon" name={icon}/>
