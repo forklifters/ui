@@ -10,8 +10,10 @@ require('./dropdown.less');
  * @property data {Array} of items to display in the dropdown,
       containing `value` and `displayName`
  * @property selectedInd {Int} of the selected index in the list
+ * @property initialSelectedInd {Int} first element that should be selected
  * @property defaultDisplay {String} of default value that should be displayed
  * @property handleChange {Function} to handle dropdown click/change
+ * @property htmlId {String} html id for label
  */
 const Dropdown = React.createClass({
 
@@ -23,7 +25,8 @@ const Dropdown = React.createClass({
     initialSelectedInd: React.PropTypes.number,
     selectedInd: React.PropTypes.number,
     defaultDisplay: React.PropTypes.string,
-    handleChange: React.PropTypes.func.isRequired
+    handleChange: React.PropTypes.func.isRequired,
+    htmlId: React.PropTypes.string,
   },
 
   getInitialState() {
@@ -80,7 +83,7 @@ const Dropdown = React.createClass({
   },
 
   render() {
-    const { className, defaultDisplay } = this.props;
+    const { htmlId, className, defaultDisplay } = this.props;
 
     const dropdownClasses = cx(
       "tui-dropdown-container",
@@ -89,7 +92,10 @@ const Dropdown = React.createClass({
     const selectedInd = this._determineSelectedInd();
 
     return <div className={dropdownClasses}>
-      <select onChange={e => this._handleChange(e)} className="tui-dropdown">
+      <select
+        id={htmlId}
+        onChange={e => this._handleChange(e)}
+        className="tui-dropdown">
         {selectedInd == -1 &&
           <option selected disabled key="tui-dropdown-default">{defaultDisplay}</option>}
         {this._generateNodes()}
