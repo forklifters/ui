@@ -34,20 +34,6 @@ const Dropdown = React.createClass({
     return {data: []};
   },
 
-  componentDidMount() {
-    document.addEventListener('click', this._checkClickAway);
-  },
-
-  componentWillUnmount() {
-    document.removeEventListener('click', this._checkClickAway);
-  },
-
-  _checkClickAway(e) {
-    if (!ReactDOM.findDOMNode(this.dropdownButton).contains(e.target)) {
-      this.setState({open: false});
-    }
-  },
-
   _generateNodes() {
     let {data} = this.props;
 
@@ -62,24 +48,18 @@ const Dropdown = React.createClass({
 
     return data.map((item, ind) => {
       return (
-        <p
-          className={cx("dropdown-item", item.className)}
-          id={ind}
+        <option
+          className={cx(item.className)}
           key={ind}
           value={item.value}>
           {item.displayName}
-        </p>
+        </option>
       );
     });
   },
 
-  _toggleOpen() {
-    this.setState({open: !this.state.open});
-  },
-
   _handleChange(event) {
     let {handleChange} = this.props;
-    this._toggleOpen();
     handleChange(event);
   },
 
@@ -99,44 +79,22 @@ const Dropdown = React.createClass({
     return _.map(data, item => item.value || item).indexOf(value)
   },
 
-  _getDisplayText() {
-    const { data, defaultDisplay } = this.props;
-    const selectedInd = this._determineSelectedInd();
-
-    if (selectedInd === -1) {
-      return defaultDisplay;
-    }
-
-    return _.map(data,
-      item => item.displayName || item)[selectedInd] || defaultDisplay;
-  },
-
   render() {
-    const { className } = this.props;
+    const { className, defaultDisplay } = this.props;
 
     const dropdownClasses = cx(
-      'dd-open',
-      {hidden: !this.state.open});
+      "tui-dropdown-container",
+      dropdownClasses);
 
-    return (
-      <div className={cx("dropdown-container", className)}>
-        <div
-            className="button dd-button"
-            onClick={this._toggleOpen}
-            ref={c => this.dropdownButton = c}
-            data-clickable>
-          <span className="dropdown-text">
-            {this._getDisplayText()}
-          </span>
-          <span className="icon-navigatedown" aria-hidden="true"></span>
-        </div>
-        <div
-          className={dropdownClasses}
-          onClick={this._handleChange}>
-          {this._generateNodes()}
-        </div>
-      </div>
-    );
+    const selectedInd = this._determineSelectedInd();
+
+    return <div className={dropdownClasses}>
+      <select onChange={e => this._handleChange(e)} className="tui-dropdown">
+        {selectedInd == -1 &&
+          <option selected disabled key="tui-dropdown-default">{defaultDisplay}</option>}
+        {this._generateNodes()}
+      </select>
+    </div>;
   }
 });
 

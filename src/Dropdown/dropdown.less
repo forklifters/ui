@@ -1,70 +1,25 @@
 @import '~tfstyleguide/vars';
 
-.dropdown-container {
+.tui-dropdown-container {
+  position: relative;
   width: 420px;
   max-width: 100%;
   position: relative;
-}
 
-.dropdown-text {
-  pointer-events: none;
-}
-
-.button.dd-button {
-  width: 100%;
-  position: relative;
-  border: 1px solid mix(@gray25, @gray50, 70%);
-  box-shadow: inset 0px 3px 7px @gray15;
-  background-color: @white;
-  line-height: 28px;
-  color: @gray75;
-  margin-bottom: 0;
-
-  &:focus, &:hover, &:active, &:visited {
-    outline: none;
-    background-color: @gray15;
-    color: @black;
-  }
-
-  .icon-navigatedown {
+  &:after {
+    content: '\f501';
+    font-family: 'icomoon';
+    line-height: 1;
     position: absolute;
-    right: 1em;
-    top: 15px;
-    pointer-events: none;
+    right: 15px;
+    top: 14px;
+    font-size: 20px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-.dd-open {
-  max-height: 300px;
-  overflow: scroll;
-  border: 1px solid @gray25;
-  border-radius: 3px;
-  background-color: @gray15;
-  position: absolute;
-  max-width: 100%;
+.tui-dropdown {
   width: 100%;
-  cursor: pointer;
-  z-index: 10;
-
-  p {
-    color: @gray75;
-    font-size: 16px;
-    padding-top: 7px;
-    padding-bottom: 8px;
-    padding-left: 1em;
-    padding-right: 1em;
-    margin-bottom: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-
-    &:hover {
-      background-color: @blue25;
-      color: @blue;
-    }
-  }
 }
 
-.hidden {
-  display: none;
-}
