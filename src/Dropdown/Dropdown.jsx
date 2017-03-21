@@ -51,17 +51,11 @@ const Dropdown = React.createClass({
     });
 
     return data.map((item, ind) => {
-      var optionsData = {
-        className: item.className,
-        key: ind,
-        value: item.value
-      }
-      if (ind === selectedInd) {
-        optionsData["selected"] = "selected";
-      }
-
       return (
-        <option {...optionsData}>{item.displayName}</option>
+        <option
+          className={item.className}
+          key={ind}
+          value={item.value}>{item.displayName}</option>
       );
     });
   },
@@ -88,21 +82,23 @@ const Dropdown = React.createClass({
   },
 
   render() {
-    const { htmlId, className, defaultDisplay } = this.props;
+    const { htmlId, className, defaultDisplay, data } = this.props;
 
     const dropdownClasses = cx(
       "tui-dropdown-container",
       dropdownClasses);
 
     const selectedInd = this._determineSelectedInd();
+    const currentValue = selectedInd >= 0 ? data[selectedInd] : '';
 
     return <div className={dropdownClasses}>
       <select
           id={htmlId}
+          value={currentValue}
           onChange={e => this._handleChange(e)}
           className="tui-dropdown">
         {selectedInd == -1 &&
-          <option selected disabled key="tui-dropdown-default">{defaultDisplay}</option>}
+          <option disabled key="tui-dropdown-default" value="">{defaultDisplay}</option>}
         {this._generateNodes()}
       </select>
     </div>;
