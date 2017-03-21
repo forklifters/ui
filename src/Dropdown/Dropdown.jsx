@@ -82,19 +82,18 @@ const Dropdown = React.createClass({
   },
 
   render() {
-    const { htmlId, className, defaultDisplay, data } = this.props;
+    const { htmlId, className, defaultDisplay, value } = this.props;
 
     const dropdownClasses = cx(
       "tui-dropdown-container",
       dropdownClasses);
 
     const selectedInd = this._determineSelectedInd();
-    const currentValue = selectedInd >= 0 ? data[selectedInd] : '';
 
     return <div className={dropdownClasses}>
       <select
           id={htmlId}
-          value={currentValue}
+          value={value}
           onChange={e => this._handleChange(e)}
           className="tui-dropdown">
         {selectedInd == -1 &&
