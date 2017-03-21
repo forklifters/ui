@@ -52,7 +52,7 @@ const Dropdown = React.createClass({
     return data.map((item, ind) => {
       return (
         <option
-          className={cx(item.className)}
+          className={item.className}
           key={ind}
           value={item.value}>
           {item.displayName}
@@ -93,9 +93,9 @@ const Dropdown = React.createClass({
 
     return <div className={dropdownClasses}>
       <select
-        id={htmlId}
-        onChange={e => this._handleChange(e)}
-        className="tui-dropdown">
+          id={htmlId}
+          onChange={e => this._handleChange(e)}
+          className="tui-dropdown">
         {selectedInd == -1 &&
           <option selected disabled key="tui-dropdown-default">{defaultDisplay}</option>}
         {this._generateNodes()}
