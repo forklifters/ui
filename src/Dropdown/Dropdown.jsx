@@ -39,7 +39,6 @@ const Dropdown = React.createClass({
 
   _generateNodes() {
     let {data} = this.props;
-    const selectedInd = this._determineSelectedInd();
 
     // Translate `data` from an array of strings, if necessary.
     data = data.map(item => {
