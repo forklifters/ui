@@ -51,12 +51,17 @@ const Dropdown = React.createClass({
     });
 
     return data.map((item, ind) => {
+      var optionsData = {
+        className: item.className,
+        key: ind,
+        value: item.value
+      }
+      if (ind === selectedInd) {
+        optionsData["selected"] = "selected";
+      }
+
       return (
-        <option
-          {ind === selectedInd && "selected"}
-          className={item.className}
-          key={ind}
-          value={item.value}>{item.displayName}</option>
+        <option {...optionsData}>{item.displayName}</option>
       );
     });
   },
