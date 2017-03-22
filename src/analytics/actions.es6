@@ -231,15 +231,16 @@ function identify(id, traits, options, fn) {
     // Mixpanel Rules:
     // 1. If the user is logged out, identify by the mixpanel ID
     // 2. If you know their email, you can set that to the email trait
-    // 3. On register, alias to the users emails
+    // 3. On account creation, alias to the users email
     // 4. Once logged in, you can safely identify by their email
 
-    // If someone is passing in an email, let's assign it to the traits
-    if (id && isEmail(id)) {
-        traits.email = id.toLowerCase();
-    }
-
     id = getUserId(id);
+
+    // If someone is passing email and id is still anon, use the email
+    if (!isEmail(id || '') && isEmail(traits.email || '')) {
+        id = traits.email;
+        delete traits.email;
+    }
 
     global.analytics &&
         global.analytics.identify(id, traits, options, fn);
@@ -261,6 +262,14 @@ function alias(to, from, options, fn) {
     if (is(options, 'function')) fn = options, options = null;
     if (is(from, 'function')) fn = from, options = null, from = null;
     if (is(from, 'object')) options = from, from = null;
+
+    // If current user is already an email, don't alias, just jump to new email
+    if (is(get(window, 'mixpanel.get_distinct_id'), 'function')) {
+        if (isEmail(window.mixpanel.get_distinct_id())) {
+            identify(to);
+            return;
+        }
+    }
 
     global.analytics &&
         global.analytics.alias(to, from, options, fn);
