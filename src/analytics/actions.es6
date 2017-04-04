@@ -97,19 +97,8 @@ function getUserId(id) {
         return global.__env.user.tf_login;
     }
 
-    // Trust hawk to supply a valid ID, but nobody else
-    if (app() == 'hawk' && id) {
-        // Keep Hawk-supplied ID
-        return id;
-    }
-
-    // If logged out, set the id to the mixpanel ID,
-    if (is(get(window, 'mixpanel.get_distinct_id'), 'function')) {
-        return window.mixpanel.get_distinct_id();
-    }
-
-    // If we can't find mixpanel, fallback to null ID
-    return null;
+    // Else, fallback
+    return id || null;
 }
 
 // Failsafe for if segment breaks for some reason
@@ -228,18 +217,11 @@ function identify(id, traits, options, fn) {
 
     traits = defaults(traits || {}, appInfo());
 
-    // Mixpanel Rules:
-    // 1. If the user is logged out, identify by the mixpanel ID
-    // 2. If you know their email, you can set that to the email trait
-    // 3. On account creation, alias to the users email
-    // 4. Once logged in, you can safely identify by their email
-
     id = getUserId(id);
 
     // If someone is passing email and id is still anon, use the email
     if (!isEmail(id || '') && isEmail(traits.email || '')) {
         id = traits.email;
-        delete traits.email;
     }
 
     global.analytics &&
@@ -252,24 +234,10 @@ function alias(to, from, options, fn) {
       return;
     }
 
-    // See Mixpanel rules in identify function
-    if (app() != 'stork') {
-        log('Alias should only be called on account creation.');
-        return;
-    }
-
     // Argument reshuffling, from original library.
     if (is(options, 'function')) fn = options, options = null;
     if (is(from, 'function')) fn = from, options = null, from = null;
     if (is(from, 'object')) options = from, from = null;
-
-    // If current user is already an email, don't alias, just jump to new email
-    if (is(get(window, 'mixpanel.get_distinct_id'), 'function')) {
-        if (isEmail(window.mixpanel.get_distinct_id())) {
-            identify(to);
-            return;
-        }
-    }
 
     global.analytics &&
         global.analytics.alias(to, from, options, fn);
@@ -280,7 +248,7 @@ function alias(to, from, options, fn) {
 
       // Create a track event so we can see exactly when a user is aliased,
       // to help us better understand everything.
-      track('aliased', { 'to': to })
+      track('aliased', { 'from': from, 'to': to })
     }, 500);
 }
 
