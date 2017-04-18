@@ -71,7 +71,7 @@ function isImpersonating() {
 function tryEmail() {
     // Check if the user is logged in
     if (has(global, '__env.user.tf_login')) {
-        return global.__env.user.tf_login;
+        return global.__env.user.tf_login.toLowerCase();
     }
 
     // Check the URL parameters
@@ -81,13 +81,13 @@ function tryEmail() {
 
     // Try the cookies
     if (cookies.user_email) {
-        return cookies.user_email;
+        return cookies.user_email.toLowerCase();
     }
 
     // Check the form fields
     const emailFields = document.querySelectorAll('[name="email"]');
     if (emailFields.length && emailFields[0].value.length) {
-        return emailFields[0].value;
+        return emailFields[0].value.toLowerCase();
     }
 }
 
@@ -97,19 +97,8 @@ function getUserId(id) {
         return global.__env.user.tf_login;
     }
 
-    // Trust hawk to supply a valid ID, but nobody else
-    if (app() == 'hawk' && id) {
-        // Keep Hawk-supplied ID
-        return id;
-    }
-
-    // If logged out, set the id to the mixpanel ID,
-    if (is(get(window, 'mixpanel.get_distinct_id'), 'function')) {
-        return window.mixpanel.get_distinct_id();
-    }
-
-    // If we can't find mixpanel, fallback to null ID
-    return null;
+    // Else, fallback
+    return id || null;
 }
 
 // Failsafe for if segment breaks for some reason
@@ -228,18 +217,12 @@ function identify(id, traits, options, fn) {
 
     traits = defaults(traits || {}, appInfo());
 
-    // Mixpanel Rules:
-    // 1. If the user is logged out, identify by the mixpanel ID
-    // 2. If you know their email, you can set that to the email trait
-    // 3. On register, alias to the users emails
-    // 4. Once logged in, you can safely identify by their email
-
-    // If someone is passing in an email, let's assign it to the traits
-    if (id && isEmail(id)) {
-        traits.email = id;
-    }
-
     id = getUserId(id);
+
+    // If someone is passing email and id is still anon, use the email
+    if (!isEmail(id || '') && isEmail(traits.email || '')) {
+        id = traits.email;
+    }
 
     global.analytics &&
         global.analytics.identify(id, traits, options, fn);
@@ -249,12 +232,6 @@ function identify(id, traits, options, fn) {
 function alias(to, from, options, fn) {
     if (isImpersonating()) {
       return;
-    }
-
-    // See Mixpanel rules in identify function
-    if (app() != 'tailorbird' && app() != 'pelican' && app() != 'stork') {
-        log('Alias should only be called on account creation, or email capture.');
-        return;
     }
 
     // Argument reshuffling, from original library.
@@ -271,7 +248,7 @@ function alias(to, from, options, fn) {
 
       // Create a track event so we can see exactly when a user is aliased,
       // to help us better understand everything.
-      track('aliased', { 'to': to })
+      track('aliased', { 'from': from, 'to': to })
     }, 500);
 }
 
