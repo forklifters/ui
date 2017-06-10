@@ -87,7 +87,7 @@ class OpenSessionOverview extends React.Component {
           <Gravatar
             className="gravatar-image participant-gravatar"
             src={p.image_url}
-            email=''/>
+            email={p.email}/>
           <p>{p.name}</p>
         </div>
       )
