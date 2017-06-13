@@ -4,6 +4,7 @@ const moment = require('moment-timezone');
 const React = require('react');
 const _ = require('lodash');
 
+const {Gravatar} = require('../Gravatar');
 const {Icon} = require('../Icon');
 const {Tag} = require('../Tag');
 
@@ -51,6 +52,7 @@ class OpenSessionOverview extends React.Component {
     hosting: React.PropTypes.bool,
     previewing: React.PropTypes.bool,
     session: React.PropTypes.object.isRequired,
+    participants: React.PropTypes.array,
     user: React.PropTypes.object
   }
 
@@ -59,11 +61,37 @@ class OpenSessionOverview extends React.Component {
     hosting: false,
     linkToCalendar: false,
     previewing: false,
+    participants: [],
     tags: []
   }
 
   _shouldRenderMobile() {
     return this.props.previewing;
+  }
+
+  _participantList() {
+    if (this.props.participants.length > 0) {
+      return (
+        <div className="qa-session-participants">
+          <div className="subheading">Participants</div>
+          {this._renderGravatars()}
+        </div>
+      )
+    }
+  }
+
+  _renderGravatars() {
+    return this.props.participants.map((p, idx) => {
+      return (
+        <div className="qa-session-participants__item" key={idx}>
+          <Gravatar
+            className="gravatar-image__participant"
+            src={p.image_url}
+            email={p.email}/>
+          <div>{p.name}</div>
+        </div>
+      )
+    });
   }
 
   render() {
@@ -167,6 +195,9 @@ class OpenSessionOverview extends React.Component {
                 </a>}
               </div>
             }
+          </div>
+          <div>
+            {user && (user.role === 'admin' || session.isUserHost(user)) && session.session_type === 'qa_session' && this._participantList()}
           </div>
         </div>
       </div>
