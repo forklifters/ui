@@ -86,7 +86,7 @@ class OpenSessionOverview extends React.Component {
     return participants.map((p, idx) => {
       return (
         <div className="qa-session-participants__item" key={idx}>
-          <a href={`${config.dashboard.url}/student/${p.user_id}`}>
+          <a href={`${config.dashboard.url}/student/${p.contact_id}`}>
             <Gravatar
               className="gravatar-image__participant"
               src={p.image_url}
