@@ -73,7 +73,7 @@ class OpenSessionOverview extends React.Component {
     if (this.props.participants.length > 0) {
       return (
         <div className="qa-session-participants">
-          <p className="h4-text">Participants</p>
+          <div className="subheading">Participants</div>
           {this._renderGravatars()}
         </div>
       )
@@ -83,12 +83,12 @@ class OpenSessionOverview extends React.Component {
   _renderGravatars() {
     return this.props.participants.map((p, idx) => {
       return (
-        <div className="qa-session-participants--item" key={idx}>
+        <div className="qa-session-participants__item" key={idx}>
           <Gravatar
-            className="gravatar-image participant-gravatar"
+            className="gravatar-image__participant"
             src={p.image_url}
             email={p.email}/>
-          <p>{p.name}</p>
+          <div>{p.name}</div>
         </div>
       )
     });
