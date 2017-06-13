@@ -81,14 +81,18 @@ class OpenSessionOverview extends React.Component {
   }
 
   _renderGravatars() {
-    return this.props.participants.map((p, idx) => {
+    const {config, participants} = this.props;
+
+    return participants.map((p, idx) => {
       return (
         <div className="qa-session-participants__item" key={idx}>
-          <Gravatar
-            className="gravatar-image__participant"
-            src={p.image_url}
-            email={p.email}/>
-          <div>{p.name}</div>
+          <a href={`${config.dashboard.url}/student/${p.user_id}`}>
+            <Gravatar
+              className="gravatar-image__participant"
+              src={p.image_url}
+              email={p.email}/>
+            <div>{p.name}</div>
+          </a>
         </div>
       )
     });
@@ -197,7 +201,7 @@ class OpenSessionOverview extends React.Component {
             }
           </div>
           <div>
-            {user && (user.role === 'admin' || session.isUserHost(user)) && session.session_type === 'qa_session' && this._participantList()}
+            {user && (user.role === 'admin' || session.userIsHost(user)) && session.session_type === 'qa_session' && this._participantList()}
           </div>
         </div>
       </div>
