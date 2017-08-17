@@ -99,7 +99,7 @@ class DemoPage extends React.Component {
               data: Demo.props.constant(sampleDropdownData),
               initialSelectedInd: Demo.props.choices([undefined,0,1,2]),
               defaultDisplay: Demo.props.string("Choose something awesome"),
-              handleChange: Demo.props.callback.log(e => e.target.getAttribute('value'))
+              handleChange: Demo.props.callback.log(e => e.target.value)
             }} />
 
           <h3>DatePicker</h3>
