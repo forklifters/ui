@@ -18,7 +18,7 @@ class CourseLink extends React.Component {
     render() {
       const {href, icon, name, arrow} = this.props;
 
-      return (<a className="app-nav-courses-link" href={href + '?rel=nav'}>
+      return (<a className="app-nav-courses-link" href={href}>
         {icon && <img className="app-nav-courses-icon" src={icon} />}
         <span className="app-nav-courses-link-text">{name}</span>
         {arrow && <span className="icon-navigateright" />}

@@ -41,7 +41,7 @@ const educationDropdownItems = [
 
 const NavDropdownItem = ({ config, href, imageUrl, title }) => {
   return <li className="splash-nav-dropdown-item">
-    <a className="splash-nav-dropdown-padding" href={`${config.www.url}${href}?rel=nav`}>
+    <a className="splash-nav-dropdown-padding" href={`${config.www.url}${href}`}>
       <img src={imageUrl} />
       <h4 className="splash-nav-dropdown-title">{title}</h4>
     </a>
@@ -94,7 +94,7 @@ class LoggedOutNav extends React.Component {
       <div className="splash-nav-desktop-grid">
         <ul className="splash-nav-primary">
           <li className="splash-nav-item splash-nav-item__logo">
-            <a href={`${config.www.url}/?rel=nav`}>
+            <a href={`${config.www.url}/`}>
               <svg xmlns="http://www.w3.org/2000/svg" width="136" height="28" className="splash-nav-logo">
                 <g fill="#6799ff" fill-rule="evenodd">
                   <path d="M9 20h3V8H3V3h17V0H0v11h9v9z"/>
@@ -120,7 +120,7 @@ class LoggedOutNav extends React.Component {
               <ul>
                 <li className="splash-nav-dropdown-item">
                   <div className="splash-nav-dropdown-padding">
-                    <a className="splash-nav-bootcamp-link" href={`${config.www.url}/bootcamp/web-development/?rel=nav`}>
+                    <a className="splash-nav-bootcamp-link" href={`${config.www.url}/bootcamp/web-development/`}>
                       <img
                           className="splash-nav-dropdown-image__wdcp"
                           src="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.gz.svg" />
@@ -129,10 +129,10 @@ class LoggedOutNav extends React.Component {
                       </h4>
                     </a>
                     <div className="splash-nav-dropdown-cp-links">
-                      <a href={`${config.www.url}/bootcamp/web-development/flexible/?rel=nav`}>
+                      <a href={`${config.www.url}/bootcamp/web-development/flexible/`}>
                         Flexible
                       </a>
-                      <a href={`${config.www.url}/bootcamp/web-development/full-time/?rel=nav`}>
+                      <a href={`${config.www.url}/bootcamp/web-development/full-time/`}>
                         Full Time
                       </a>
                     </div>
@@ -173,16 +173,16 @@ class LoggedOutNav extends React.Component {
           </li>
 
           <li className="splash-nav-item">
-            <a href={`${config.www.url}/reviews/?rel=nav`}>Reviews</a>
+            <a href={`${config.www.url}/reviews/`}>Reviews</a>
           </li>
           <li className="splash-nav-item">
-            <a href={`${config.www.url}/pricing/?rel=nav`}>Pricing</a>
+            <a href={`${config.www.url}/pricing/`}>Pricing</a>
           </li>
         </ul>
 
         <ul className="splash-nav-secondary">
           <li className="splash-nav-item">
-            <a href={`${config.dashboard.url}/?rel=nav`}>Sign in</a>
+            <a href={`${config.dashboard.url}/`}>Sign in</a>
           </li>
         </ul>
       </div>
