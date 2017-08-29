@@ -37,6 +37,7 @@ class OpenSessionOverview extends React.Component {
     this._renderQASessionCtas = this._renderQASessionCtas.bind(this);
     this._renderWorkshopCta = this._renderWorkshopCta.bind(this);
     this._shouldRenderMobile = this._shouldRenderMobile.bind(this);
+    this._handleRSVPButtonClick = this._handleRSVPButtonClick.bind(this);
   }
 
   static displayName = "OpenSessionOverview"
@@ -96,6 +97,11 @@ class OpenSessionOverview extends React.Component {
         </div>
       )
     });
+  }
+
+  _handleRSVPButtonClick(e, id) {
+    $(e.target).addClass('button__disabled');
+    handleRSVPClick(id);
   }
 
   render() {
@@ -294,7 +300,7 @@ class OpenSessionOverview extends React.Component {
               {' / '}
               <a onClick={e => handleCancelRSVPClick(id)}>Cancel reservation</a>
             </div>
-          : <div className="button" onClick={e => handleRSVPClick(id)}>
+          : <div className="button" onClick={e => _handleRSVPButtonClick(e, id)}>
               RSVP
               <Icon name="navigateright" className="button-right-icon"/>
             </div>
