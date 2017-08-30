@@ -104,7 +104,7 @@ class OpenSessionOverview extends React.Component {
 
   _handleRSVPButtonClick(e, id) {
     this.setState({ requestPending: true });
-    handleRSVPClick(id);
+    this.props.handleRSVPClick(id);
   }
 
   render() {
@@ -243,7 +243,7 @@ class OpenSessionOverview extends React.Component {
 
   _renderQASessionCtas() {
     const {
-      attending, config, handleCancelRSVPClick, handleRSVPClick,
+      attending, config, handleCancelRSVPClick,
       handleCancelSessionClick, handleCancelAllSessionsClick,
       handleEditSessionClick, hosting, linkToCalendar,
       previewing, session, user
@@ -308,7 +308,7 @@ class OpenSessionOverview extends React.Component {
                 className={cx(
                   "button",
                   {"button__disabled": requestPending})}
-                onClick={e => _handleRSVPButtonClick(e, id)}>
+                onClick={e => this._handleRSVPButtonClick(e, id)}>
               RSVP
               <Icon name="navigateright" className="button-right-icon"/>
             </div>
