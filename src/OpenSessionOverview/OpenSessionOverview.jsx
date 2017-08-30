@@ -34,9 +34,13 @@ class OverviewContent extends React.Component {
 class OpenSessionOverview extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      requestPending: false
+    }
     this._renderQASessionCtas = this._renderQASessionCtas.bind(this);
     this._renderWorkshopCta = this._renderWorkshopCta.bind(this);
     this._shouldRenderMobile = this._shouldRenderMobile.bind(this);
+    this._handleRSVPButtonClick = this._handleRSVPButtonClick.bind(this);
   }
 
   static displayName = "OpenSessionOverview"
@@ -96,6 +100,11 @@ class OpenSessionOverview extends React.Component {
         </div>
       )
     });
+  }
+
+  _handleRSVPButtonClick(e, id) {
+    this.setState({ requestPending: true });
+    this.props.handleRSVPClick(id);
   }
 
   render() {
@@ -234,11 +243,12 @@ class OpenSessionOverview extends React.Component {
 
   _renderQASessionCtas() {
     const {
-      attending, config, handleCancelRSVPClick, handleRSVPClick,
+      attending, config, handleCancelRSVPClick,
       handleCancelSessionClick, handleCancelAllSessionsClick,
       handleEditSessionClick, hosting, linkToCalendar,
       previewing, session, user
     } = this.props;
+    const { requestPending } = this.state;
     const {detail_page_url, id} = session;
 
     const userIsActive = !_.isEmpty(user) && user.account_status === 'active';
@@ -294,7 +304,11 @@ class OpenSessionOverview extends React.Component {
               {' / '}
               <a onClick={e => handleCancelRSVPClick(id)}>Cancel reservation</a>
             </div>
-          : <div className="button" onClick={e => handleRSVPClick(id)}>
+          : <div
+                className={cx(
+                  "button",
+                  {"button__disabled": requestPending})}
+                onClick={e => this._handleRSVPButtonClick(e, id)}>
               RSVP
               <Icon name="navigateright" className="button-right-icon"/>
             </div>
