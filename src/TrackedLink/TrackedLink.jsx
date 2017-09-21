@@ -1,8 +1,7 @@
 const log = require('debug')('ui:analytics');
 const omit = require('lodash/object/omit');
 const React = require('react');
-
-const actions = require('./actions');
+const TFAnalytics = require('@thinkful/tf-analytics');
 
 /**
  * Usage
@@ -40,7 +39,7 @@ class TrackedLink extends React.Component {
         let eventName = `clicked-${global.__env.config.appDisplayName}-${this.props.type}`;
         log(eventName, data);
 
-        actions.track(eventName, data);
+        TFAnalytics.track(eventName, data);
 
         this.props.onClick &&
             this.props.onClick(event);

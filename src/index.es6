@@ -18,7 +18,7 @@ const {SidebarLayout, SidebarMenu, SidebarMenuItem} = require('./Sidebar');
 const {SocialShare} = require('./SocialShare');
 const {Tag} = require('./Tag');
 const {TopicPicker} = require('./TopicPicker');
-const {TrackedLink, AnalyticsAPI} = require('./analytics');
+const {TrackedLink} = require('./TrackedLink');
 const {models} = require('./models');
 
 module.exports = {
