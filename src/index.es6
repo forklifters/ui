@@ -47,6 +47,5 @@ module.exports = {
   Tag,
   TopicPicker,
   TrackedLink,
-  AnalyticsAPI,
   models
 }
