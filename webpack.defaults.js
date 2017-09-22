@@ -27,7 +27,9 @@ module.exports = function (options) {
     es6: {
       test: /\.(es6|jsx)$/,
       loader: 'babel',
-      presets: ['es2015', 'stage-0', 'react']
+      query: {
+        presets: ['es2015', 'stage-0', 'react']
+      }
     },
 
     json: {
