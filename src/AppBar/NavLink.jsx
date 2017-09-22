@@ -1,8 +1,8 @@
 const cx = require('classnames');
 const React = require('react');
-const {Icon} = require('../Icon');
+const TFAnalytics = require('@thinkful/tf-analytics');
 
-const AnalyticsApi = require('../analytics/actions');
+const {Icon} = require('../Icon');
 const {SearchBar} = require('../SearchBar');
 
 const SLASH_KEY_CODE = 191;
@@ -123,7 +123,7 @@ class SearchLink extends React.Component {
         const {url, config, mobile} = this.props;
 
         if (!this.state.open) {
-            AnalyticsApi.track('clicked-search', {
+            TFAnalytics.track('clicked-search', {
                 cateogry: 'splash-home',
                 label: 'splash-header'
             });

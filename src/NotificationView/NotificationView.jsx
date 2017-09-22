@@ -1,8 +1,9 @@
 const cx = require('classnames');
 const React = require('react');
+const TFAnalytics = require('@thinkful/tf-analytics');
+
 const {NotificationItem} = require('./NotificationItem');
 const {Icon} = require('../Icon');
-const {AnalyticsAPI} = require('../analytics');
 
 require('./notifications.less')
 
@@ -19,7 +20,7 @@ class NotificationView extends React.Component {
       return;
     }
     if (!this.state.visible) {
-      AnalyticsAPI.track('clicked-notification-bell');
+      TFAnalytics.track('clicked-notification-bell');
       this.props.handleSeen && this.props.handleSeen();
     }
     this.setState({visible: !this.state.visible});
