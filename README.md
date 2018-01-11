@@ -1,5 +1,5 @@
 # UI
-Shared React components and WebPack config for Thinkful applications.
+Shared React components for Thinkful applications.
 
 `/src`
 
