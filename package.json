@@ -6,6 +6,7 @@
   "scripts": {
     "build": "babel src --out-dir lib",
     "demo": "node demo/index.js",
+    "dev": "babel src --out-dir lib --watch",
     "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -72,7 +73,7 @@
     "spark-md5": "0.0.5",
     "superagent": "^1.4.0",
     "superagent-no-cache": "^0.1.0",
-    "tfstyleguide": "^4.0.0",
+    "tfstyleguide": "^4.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
