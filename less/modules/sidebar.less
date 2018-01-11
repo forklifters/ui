@@ -31,3 +31,51 @@
 	background-color: @white;
 	padding-top: 60px;
 }
+
+.menu-item {
+  .body-text;
+  color: @gray75;
+  display: block;
+  margin-bottom: 0;
+  margin-left: -24px;
+  cursor: pointer;
+
+  .icon-navigateright {
+    color: @blue;
+    transition: opacity .2s ease;
+    vertical-align: middle;
+    margin-right: 10px;
+    opacity: 0;
+  }
+
+  &.menu-item__active {
+    .proxima-bold;
+    position: relative;
+
+    .icon-navigateright {
+      opacity: 1;
+    }
+  }
+
+  a& {
+    color: @black;
+    &:hover {
+      color: @black;
+    }
+  }
+}
+
+.menu-item-parent {
+  color: @black;
+  &:hover {
+    color: @black;
+  }
+}
+
+.sidebar-menu {
+	margin-bottom: 45px;
+
+  .subheading {
+    margin-bottom: 15px;
+  }
+}

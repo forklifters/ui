@@ -1,8 +1,6 @@
 const cx = require('classnames');
 const React = require('react');
 
-require('./loader.less');
-
 class Loader extends React.Component {
   static displayName = "Loader"
 

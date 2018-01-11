@@ -2,8 +2,6 @@ const React = require('react');
 const cx = require('classnames');
 const {Icon} = require('../Icon');
 
-require('./modal.less');
-
 /*
  * Two ways to use it.
  *

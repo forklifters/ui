@@ -1,5 +1,8 @@
 .DS_Store
 
+# Build directory
+lib
+
 # Logs
 logs
 *.log

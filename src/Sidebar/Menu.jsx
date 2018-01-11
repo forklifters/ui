@@ -1,9 +1,6 @@
 const React = require('react');
 const classnames = require('classnames');
 
-require('./menu.less');
-
-
 /**
  *  Menu element for sidebar
  *  @property heading {String} of the heading to display above the menu

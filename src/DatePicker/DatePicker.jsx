@@ -4,8 +4,6 @@ const cx = require('classnames');
 const _ = require('lodash');
 const { Icon } = require('../Icon')
 
-require('./datepicker.less');
-
 /**
  * Day component
  8 @property date {DateTime} of the date to be displayed

@@ -1,8 +1,6 @@
 const React = require('react');
 const classnames = require('classnames');
 
-require('./layout.less');
-
 /**
  *  Base layout for pages that have a sidebar element.
  *  @property sidebarMenu {Component} to go in the sidebar
