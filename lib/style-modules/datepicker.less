@@ -1,0 +1,168 @@
+@import "~tfstyleguide/vars";
+
+.date-picker-container {
+  .icon-navigateleft {
+    position: absolute;
+    left: .5em;
+    top: 5px;
+    cursor: pointer;
+  }
+
+  .icon-navigateright {
+    position: absolute;
+    right: .5em;
+    top: 5px;
+    cursor: pointer;
+  }
+}
+
+.button.date-picker-button {
+  position: relative;
+  height: 45px;
+  margin-bottom: 0;
+  background-color: @white;
+  color: @gray75;
+  border: 1px solid mix(@gray25, @gray50, 70%);
+  box-shadow: inset 0px 3px 7px @gray15;
+  background-image: none;
+
+  &:hover {
+    background-color: @gray15;
+    color: @black;
+  }
+
+  .icon-navigatedown {
+    position: absolute;
+    right: 1em;
+    top: 15px;
+  }
+}
+
+.date-picker {
+  width: 330px;
+  border-top: 1px solid @gray25;
+  border-left: 1px solid @gray25;
+  border-right: 1px solid @gray25;
+  border-radius: 3px;
+  background-color: @white;
+  position: absolute;
+  z-index: 10;
+}
+
+.days-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.selected-day {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 5px;
+  font-size: 12px;
+  color: @blue125;
+}
+
+.arrow-left {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  border-right: 12px solid @gray75;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  cursor: pointer;
+}
+
+.arrow-right {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  border-left: 12px solid @gray75;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  cursor: pointer;
+}
+
+.day-headings {
+  height: 50px;
+  width: 330px;
+  display: flex;
+  border-bottom: 1px solid @gray25;
+
+  .day-heading {
+    flex-grow: 1;
+    width: ~"calc(100% / 7)";
+    text-align: center;
+    font-size: 12px;
+    color: @gray50;
+    padding-top: 27px;
+  }
+}
+
+.day {
+  font-size: 15px;
+  flex-grow: 1;
+  text-align: center;
+  width: ~"calc(100% / 7)";
+  height: 40px;
+  border-bottom: 1px solid @gray25;
+  padding-top: 9px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color .2s ease;
+
+  &.unclickable {
+    pointer-events: none;
+  }
+
+  &.other-month {
+    background-color: @gray15;
+  }
+
+  &.today {
+    color: @blue;
+
+    &::before {
+      content: 'Today';
+      font-size: 10px;
+      color: @blue;
+      position: absolute;
+      top: 0px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &.active::before {
+      color: @white;
+    }
+  }
+
+  &:hover {
+    background-color: @blue25;
+    transition: background-color .1s ease;
+  }
+
+  &.active {
+    background-color: @blue75;
+    color: @white;
+  }
+
+  .day-tiny-text {
+    font-size: 10px;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .day-tiny-text + .day-tiny-text {
+    top: auto;
+    bottom: 1px;
+    line-height: 1;
+    font-size: 9px;
+  }
+}
+
+.hidden {
+  display: none;
+}

@@ -1,7 +1,5 @@
 const React = require('react');
 
-require('./fourohfour.less');
-
 /**
  * FourOhFour
  *

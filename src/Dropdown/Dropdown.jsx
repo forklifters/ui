@@ -2,9 +2,6 @@ const cx = require('classnames');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-require('./dropdown.less');
-
-
 /**
  * Shared dropdown menu element
  * @property data {Array} of items to display in the dropdown,

@@ -1,5 +1,3 @@
-require('./availability_grid.less');
-
 const React = require('react');
 const classNames = require('classnames');
 const moment = require('moment');

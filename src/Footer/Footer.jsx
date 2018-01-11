@@ -4,8 +4,6 @@ const React = require('react');
 
 const {Icon} = require('../Icon');
 
-require('./footer.less');
-
 const FACEBOOK_URL = 'https://www.facebook.com/thinkfulschool';
 const TWITTER_URL = 'https://twitter.com/thinkful';
 

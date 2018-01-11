@@ -1,0 +1,23 @@
+@import "~tfstyleguide/vars";
+
+.tui-tag {
+  .body-text-small;
+  display: inline-block;
+  border: 1px solid @blue50;
+  border-radius: 3px;
+  color: @blue;
+  position: relative;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-right: 5px;
+  line-height: 23px;
+  background-color: @blue5;
+  cursor: pointer;
+  transition: background-color .11s ease,
+              border-color .11s ease,
+              color .11s ease;
+  &:hover {
+    background-color: @blue25;
+    color: @blue;
+  }
+}
