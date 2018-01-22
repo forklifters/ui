@@ -13,6 +13,8 @@ const {Notifications} = require('./notifications/Notifications');
 const {CourseLink} = require('./CourseLink');
 const linkSet = require('./linkSet');
 
+const WhiteTLogo = require('./WhiteTLogo')
+
 
 /**
  * AppNav
@@ -87,8 +89,11 @@ class AppNav extends React.Component {
                      className={navClassName}
                      key="main-navigation"
                      rel="main-navigation">
-                    <a href={linkSet.home.url}><div dangerouslySetInnerHTML={{__html: require('./images/white_t_logo.svg')}}>
-                    </div></a>
+                    <a href={linkSet.home.url}>
+                      <div>
+                        <WhiteTLogo />
+                      </div>
+                    </a>
                     <ul className="app-nav-main">
                         {navLinks.map(
                             (link) => <li key={uniqueId('link_')}>
