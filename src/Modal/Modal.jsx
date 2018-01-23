@@ -1,5 +1,7 @@
-const React = require('react');
 const cx = require('classnames');
+const PropTypes = require('prop-types');
+const React = require('react');
+
 const Icon = require('../Icon');
 
 /*
@@ -14,47 +16,49 @@ const Icon = require('../Icon');
 class Modal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isOpen: true,
-      controlledByParent: !! props.close
-    }
 
     this._closeModal = this._closeModal.bind(this);
-  }
 
-  static displayName = "Modal";
-
-  static propTypes = {
-      className: React.PropTypes.string,
-      close: React.PropTypes.func
+    this.state = {
+      controlledByParent: !!props.close,
+      isOpen: true,
+    }
   }
 
   _closeModal() {
-    this.setState({isOpen: false});
+    const { close } = this.props
+
+    close
+      ? close()
+      : this.setState({ isOpen: false });
   }
 
   render() {
-    const {className} = this.props;
-    const {controlledByParent, isOpen} = this.state;
+    const { className } = this.props;
+    const { controlledByParent, isOpen } = this.state;
 
-    const closeModal = this.props.close || this._closeModal;
-
-    const wrapperClasses = cx("tui-modal-wrapper", {
-      "tui-modal-wrapper__hidden": (!controlledByParent) && (!isOpen)
-    });
-    const modalClasses = cx("tui-modal-content", className);
+    const modalClasses = cx('tui-modal-content', className);
+    const wrapperClasses = cx(
+      'tui-modal-wrapper',
+      { 'tui-modal-wrapper__hidden': (!controlledByParent) && (!isOpen) });
 
     return (
       <div className={wrapperClasses}>
-        <div className="tui-modal-curtain" onClick={closeModal}/>
+        <div className="tui-modal-curtain" onClick={this._closeModal}/>
         <div className={modalClasses}>
-          <a className="tui-modal-close-button" onClick={closeModal}>
+          <a className="tui-modal-close-button" onClick={this._closeModal}>
             <Icon name="close" />
           </a>
           {this.props.children}
         </div>
-      </div>);
+      </div>
+    );
   }
+}
+
+Modal.propTypes = {
+  className: PropTypes.string,
+  close: PropTypes.func
 }
 
 module.exports = Modal;
