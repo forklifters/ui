@@ -2,9 +2,8 @@ const Reflux = require('reflux');
 const superagent = require('superagent');
 
 const SearchActions = Reflux.createActions({
-  getSuggestions: {asyncResult: true}
+   getSuggestions: { asyncResult: true }
 });
-
 
 SearchActions.getSuggestions.listen(function(input, config) {
   const fetchURLBase = config.useSSL ?
@@ -20,6 +19,5 @@ SearchActions.getSuggestions.listen(function(input, config) {
       : this.failed(error || response);
     });
 });
-
 
 module.exports = SearchActions

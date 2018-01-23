@@ -1,5 +1,6 @@
 const log = require('debug')('ui:analytics');
 const omit = require('lodash/object/omit');
+const PropTypes = require('prop-types');
 const React = require('react');
 const TFAnalytics = require('@thinkful/tf-analytics');
 
@@ -23,43 +24,53 @@ const TFAnalytics = require('@thinkful/tf-analytics');
  *  }
  */
 class TrackedLink extends React.Component {
-    static propTypes = {
-        data: React.PropTypes.object,
-        href: React.PropTypes.string.isRequired,
-        type: React.PropTypes.string
-    }
+  constructor(props) {
+    super(props)
 
-    static defaultProps = {
-        type: 'link'
-    }
+    this._handleClick = this._handleClick.bind(this)
+  }
 
-    _handleClick(event) {
-        let data = omit(this.props, 'children', 'className', 'href', 'target');
-        data = {url: this.props.href, ...data};
-        let eventName = `clicked-${global.__env.config.appDisplayName}-${this.props.type}`;
-        log(eventName, data);
+  _handleClick(event) {
+    const data = omit(
+      this.props,
+      'children',
+      'className',
+      'href',
+      'onClick',
+      'target');
+    data.url = this.props.href
 
-        TFAnalytics.track(eventName, data);
+    let eventName = `clicked-${global.__env.config.appDisplayName}-${this.props.type}`;
 
-        this.props.onClick &&
-            this.props.onClick(event);
-    }
+    log(eventName, data);
+    TFAnalytics.track(eventName, data);
 
-    render() {
-        const {children, className, href, onClick, ...props} = this.props;
+    this.props.onClick && this.props.onClick(event);
+  }
 
-        return (
-            <a
-                className={className}
-                href={href}
-                onClick={event => this._handleClick(event)}
-                {...props}
-            >
-                {children}
-            </a>
-        )
-    }
+  render() {
+    const { children, className, href, ...props } = this.props;
 
+    return (
+      <a
+          className={className}
+          href={href}
+          onClick={this._handleClick}
+          {...props}>
+        {children}
+      </a>
+    )
+  }
+}
+
+TrackedLink.propTypes = {
+  data: PropTypes.object,
+  href: PropTypes.string.isRequired,
+  type: PropTypes.string
+}
+
+TrackedLink.defaultProps = {
+  type: 'link'
 }
 
 module.exports = TrackedLink;
