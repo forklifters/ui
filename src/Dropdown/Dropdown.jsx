@@ -1,65 +1,15 @@
 const cx = require('classnames');
+const PropTypes = require('prop-types');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-/**
- * Shared dropdown menu element
- * @property data {Array} of items to display in the dropdown,
-      containing `value` and `displayName`
- * @property selectedInd {Int} of the selected index in the list
- * @property initialSelectedInd {Int} first element that should be selected
- * @property defaultDisplay {String} of default value that should be displayed
- * @property handleChange {Function} to handle dropdown click/change
- * @property htmlId {String} html id for label
- */
-const Dropdown = React.createClass({
+class Dropdown extends React.Component {
+  constructor (props) {
+    super();
 
-  propTypes: {
-    data: React.PropTypes.arrayOf(
-      React.PropTypes.oneOfType([
-        React.PropTypes.string, React.PropTypes.object
-      ])).isRequired,
-    initialSelectedInd: React.PropTypes.number,
-    selectedInd: React.PropTypes.number,
-    defaultDisplay: React.PropTypes.string,
-    handleChange: React.PropTypes.func.isRequired,
-    htmlId: React.PropTypes.string,
-  },
-
-  getInitialState() {
-    return {open: false};
-  },
-
-  getDefaultProps() {
-    return {data: []};
-  },
-
-  _generateNodes() {
-    let {data} = this.props;
-
-    // Translate `data` from an array of strings, if necessary.
-    data = data.map(item => {
-      return {
-        value: _.has(item, 'value') ? item.value : item,
-        displayName: _.has(item, 'displayName') ? item.displayName : item,
-        className: _.has(item, 'className') ? item.className : ''
-      }
-    });
-
-    return data.map((item, ind) => {
-      return (
-        <option
-          className={item.className}
-          key={ind}
-          value={item.value}>{item.displayName}</option>
-      );
-    });
-  },
-
-  _handleChange(event) {
-    let {handleChange} = this.props;
-    handleChange(event);
-  },
+    this._determineSelectedInd = this._determineSelectedInd.bind(this);
+    this._handleChange = this._handleChange.bind(this);
+  }
 
   _determineSelectedInd() {
     const { data, initialSelectedInd, selectedInd, value } = this.props;
@@ -75,29 +25,53 @@ const Dropdown = React.createClass({
 
     // Case 2: get index of `value` from data array
     return _.map(data, item => item.value || item).indexOf(value)
-  },
+  }
+
+  _handleChange(event) {
+    this.props.handleChange(event);
+  }
 
   render() {
-    const { htmlId, className, defaultDisplay, value } = this.props;
-
-    const dropdownClasses = cx(
-      "tui-dropdown-container",
-      dropdownClasses);
+    const { className, data, defaultDisplay, htmlId, value } = this.props;
 
     const selectedInd = this._determineSelectedInd();
 
-    return <div className={dropdownClasses}>
+    return <div className={cx('tui-dropdown-container', className)}>
       <select
           id={htmlId}
+          className="tui-dropdown"
           value={value}
-          onChange={e => this._handleChange(e)}
-          className="tui-dropdown">
+          onChange={this._handleChange}>
         {selectedInd == -1 &&
-          <option disabled key="tui-dropdown-default" value="">{defaultDisplay}</option>}
-        {this._generateNodes()}
+          <option disabled key="tui-dropdown-default" value="">
+            {defaultDisplay}
+          </option>}
+        {data.map((item, idx) => (
+          <option
+              className={cx(item.className)}
+              key={idx}
+              value={item.value || item}>
+            {item.displayName || item}
+          </option>
+        ))}
       </select>
     </div>;
   }
 });
+
+Dropdown.propTypes = {
+  className PropTypes.string,
+  data: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
+    ])
+  ).isRequired,
+  defaultDisplay: PropTypes.string,
+  handleChange: PropTypes.func.isRequired,
+  htmlId: PropTypes.string,
+  initialSelectedInd: PropTypes.number,
+  selectedInd: PropTypes.number,
+}
 
 module.exports = Dropdown;
