@@ -1,5 +1,6 @@
 const cx = require('classnames');
 const moment = require('moment');
+const PropTypes = require('prop-types');
 const React = require('react');
 
 const Icon = require('../Icon');
@@ -138,11 +139,11 @@ const SectionLink = ({ className, iconName, location, mobile, name }) => (
 )
 
 SectionLink.propTypes = {
-  className: React.PropTypes.string,
-  iconName: React.PropTypes.string,
-  location: React.PropTypes.string.isRequired,
-  mobile: React.PropTypes.bool,
-  name: React.PropTypes.string,
+  className: PropTypes.string,
+  iconName: PropTypes.string,
+  location: PropTypes.string.isRequired,
+  mobile: PropTypes.bool,
+  name: PropTypes.string,
 }
 
 const FooterColumn = ({ heading, links }) => (
@@ -153,8 +154,8 @@ const FooterColumn = ({ heading, links }) => (
 )
 
 FooterColumn.propTypes = {
-  heading: React.PropTypes.string.isRequired,
-  links: React.PropTypes.array.isRequired,
+  heading: PropTypes.string.isRequired,
+  links: PropTypes.array.isRequired,
 }
 
 const LegalLinks = ({ config }) => (
@@ -190,7 +191,7 @@ const LegalLinks = ({ config }) => (
 )
 
 LegalLinks.propTypes = {
-  config: React.PropTypes.object.isRequired
+  config: PropTypes.object.isRequired
 }
 
 const Footer = ({ config, user }) => {
@@ -236,8 +237,8 @@ const Footer = ({ config, user }) => {
 }
 
 Footer.propTypes = {
-  config: React.PropTypes.object,
-  user: React.PropTypes.object,
+  config: PropTypes.object,
+  user: PropTypes.object,
 };
 
 Footer.defaultProps = {
