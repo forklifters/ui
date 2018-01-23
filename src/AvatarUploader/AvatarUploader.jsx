@@ -2,18 +2,22 @@ const AvatarEditor = require('react-avatar-editor');
 const cx = require('classnames');
 const md5 = require('md5');
 const noCache = require('superagent-no-cache');
+const PropTypes = require('prop-types')
 const React = require('react');
 const request = require('superagent');
 
 class AvatarUploader extends React.Component {
-  static propTypes = {
-    imageUrl: React.PropTypes.string,
-    onChange: React.PropTypes.func.isRequired,
-    email: React.PropTypes.string,
-  }
-
   constructor(props) {
     super(props);
+
+    this._initialState = this._initialState.bind(this)
+    this._userGravatarUrl = this._userGravatarUrl.bind(this)
+    this._handleImageUrlChange = this._handleImageUrlChange.bind(this)
+    this._handleClearAvatar = this._handleClearAvatar.bind(this)
+    this._isOnMobile = this._isOnMobile.bind(this)
+
+    this.getValue = this.getValue.bind(this)
+
     this.state = {
       default: this._initialState(),
       ...this._initialState(),
@@ -56,19 +60,19 @@ class AvatarUploader extends React.Component {
     }
   }
 
-  _initialState = () => {
+  _initialState () {
     return {
       imageUrl: this.props.imageUrl,
       isGravatar: /gravatar.com\/avatar/.test(this.props.imageUrl),
     }
   }
 
-  _userGravatarUrl = () => {
+  _userGravatarUrl () {
     return (
       `https://www.gravatar.com/avatar/${md5(this.props.email)}?d=retro&s=90`)
   }
 
-  _handleImageUrlChange = () => {
+  _handleImageUrlChange () {
     this.setState({
       imageUrl: this.editor.getImage(),
       isGravatar: false,
@@ -76,7 +80,7 @@ class AvatarUploader extends React.Component {
     }, this.props.onChange);
   }
 
-  _handleClearAvatar = () => {
+  _handleClearAvatar () {
     this.editor.loadImage(this._userGravatarUrl());
     this.setState({
       imageUrl: this._userGravatarUrl(),
@@ -85,15 +89,17 @@ class AvatarUploader extends React.Component {
     }, this.props.onChange);
   }
 
-  _isOnMobile = () => {
+  _isOnMobile () {
     // Smart phones have an orientation property. Use that to detect mobile
     return typeof window.orientation !== "undefined";
   }
 
-  getValue = () => {
-    return this.state.isGravatar ? ''
-      : this.state.pristine ? this.state.default.imageUrl
-      : this.editor.getImage();
+  getValue () {
+    return this.state.isGravatar
+      ? ''
+      : this.state.pristine
+        ? this.state.default.imageUrl
+        : this.editor.getImage();
   }
 
   render() {
@@ -109,26 +115,31 @@ class AvatarUploader extends React.Component {
           ref={c => this.editor = c}
           width={90}/>}
       <div className="avatar-copy">
-        {this._isOnMobile() ?
-          <p>
-            Visit this page from a desktop computer to update your avatar.&nbsp;
-            Your photo will fall back to one from <a href="https://www.gravatar.com" target="_blank">
-            Gravatar</a> if none is added.
-          </p>
-        : <div>
-            <p>Drag and drop an image to update your avatar. Your photo will fall&nbsp;
-            back to one from <a href="https://www.gravatar.com" target="_blank">
-            Gravatar</a> if none is added.</p>
-            <a
-                className={cx({link__disabled: isGravatar})}
-                onClick={this._handleClearAvatar}>
-              Clear image
-            </a>
-          </div>
-        }
+        {this._isOnMobile()
+          ? <p>
+              Visit this page from a desktop computer to update your avatar.&nbsp;
+              Your photo will fall back to one from <a href="https://www.gravatar.com" target="_blank">
+              Gravatar</a> if none is added.
+            </p>
+          : <div>
+              <p>Drag and drop an image to update your avatar. Your photo will fall&nbsp;
+              back to one from <a href="https://www.gravatar.com" target="_blank">
+              Gravatar</a> if none is added.</p>
+              <a
+                  className={cx({link__disabled: isGravatar})}
+                  onClick={this._handleClearAvatar}>
+                Clear image
+              </a>
+            </div>}
       </div>
     </div>
   }
+}
+
+AvatarUploader.propTypes = {
+  imageUrl: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  email: PropTypes.string,
 }
 
 module.exports = AvatarUploader
