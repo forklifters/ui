@@ -1,4 +1,5 @@
 const cx = require('classnames');
+const PropTypes = require('prop-types');
 const React = require('react');
 
 /**
@@ -6,11 +7,6 @@ const React = require('react');
   a social share link.  Currently supports facebook, twitter and linked in.
  */
 class SocialShare extends React.Component {
-  static propTypes = {
-    type: React.PropTypes.oneOf(['facebook', 'twitter', 'linkedin']),
-    handleTrackClick: React.PropTypes.func
-  }
-
   _openSocialShareWindow = (width, height, location) => {
     window.open(location, '',
       `menubar=no,toolbar=no,resizable=yes,scrollbars=yes,` +
@@ -57,6 +53,11 @@ class SocialShare extends React.Component {
       {this.props.children}
     </div>
   }
+}
+
+SocialShare.propTypes = {
+  type: PropTypes.oneOf(['facebook', 'twitter', 'linkedin']),
+  handleTrackClick: PropTypes.func
 }
 
 module.exports = SocialShare
