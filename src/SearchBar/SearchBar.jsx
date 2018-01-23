@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 const cx = require('classnames');
 
 const Icon = require('../Icon');
@@ -9,12 +10,6 @@ const UP_ARROW_KEY_CODE = 38;
 const ENTER_KEY_CODE = 13;
 
 class SearchBar extends React.Component {
-  static defaultProps = {
-    underlay: false,
-    heading: false,
-    open: false
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -99,7 +94,7 @@ class SearchBar extends React.Component {
   }
 
   _handleClickAway = (event) => {
-    const {handleClickAway} = this.props;
+    const { handleClickAway } = this.props;
     handleClickAway(event);
   }
 
@@ -165,14 +160,14 @@ class SearchBar extends React.Component {
     if (event) {
       event.preventDefault();
     }
-    const {config} = this.props;
+    const { config } = this.props;
 
     window.location = `${config.projects.url}/search?q=${
       encodeURIComponent(this.state.searchTerm)}`;
   }
 
   render() {
-    const {active, className, config, heading, underlay, open} = this.props;
+    const { active, className, config, heading, underlay, open } = this.props;
     const {
       inputClassName, searchTerm, selectedSuggestionIdx, suggestions
     } = this.state;
@@ -227,6 +222,19 @@ class SearchBar extends React.Component {
       </div>
       )
   }
+}
+
+SearchBar.propTypes = {
+  handleClickAway: PropTypes.func,
+  heading: PropTypes.bool,
+  open: PropTypes.bool,
+  underlay: PropTypes.bool,
+}
+
+SearchBar.defaultProps = {
+  underlay: false,
+  heading: false,
+  open: false
 }
 
 module.exports = SearchBar
