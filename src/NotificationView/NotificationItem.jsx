@@ -1,10 +1,13 @@
 const cx = require('classnames');
 const moment = require('moment');
+const PropTypes = require('prop-types');
 const React = require('react');
 
 const Icon = require('../Icon');
 
 const VotingBar = require('./VotingBar');
+
+const NOOP = () => {}
 
 class NotificationItem extends React.Component {
   constructor(props) {
@@ -15,11 +18,11 @@ class NotificationItem extends React.Component {
   }
 
   _handleClick(e) {
-    this.props.handleClick && this.props.handleClick(e, this.props.id);
+    this.props.onClick(e, this.props.id);
   }
 
   _handleDismiss(e) {
-    this.props.handleDismiss && this.props.handleDismiss(e, this.props.id);
+    this.props.onDismiss(e, this.props.id);
   }
 
   render() {
@@ -38,6 +41,22 @@ class NotificationItem extends React.Component {
       </a>
     </li>);
   }
+}
+
+NotificationItem.propTypes = {
+  message: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  onDismiss: PropTypes.func,
+  time: PropTypes.string.isRequired,
+  votable: PropTypes.bool,
+  votable_url: PropTypes.string,
+}
+
+NotificationItem.defaultProps = {
+  onClick: NOOP,
+  onClick: NOOP,
+  votable: false,
+  votable_url: '',
 }
 
 module.exports = NotificationItem;

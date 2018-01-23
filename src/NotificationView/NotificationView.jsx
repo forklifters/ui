@@ -27,8 +27,8 @@ const NotificationItemList = ({
     {notifications.map((notification, idx) => (
       <NotificationItem
           key={idx}
-          handleClick={onItemClick}
-          handleDismiss={onItemDismiss}
+          onClick={onItemClick}
+          onDismiss={onItemDismiss}
           {...notification} />))}
   </ul>
 )
