@@ -1,34 +1,27 @@
 const cx = require('classnames');
+const PropTypes = require('prop-types');
 const React = require('react');
 
 const NOOP = () => {};
 
-class Tag extends React.Component {
+const Tag = ({ children, className, displayName, onClick, url }) => (
+  <a
+      className={cx("tui-tag", className)}
+      href={url}
+      onClick={onClick}>
+    {displayName}
+    {children}
+  </a>
+)
 
-  static displayName = 'Tag'
+Tag.propTypes = {
+  className: PropTypes.string,
+  displayName: PropTypes.string,
+  url: PropTypes.string
+}
 
-  static propTypes = {
-    className: React.PropTypes.string,
-    displayName: React.PropTypes.string,
-    url: React.PropTypes.string
-  }
-
-  static defaultProps = {
-    onClick: NOOP
-  }
-
-  render() {
-    const {children, className, displayName, onClick, url} = this.props;
-    return (
-      <a
-          className={cx("tui-tag", className)}
-          href={url}
-          onClick={onClick}>
-        {displayName}
-        {children}
-      </a>
-      )
-  }
+Tag.defaultProps = {
+  onClick: NOOP
 }
 
 module.exports = Tag
