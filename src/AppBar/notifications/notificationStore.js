@@ -2,7 +2,7 @@ const moment = require('moment');
 const Reflux = require('reflux');
 const _ = require('lodash');
 
-const {NotificationActions, userFeed} = require('./NotificationActions');
+const { NotificationActions, userFeed } = require('./NotificationActions');
 
 /**
  * This store connects with GetStream and holds a bundle that contains
@@ -66,4 +66,4 @@ const notificationStore = Reflux.createStore({
 
 });
 
-module.exports = {notificationStore};
+module.exports = notificationStore;

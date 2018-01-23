@@ -5,7 +5,6 @@ const noCache = require('superagent-no-cache');
 const React = require('react');
 const request = require('superagent');
 
-
 class AvatarUploader extends React.Component {
   static propTypes = {
     imageUrl: React.PropTypes.string,
@@ -132,4 +131,4 @@ class AvatarUploader extends React.Component {
   }
 }
 
-module.exports = { AvatarUploader }
+module.exports = AvatarUploader

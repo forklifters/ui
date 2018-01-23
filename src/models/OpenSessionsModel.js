@@ -93,4 +93,4 @@ OpenSession.prototype.getTypeSlug = function () {
 }
 
 
-module.exports = {OpenSession}
+module.exports = OpenSession
