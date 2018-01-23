@@ -11,7 +11,7 @@ import 'tfstyleguide/core.less';
 import '../less/main.less'
 
 import Icon from '../src/Icon'
-import Tag from '../src/Tag/Tag'
+import Tag from '../src/Tag'
 
 storiesOf('Welcome', module)
   .add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
