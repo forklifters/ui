@@ -1,8 +1,9 @@
 const cx = require('classnames');
-const Link = require('react-router').Link;
-const moment = require('moment-timezone');
-const React = require('react');
 const _ = require('lodash');
+const moment = require('moment-timezone');
+const PropTypes = require('prop-types');
+const React = require('react');
+const { Link } = require('react-router');
 
 const Gravatar = require('../Gravatar');
 const Icon = require('../Icon');
@@ -10,20 +11,22 @@ const Tag = require('../Tag');
 
 const FALLBACK_QA_DESCRIPTION = 'Have questions? Get answers! Check out the topic tags to the right. If you see one that fits your question, feel free to hop in the session. You can stay for the full hour or just long enough to get your answer. Ask about projects, concepts, or the industry.'
 
-class OverviewContent extends React.Component {
-  render() {
-    const {session} = this.props;
-    const {description, host, title} = session;
-    return (
-      <div className="overview-content">
-        <h3 className="title" itemProp="name">{title}</h3>
-        <p className="host-name">with {host.name}</p>
-        <p className="overview-description" itemProp="description">
-          {description || FALLBACK_QA_DESCRIPTION}
-        </p>
-      </div>
-      );
-  }
+const OverviewContent = ({ session: { description, host, title } }) => (
+  <div className="overview-content">
+    <h3 className="title" itemProp="name">{title}</h3>
+    <p className="host-name">with {host.name}</p>
+    <p className="overview-description" itemProp="description">
+      {description || FALLBACK_QA_DESCRIPTION}
+    </p>
+  </div>
+);
+
+OverviewContent.propTypes = {
+  session: PropTypes.shape({
+    description: PropTypes.string.isRequired,
+    host: PropTypes.shape({ name: PropTypes.string.isRequired }),
+    title: PropTypes.string.isRequired,
+  }).isRequired
 }
 
 /**
@@ -32,39 +35,15 @@ class OverviewContent extends React.Component {
 class OpenSessionOverview extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      requestPending: false
-    }
+
     this._renderQASessionCtas = this._renderQASessionCtas.bind(this);
     this._renderWorkshopCta = this._renderWorkshopCta.bind(this);
     this._shouldRenderMobile = this._shouldRenderMobile.bind(this);
     this._handleRSVPButtonClick = this._handleRSVPButtonClick.bind(this);
-  }
 
-  static displayName = "OpenSessionOverview"
-
-  static propTypes = {
-    attending: React.PropTypes.bool,
-    config: React.PropTypes.object,
-    handleCancelRSVPClick: React.PropTypes.func,
-    handleRSVPClick: React.PropTypes.func,
-    handleCancelSessionClick: React.PropTypes.func,
-    handleCancelAllSessionsClick: React.PropTypes.func,
-    handleEditSessionClick: React.PropTypes.func,
-    hosting: React.PropTypes.bool,
-    previewing: React.PropTypes.bool,
-    session: React.PropTypes.object.isRequired,
-    participants: React.PropTypes.array,
-    user: React.PropTypes.object
-  }
-
-  static defaultProps = {
-    attending: false,
-    hosting: false,
-    linkToCalendar: false,
-    previewing: false,
-    participants: [],
-    tags: []
+    this.state = {
+      requestPending: false
+    }
   }
 
   _shouldRenderMobile() {
@@ -314,6 +293,30 @@ class OpenSessionOverview extends React.Component {
       </div>
       )
   }
+}
+
+OpenSessionOverview.propTypes = {
+  attending: PropTypes.bool,
+  config: PropTypes.object,
+  handleCancelRSVPClick: PropTypes.func,
+  handleRSVPClick: PropTypes.func,
+  handleCancelSessionClick: PropTypes.func,
+  handleCancelAllSessionsClick: PropTypes.func,
+  handleEditSessionClick: PropTypes.func,
+  hosting: PropTypes.bool,
+  previewing: PropTypes.bool,
+  session: PropTypes.object.isRequired,
+  participants: PropTypes.array,
+  user: PropTypes.object
+}
+
+OpenSessionOverview.defaultProps = {
+  attending: false,
+  hosting: false,
+  linkToCalendar: false,
+  previewing: false,
+  participants: [],
+  tags: []
 }
 
 module.exports = OpenSessionOverview;
