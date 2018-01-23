@@ -1,54 +1,59 @@
-const React = require('react');
-const moment = require('moment-timezone');
 const cx = require('classnames');
 const _ = require('lodash');
+const moment = require('moment-timezone');
+const PropTypes = require('prop-types');
+const React = require('react');
+
 const Icon = require('../Icon')
 
-/**
- * Day component
- 8 @property date {DateTime} of the date to be displayed
- */
-class Day extends React.Component {
-  static propTypes = {
-    day: React.PropTypes.string
-  }
+// We get the day of the year here to avoid calling for each `Day`
+const TODAY = moment()
 
-  render () {
-    const {date, unclickable, otherMonth, active, onClick} = this.props;
-    const classes = cx(
-      "day",
-      {unclickable: unclickable},
-      {'other-month': otherMonth},
-      {active: active},
-      {today: moment().dayOfYear() === moment(date).dayOfYear()});
+const Day = ({ date, unclickable, otherMonth, active, onClick }) => {
+  const isToday = (
+    date.year() === TODAY.year() &&
+    date.dayOfYear() === TODAY.dayOfYear())
 
-    const isToday = moment(date).dayOfYear() === moment().dayOfYear();
-    const isFirstOfMonth = moment(date).date() === 1;
-    const monthName = moment(date).format('MMM')
+  const classes = cx(
+    'day',
+    {
+      'other-month': otherMonth,
+      active: active,
+      today: moment().dayOfYear() === moment(date).dayOfYear(),
+      unclickable: unclickable,
+    });
 
-    return (
-      <div
-          className={classes}
-          onClick={onClick.bind()}>
-        {isFirstOfMonth && <div className="day-tiny-text">{monthName}</div>}
-        {isToday && <div className="day-tiny-text">Today</div>}
-
-        {moment(date).date()}
-      </div>
-    );
-  }
+  return (
+    <div
+        className={classes}
+        onClick={onClick}>
+      {date.date() === 1 &&
+        <div className="day-tiny-text">{date.format('MMM')}</div>}
+      {isToday && <div className="day-tiny-text">Today</div>}
+      {date.date()}
+    </div>
+  );
 }
 
+Day.propTypes = {
+  active: PropTypes.bool,
+  date: PropTypes.object.isRequired,
+  onClick: PropTypes.func,
+  otherMonth: PropTypes.bool,
+  unclickable: PropTypes.bool,
+}
 
 class DatePicker extends React.Component {
-  static displayName = "DatePicker"
-
-  static defaultProps = {
-    defaultDate: moment(),
-  }
-
   constructor() {
     super();
+
+    this._checkClickAway = this._checkClickAway.bind(this)
+    this._generateDays = this._generateDays.bind(this)
+    this._handleClick = this._handleClick.bind(this)
+    this._navigateForward = this._navigateForward.bind(this)
+    this._navigateBack = this._navigateBack.bind(this)
+    this._toggleOpen = this._toggleOpen.bind(this)
+
     this.state = {
       activeIndex: null,
       days: [],
@@ -74,6 +79,15 @@ class DatePicker extends React.Component {
     }
   }
 
+  _checkClickAway(event) {
+    // Close the picker if the click wasn't on the dropdown button or calendar
+    if (
+        (this.dropdownButton && !this.dropdownButton.contains(event.target)) &&
+        (this.calendar && !this.calendar.contains(event.target))) {
+      this.setState({visible: false});
+    }
+  }
+
   _generateDays(defaultDate=false) {
     let {monthsNavigated, activeIndex} = this.state;
 
@@ -89,12 +103,10 @@ class DatePicker extends React.Component {
                           endOf('month').endOf('week').startOf('day');
     const totalDays = endDay.diff(startDay, 'days') + 1;
 
-
-    const days = _.map(Array(totalDays), (i, idx) => {
-                  return {
-                    dateObj: moment(startDay).add(idx, 'day'),
-                    dayOfYear: moment(startDay).add(idx, 'day').dayOfYear()
-                  }});
+    const days = _.map(Array(totalDays), (i, idx) => ({
+      dateObj: moment(startDay).add(idx, 'day'),
+      dayOfYear: moment(startDay).add(idx, 'day').dayOfYear()
+    }));
 
     // Keep existing activeIndex if it is defined and a new defaultDate has not come thru
     activeIndex = (!! defaultDate || ! activeIndex || activeIndex === -1) ?
@@ -107,19 +119,10 @@ class DatePicker extends React.Component {
     });
   }
 
-  _checkClickAway(event) {
-    // Close the picker if the click wasn't on the dropdown button or calendar
-    if (
-        (this.dropdownButton && !this.dropdownButton.contains(event.target)) &&
-        (this.calendar && !this.calendar.contains(event.target))) {
-      this.setState({visible: false});
-    }
-  }
-
   _handleClick(event, newDay) {
-    const {days} = this.state;
-    const {handleChange} = this.props;
-    const newActiveIndex = _.findIndex(days, {dayOfYear: newDay});
+    const { days } = this.state;
+    const { handleChange } = this.props;
+    const newActiveIndex = _.findIndex(days, { dayOfYear: newDay });
 
     this.setState({
       activeIndex: newActiveIndex,
@@ -141,14 +144,15 @@ class DatePicker extends React.Component {
   }
 
   _toggleOpen() {
-    this.setState({visible: !this.state.visible});
+    this.setState({ visible: !this.state.visible });
   }
 
   render() {
-    const {className, placeholder} = this.props;
-    const {days, activeIndex, monthsNavigated, value, visible} = this.state;
+    const { className, placeholder } = this.props;
+    const { days, activeIndex, monthsNavigated, value, visible } = this.state;
+
     const activeDay = days[activeIndex] && days[activeIndex].dateObj;
-    const datePickerClasses = cx('date-picker', {hidden: !visible});
+    const datePickerClasses = cx('date-picker', { hidden: !visible });
 
     return (
       <div className={cx("date-picker-container", className)}>
@@ -156,7 +160,7 @@ class DatePicker extends React.Component {
             className="button date-picker-button"
             onClick={this._toggleOpen.bind(this)}
             ref={c => this.dropdownButton = c}>
-          {!value && placeholder ? placeholder : moment(activeDay).format('MM/DD/YYYY')}
+          {!value && placeholder || activeDay.format('MM/DD/YYYY')}
           <Icon name="navigatedown" />
         </div>
         <div className={datePickerClasses} ref={c => this.calendar = c}>
@@ -175,18 +179,29 @@ class DatePicker extends React.Component {
           </div>
           <div className="days-container">
             {days.map((day, key) => <Day
-              date={day.dateObj}
-              key={key}
-              active={key===activeIndex}
-              otherMonth={day.dateObj.month() !==
-                moment().add(monthsNavigated, 'month').month()}
-              unclickable={false}
-              onClick={event => this._handleClick(event, day.dayOfYear)}/>)}
+                date={day.dateObj}
+                key={key}
+                active={key === activeIndex}
+                otherMonth={
+                  day.dateObj.month() !==
+                  moment().add(monthsNavigated, 'month').month()}
+                unclickable={false}
+                onClick={event => this._handleClick(event, day.dayOfYear)} />)}
           </div>
         </div>
       </div>
     );
   }
+}
+
+DatePicker.defaultProps = {
+  className: PropTypes.string,
+  defaultDate: PropTypes.object,
+  placeholder: PropTypes.string,
+}
+
+DatePicker.defaultProps = {
+  defaultDate: moment(),
 }
 
 module.exports = DatePicker
