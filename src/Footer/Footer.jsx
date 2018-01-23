@@ -124,137 +124,124 @@ function generateSections(config) {
   ];
 }
 
-class SectionLink extends React.Component {
-  static propTypes = {
-    className: React.PropTypes.string,
-    iconName: React.PropTypes.string,
-    location: React.PropTypes.string.isRequired,
-    mobile: React.PropTypes.bool,
-    name: React.PropTypes.string,
-  }
-
-  render() {
-    const { className, iconName, location, mobile, name } = this.props;
-
-    return <a
-        className={cx(
-          "footer-link",
-          className,
-          {icon: !!iconName, mobileHidden: !mobile})}
-        href={location}>
-      {iconName ?
-        <Icon name={iconName}/>
+const SectionLink = ({ className, iconName, location, mobile, name }) => (
+  <a
+      className={cx(
+        'footer-link',
+        className,
+        { icon: !!iconName, mobileHidden: !mobile })}
+      href={location}>
+    {iconName
+      ? <Icon name={iconName}/>
       : name}
-    </a>
-  }
+  </a>
+)
+
+SectionLink.propTypes = {
+  className: React.PropTypes.string,
+  iconName: React.PropTypes.string,
+  location: React.PropTypes.string.isRequired,
+  mobile: React.PropTypes.bool,
+  name: React.PropTypes.string,
 }
 
-class FooterColumn extends React.Component {
-  static propTypes = {
-    heading: React.PropTypes.string.isRequired,
-    links: React.PropTypes.array.isRequired,
-  }
+const FooterColumn = ({ heading, links }) => (
+  <div className="footer-column">
+    <h4 className="footer-heading">{heading}</h4>
+      {links.map((link, idx) => (<SectionLink key={idx} {...link} />))}
+  </div>
+)
 
-  render() {
-    const { heading, links } = this.props;
-    return <div className="footer-column">
-      <h4 className="footer-heading">{heading}</h4>
-        {links.map((link, idx) => (<SectionLink key={idx} {...link}/>))}
-    </div>
-  }
+FooterColumn.propTypes = {
+  heading: React.PropTypes.string.isRequired,
+  links: React.PropTypes.array.isRequired,
 }
 
+const LegalLinks = ({ config }) => (
+  <div className="legal-links">
+    <span className="margin-span copyright">
+      &copy; {moment().format('YYYY')} Thinkful, Inc.
+    </span>
+    <span className="margin-span middot-desktop">·</span>
+    <SectionLink
+        className="margin-span"
+        location={`${config.www.url}/terms-of-service/`}
+        name="Terms of use"
+        mobile={true}/>
+    <span className="margin-span">·</span>
+    <SectionLink
+        className="margin-span"
+        location={`${config.www.url}/privacy-policy/`}
+        name="Privacy policy"
+        mobile={true}/>
+    <span className="middot-desktop margin-span">·</span>
+    <SectionLink
+        className="support-desktop margin-span"
+        location={`${config.www.url}/support/`}
+        name="Support"
+        mobile={false}/>
+    <span className="middot-desktop margin-span">·</span>
+    <SectionLink
+        className="margin-span"
+        location={`${config.www.url}/responsible-disclosure/`}
+        name="Responsible disclosure"
+        mobile={true}/>
+  </div>
+)
 
-class LegalLinks extends React.Component {
-  static propTypes = {
-    config: React.PropTypes.object.isRequired
-  }
-
-  render() {
-    const { config } = this.props;
-
-    return <div className="legal-links">
-      <span className="margin-span copyright">&copy; {moment().format('YYYY')} Thinkful, Inc.</span>
-      <span className="margin-span middot-desktop">·</span>
-      <SectionLink
-          className="margin-span"
-          location={`${config.www.url}/terms-of-service/`}
-          name="Terms of use"
-          mobile={true}/>
-      <span className="margin-span">·</span>
-      <SectionLink
-          className="margin-span"
-          location={`${config.www.url}/privacy-policy/`}
-          name="Privacy policy"
-          mobile={true}/>
-      <span className="middot-desktop margin-span">·</span>
-      <SectionLink
-          className="support-desktop margin-span"
-          location={`${config.www.url}/support/`}
-          name="Support"
-          mobile={false}/>
-      <span className="middot-desktop margin-span">·</span>
-      <SectionLink
-          className="margin-span"
-          location={`${config.www.url}/responsible-disclosure/`}
-          name="Responsible disclosure"
-          mobile={true}/>
-    </div>
-  }
+LegalLinks.propTypes = {
+  config: React.PropTypes.object.isRequired
 }
 
+const Footer = ({ config, user }) => {
+  // Can't be set via defaultProps because of frontend testing and global.__env
+  config = config || global.__env.config;
 
-class Footer extends React.Component {
-  static propTypes = {
-    config: React.PropTypes.object,
-    user: React.PropTypes.object,
-  };
+  const sections = generateSections(config);
 
-  static defaultProps = {
-    user: {},
-  }
-
-  render() {
-    const { user } = this.props;
-    // Can't be set via defaultProps because of frontend testing and global.__env
-    const config = this.props.config || global.__env.config;
-    const sections = generateSections(config);
-
-    return (
-      <div className="footer-container">
-        <footer className="footer">
-          {user && user.timezone &&
-            <div className="timezone timezone__mobile">
-              All times are in {user.timezone}
-            </div>
-          }
-          <div className="site-links">
-            <div className="social-mobile">
-              <a className="footer-link icon" href={FACEBOOK_URL}>
-                <Icon name="facebook"/>
-              </a>
-              <a className="footer-link icon" href={TWITTER_URL}>
-                <Icon name="twitter"/>
-              </a>
-            </div>
-            {sections.map((section, idx) => <FooterColumn {...section} key={idx} />)}
-            <SectionLink
-                className="support-mobile"
-                location={`${config.www.url}/support`}
-                mobile={true}
-                name="Support"/>
+  return (
+    <div className="footer-container">
+      <footer className="footer">
+        {user && user.timezone &&
+          <div className="timezone timezone__mobile">
+            All times are in {user.timezone}
           </div>
-          {user && user.timezone &&
-            <div className="timezone">
-              All times are in {user.timezone}&nbsp;&nbsp;
-              <a href={`${config.settings.url}/profile`}>Change</a>
-            </div>
-          }
-          <LegalLinks config={config}/>
-        </footer>
-      </div>
-      );
-  }
+        }
+        <div className="site-links">
+          <div className="social-mobile">
+            <a className="footer-link icon" href={FACEBOOK_URL}>
+              <Icon name="facebook"/>
+            </a>
+            <a className="footer-link icon" href={TWITTER_URL}>
+              <Icon name="twitter"/>
+            </a>
+          </div>
+          {sections.map((section, idx) => <FooterColumn key={idx} {...section} />)}
+          <SectionLink
+              className="support-mobile"
+              location={`${config.www.url}/support`}
+              mobile={true}
+              name="Support"/>
+        </div>
+        {user && user.timezone &&
+          <div className="timezone">
+            All times are in {user.timezone}&nbsp;&nbsp;
+            <a href={`${config.settings.url}/profile`}>Change</a>
+          </div>
+        }
+        <LegalLinks config={config}/>
+      </footer>
+    </div>
+  );
+}
+
+Footer.propTypes = {
+  config: React.PropTypes.object,
+  user: React.PropTypes.object,
+};
+
+Footer.defaultProps = {
+  user: {},
 }
 
 module.exports = Footer;
