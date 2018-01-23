@@ -2,8 +2,8 @@ const cx = require('classnames');
 const React = require('react');
 const TFAnalytics = require('@thinkful/tf-analytics');
 
-const {NotificationItem} = require('./NotificationItem');
-const {Icon} = require('../Icon');
+const NotificationItem = require('./NotificationItem');
+const Icon = require('../Icon');
 
 class NotificationView extends React.Component {
   constructor(props) {
@@ -85,4 +85,4 @@ class NotificationView extends React.Component {
   }
 }
 
-module.exports = {NotificationView};
+module.exports = NotificationView;

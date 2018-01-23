@@ -5,12 +5,12 @@ const moment = require('moment-timezone');
 const uniqueId = require('lodash/utility/uniqueId');
 
 // TUI Components
-const {Icon} = require('../Icon');
-const {Gravatar} = require('../Gravatar');
-const {LoggedOutNav} = require('./LoggedOutNav');
-const {NavLink} = require('./NavLink');
-const {Notifications} = require('./notifications/Notifications');
-const {CourseLink} = require('./CourseLink');
+const Icon = require('../Icon');
+const Gravatar = require('../Gravatar');
+const LoggedOutNav = require('./LoggedOutNav');
+const NavLink = require('./NavLink');
+const Notifications = require('./notifications/Notifications');
+const CourseLink = require('./CourseLink');
 const linkSet = require('./linkSet');
 
 const WhiteTLogo = require('./WhiteTLogo')

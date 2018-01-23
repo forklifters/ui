@@ -1,21 +1,8 @@
 const cx = require('classnames');
+const PropTypes = require('prop-types');
 const React = require('react');
 
 class OneClickCopy extends React.Component {
-  static propTypes = {
-    className: React.PropTypes.oneOfType(
-            [React.PropTypes.string, React.PropTypes.object]),
-    copyButtonText: React.PropTypes.string,
-    inputText: React.PropTypes.string,
-    onCopyClick: React.PropTypes.func,
-    onCopyClickSuccess: React.PropTypes.func,
-    onCopyClickFail: React.PropTypes.func,
-  }
-
-  static defaultProps = {
-    copyButtonText: 'Copy'
-  }
-
   _handleInputClick = (event) => {
     event.preventDefault();
     this.inputElement.select();
@@ -58,4 +45,20 @@ class OneClickCopy extends React.Component {
   }
 }
 
-module.exports = {OneClickCopy}
+OneClickCopy.propTypes = {
+  className: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ]),
+  copyButtonText: PropTypes.string,
+  inputText: PropTypes.string,
+  onCopyClick: PropTypes.func,
+  onCopyClickSuccess: PropTypes.func,
+  onCopyClickFail: PropTypes.func,
+}
+
+OneClickCopy.defaultProps = {
+  copyButtonText: 'Copy'
+}
+
+module.exports = OneClickCopy

@@ -1,14 +1,16 @@
 {
   "name": "thinkful-ui",
-  "version": "4.0.0-alpha.3",
+  "version": "4.0.0-alpha.4",
   "description": "Shared navigation and UI resources for Thinkful.",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
-    "demo": "node demo/index.js",
     "dev": "babel src --out-dir lib --watch",
     "prepare": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "getstorybook": "getstorybook",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -65,10 +67,11 @@
     "moment-timezone": "^0.4.0",
     "node-libs-browser": "^0.5.2",
     "node-notifier": "^4.2.1",
+    "prop-types": "^15.6.0",
     "qs": "^5.2.0",
-    "react": "^0.14.2",
+    "react": "^15.0",
     "react-avatar-editor": "^3.2.0",
-    "react-dom": "^0.14.2",
+    "react-dom": "^15.0",
     "reflux": "^0.3.0",
     "spark-md5": "0.0.5",
     "superagent": "^1.4.0",
@@ -76,17 +79,20 @@
     "tfstyleguide": "^4.0.0"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.3.10",
+    "@storybook/addon-links": "^3.3.10",
+    "@storybook/addons": "^3.3.10",
+    "@storybook/cli": "^3.3.10",
+    "@storybook/react": "^3.3.10",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "ejs": "^1.0.0",
-    "express": "^4.13.3",
-    "react-demo": "^1.1.0",
-    "react-router": "^0.13.5"
+    "css-loader": "^0.28.9",
+    "less-loader": "^4.0.5",
+    "style-loader": "^0.19.1"
   },
-  "readme": "# UI\nShared React components and WebPack config for Thinkful applications.\n\n`/src`\n\nCode for the shared components.\n\n`/client`\n\nCode for the demo page.\n\n`/demo`\n\nCode for the demo server that serves the demo page.\n\n`/script`\n\nStandard bootstrap scripts (Thinkful convention).\n",
   "readmeFilename": "README.md",
   "gitHead": "318f08b74c385ffc0c6b3e219e5ab1c57eedf3d9",
   "_id": "thinkful-ui@1.1.32",

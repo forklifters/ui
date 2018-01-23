@@ -5,13 +5,9 @@ Shared React components for Thinkful applications.
 
 Code for the shared components.
 
-`/client`
+`/stories`
 
-Code for the demo page.
-
-`/demo`
-
-Code for the demo server that serves the demo page.
+Stories for demoing components using [storybook](https://storybook.js.org)
 
 `/script`
 

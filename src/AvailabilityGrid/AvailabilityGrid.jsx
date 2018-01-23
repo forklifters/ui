@@ -5,7 +5,7 @@ const chunk = require('lodash/array/chunk');
 const difference = require('lodash/array/difference');
 const fill = require('lodash/array/fill');
 
-const { Icon } = require('../Icon');
+const Icon = require('../Icon');
 
 const log = require('debug')('ui:AvailabilityGrid');
 

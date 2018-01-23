@@ -31,4 +31,4 @@ class FourOhFour extends React.Component {
     }
 }
 
-module.exports = {FourOhFour};
+module.exports = FourOhFour;

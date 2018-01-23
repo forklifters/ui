@@ -1,7 +1,6 @@
 const cx = require('classnames');
 const React = require('react');
 
-
 /**
  * CourseLink
  * @property href
@@ -26,4 +25,4 @@ class CourseLink extends React.Component {
     }
 }
 
-module.exports = {CourseLink}
+module.exports = CourseLink

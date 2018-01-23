@@ -24,4 +24,4 @@ class Loader extends React.Component {
   }
 }
 
-module.exports = {Loader};
+module.exports = Loader;
