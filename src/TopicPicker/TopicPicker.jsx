@@ -87,8 +87,7 @@ class TopicPicker extends React.Component {
         if (addMatchEmphasis) {
           const firstIndex = topic
             .toLowerCase()
-            .indexOf(topic.toLowerCase()
-            .match(normalizedPattern)[0])
+            .indexOf(topic.toLowerCase().match(normalizedPattern)[0])
           const lastIndex = firstIndex + pattern.length + 1;
 
           let topicArray = topic.split('');
