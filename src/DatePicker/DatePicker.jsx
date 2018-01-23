@@ -2,7 +2,7 @@ const React = require('react');
 const moment = require('moment-timezone');
 const cx = require('classnames');
 const _ = require('lodash');
-const { Icon } = require('../Icon')
+const Icon = require('../Icon')
 
 /**
  * Day component
@@ -189,4 +189,4 @@ class DatePicker extends React.Component {
   }
 }
 
-export {DatePicker}
+module.exports = DatePicker

@@ -62,4 +62,4 @@ class TrackedLink extends React.Component {
 
 }
 
-module.exports = {TrackedLink};
+module.exports = TrackedLink;

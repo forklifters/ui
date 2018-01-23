@@ -1,3 +1,1 @@
-const {DatePicker} = require('./DatePicker');
-
-module.exports = {DatePicker};
+module.exports = require('./DatePicker');

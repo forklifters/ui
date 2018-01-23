@@ -115,4 +115,7 @@ NotificationActions.processEvent.listen(
       deleted: deleted});
 });
 
-module.exports = {NotificationActions, userFeed};
+module.exports = {
+  NotificationActions,
+  userFeed,
+};

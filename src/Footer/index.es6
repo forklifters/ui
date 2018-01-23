@@ -1,3 +1,1 @@
-const {Footer} = require('./Footer');
-
-module.exports = {Footer};
+module.exports = require('./Footer');

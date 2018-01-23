@@ -1,3 +1,3 @@
-const {OpenSession} = require('./OpenSessionsModel');
-
-module.exports = {models: {OpenSession}}
+module.exports = {
+  OpenSession: require('./OpenSessionsModel'),
+}

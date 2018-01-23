@@ -1,5 +1,1 @@
-const {FourOhFour} = require('./FourOhFour');
-
-module.exports = {
-    FourOhFour
-};
+module.exports = require('./FourOhFour');

@@ -1,1 +1,1 @@
-export default require('./OneClickCopy');
+module.exports = require('./OneClickCopy');

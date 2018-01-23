@@ -34,4 +34,4 @@ class Gravatar extends React.Component {
     }
 }
 
-export {Gravatar};
+module.exports = Gravatar;

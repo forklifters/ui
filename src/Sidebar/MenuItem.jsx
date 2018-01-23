@@ -1,7 +1,7 @@
 const React = require('react');
 const classnames = require('classnames');
 
-const Icon = require('../Icon').Icon;
+const Icon = require('../Icon');
 
 /**
  *  Menu item element

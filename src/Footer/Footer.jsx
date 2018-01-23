@@ -2,7 +2,7 @@ const cx = require('classnames');
 const moment = require('moment');
 const React = require('react');
 
-const {Icon} = require('../Icon');
+const Icon = require('../Icon');
 
 const FACEBOOK_URL = 'https://www.facebook.com/thinkfulschool';
 const TWITTER_URL = 'https://twitter.com/thinkful';
@@ -257,4 +257,4 @@ class Footer extends React.Component {
   }
 }
 
-module.exports = {Footer};
+module.exports = Footer;

@@ -1,1 +1,1 @@
-export default require('./SocialShare');
+module.exports = require('./SocialShare')

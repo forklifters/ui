@@ -58,4 +58,4 @@ class OneClickCopy extends React.Component {
   }
 }
 
-module.exports = {OneClickCopy}
+module.exports = OneClickCopys

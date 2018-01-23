@@ -1,3 +1,1 @@
-import TrackedLink from './TrackedLink';
-
-module.exports = { TrackedLink };
+module.exports = require('./TrackedLink');

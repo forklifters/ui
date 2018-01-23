@@ -1,1 +1,1 @@
-export default require('./TopicPicker')
+module.exports = require('./TopicPicker')

@@ -92,7 +92,7 @@ try {
 
 module.exports = {
   home,
-  main,
   insertCourseDropdown,
-  menu
+  main,
+  menu,
 };

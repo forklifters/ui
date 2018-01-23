@@ -1,5 +1,1 @@
-const {Loader} = require('./Loader');
-
-module.exports = {
-    Loader
-};
+module.exports = require('./Loader');

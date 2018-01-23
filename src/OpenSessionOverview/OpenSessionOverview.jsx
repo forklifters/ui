@@ -4,9 +4,9 @@ const moment = require('moment-timezone');
 const React = require('react');
 const _ = require('lodash');
 
-const {Gravatar} = require('../Gravatar');
-const {Icon} = require('../Icon');
-const {Tag} = require('../Tag');
+const Gravatar = require('../Gravatar');
+const Icon = require('../Icon');
+const Tag = require('../Tag');
 
 const FALLBACK_QA_DESCRIPTION = 'Have questions? Get answers! Check out the topic tags to the right. If you see one that fits your question, feel free to hop in the session. You can stay for the full hour or just long enough to get your answer. Ask about projects, concepts, or the industry.'
 
@@ -316,4 +316,4 @@ class OpenSessionOverview extends React.Component {
   }
 }
 
-module.exports = {OpenSessionOverview};
+module.exports = OpenSessionOverview;

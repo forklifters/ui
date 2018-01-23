@@ -1,5 +1,1 @@
-const Dropdown = require('./Dropdown');
-
-module.exports = {
-    Dropdown
-};
+module.exports = require('./Dropdown');

@@ -1,5 +1,1 @@
-const AvailabilityGrid = require('./AvailabilityGrid');
-
-module.exports = {
-    AvailabilityGrid
-};
+module.exports = require('./AvailabilityGrid');

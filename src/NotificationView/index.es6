@@ -1,3 +1,1 @@
-const {NotificationView} = require('./NotificationView');
-
-module.exports = {NotificationView};
+module.exports = require('./NotificationView');

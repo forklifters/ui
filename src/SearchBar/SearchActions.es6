@@ -22,4 +22,4 @@ SearchActions.getSuggestions.listen(function(input, config) {
 });
 
 
-module.exports = {SearchActions}
+module.exports = SearchActions

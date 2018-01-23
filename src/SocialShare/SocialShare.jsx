@@ -59,4 +59,4 @@ class SocialShare extends React.Component {
   }
 }
 
-module.exports = {SocialShare}
+module.exports = SocialShare

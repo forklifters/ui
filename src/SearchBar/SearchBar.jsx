@@ -1,8 +1,8 @@
 const React = require('react');
 const cx = require('classnames');
 
-const {Icon} = require('../Icon');
-const {SearchActions} = require('./SearchActions');
+const Icon = require('../Icon');
+const SearchActions = require('./SearchActions');
 
 const DOWN_ARROW_KEY_CODE = 40;
 const UP_ARROW_KEY_CODE = 38;
@@ -229,4 +229,4 @@ class SearchBar extends React.Component {
   }
 }
 
-module.exports = {SearchBar}
+module.exports = SearchBar

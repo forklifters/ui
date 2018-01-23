@@ -1,6 +1,6 @@
 const React = require('react');
 const cx = require('classnames');
-const {Icon} = require('../Icon');
+const Icon = require('../Icon');
 
 /*
  * Two ways to use it.
@@ -57,4 +57,4 @@ class Modal extends React.Component {
   }
 }
 
-module.exports = {Modal};
+module.exports = Modal;

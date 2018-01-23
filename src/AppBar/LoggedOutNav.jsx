@@ -1,7 +1,7 @@
 const cx = require('classnames')
 const React = require('react')
 
-const {Icon} = require('../Icon');
+const Icon = require('../Icon');
 
 const courseDropdownItems = [
   {
@@ -190,4 +190,4 @@ class LoggedOutNav extends React.Component {
   }
 }
 
-module.exports = { LoggedOutNav }
+module.exports = LoggedOutNav

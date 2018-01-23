@@ -3,8 +3,8 @@ const escapeStringRegexp = require('escape-string-regexp');
 const marked = require('marked');
 const React = require('react');
 
-const {Icon} = require('../Icon');
-const {Tag} = require('../Tag');
+const Icon = require('../Icon');
+const Tag = require('../Tag');
 
 const DOWN_ARROW_KEY_CODE = 40;
 const UP_ARROW_KEY_CODE = 38;
@@ -283,4 +283,4 @@ class TopicPicker extends React.Component {
   }
 }
 
-module.exports = {TopicPicker}
+module.exports = TopicPicker

@@ -3,9 +3,9 @@ const React = require('react');
 const _ = require('lodash');
 const TFAnalytics = require('@thinkful/tf-analytics');
 
-const {NotificationView} = require('../../NotificationView');
-const {notificationStore} = require('./notificationStore');
-const {NotificationActions} = require('./NotificationActions');
+const NotificationView = require('../../NotificationView');
+const notificationStore = require('./notificationStore');
+const NotificationActions = require('./NotificationActions');
 
 /**
  * Notifications
@@ -73,4 +73,4 @@ class Notifications extends React.Component {
     }
 }
 
-module.exports = {Notifications}
+module.exports = Notifications

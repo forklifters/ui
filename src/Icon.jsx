@@ -23,4 +23,4 @@ class Icon extends React.Component {
     }
 }
 
-module.exports = {Icon};
+module.exports = Icon;

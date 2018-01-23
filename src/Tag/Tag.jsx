@@ -31,4 +31,4 @@ class Tag extends React.Component {
   }
 }
 
-module.exports = {Tag}
+module.exports = Tag

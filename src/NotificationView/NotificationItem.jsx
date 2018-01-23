@@ -1,7 +1,8 @@
 const cx = require('classnames');
 const moment = require('moment');
 const React = require('react');
-const {Icon} = require('../Icon');
+
+const Icon = require('../Icon');
 
 class NotificationItem extends React.Component {
   constructor(props) {
@@ -50,4 +51,4 @@ class NotificationItem extends React.Component {
   }
 }
 
-module.exports = {NotificationItem};
+module.exports = NotificationItem;

@@ -10,8 +10,8 @@ import { Welcome } from '@storybook/react/demo';
 import 'tfstyleguide/core.less';
 import '../less/main.less'
 
-import { Icon } from '../src/Icon'
-import { Tag } from '../src/Tag/Tag'
+import Icon from '../src/Icon'
+import Tag from '../src/Tag/Tag'
 
 storiesOf('Welcome', module)
   .add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);

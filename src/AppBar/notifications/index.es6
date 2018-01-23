@@ -1,4 +1,4 @@
-const {NotificationActions} = require('./NotificationActions');
-const {notificationStore} = require('./notificationStore');
-
-module.exports = {notificationStore, NotificationActions}
+module.exports = {
+  notificationStore: require('./notificationStore'),
+  NotificationActions: require('./NotificationActions'),
+}
