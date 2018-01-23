@@ -79,9 +79,9 @@ class TopicPicker extends React.Component {
       .filter(topic => (
         topic.toLowerCase().match(normalizedPattern) &&
         topics.indexOf(topic) < 0
-      )).
+      ))
       // limit the number of results
-      .slice(0, maxSuggestions).
+      .slice(0, maxSuggestions)
       // add the asterisks for emphasis around matching area
       .map(topic => {
         if (addMatchEmphasis) {
