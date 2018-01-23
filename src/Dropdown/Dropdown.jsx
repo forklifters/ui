@@ -57,10 +57,10 @@ class Dropdown extends React.Component {
       </select>
     </div>;
   }
-});
+}
 
 Dropdown.propTypes = {
-  className PropTypes.string,
+  className: PropTypes.string,
   data: PropTypes.arrayOf(
     PropTypes.oneOfType([
       PropTypes.string,
