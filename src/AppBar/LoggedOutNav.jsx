@@ -51,6 +51,11 @@ const NavDropdownItem = ({ config, href, imageUrl, title }) => (
 class LoggedOutNav extends React.Component {
   constructor(props) {
     super(props)
+
+    this._handleToggleCoursesDropdown = this._handleToggleCoursesDropdown.bind(this)
+    this._handleToggleEducationDropdown = this._handleToggleEducationDropdown.bind(this)
+    this._handleToggleHamburger = this._handleToggleHamburger.bind(this)
+
     this.state = {
       coursesDDVisible: false,
       educationDDVisible: false,
@@ -58,7 +63,7 @@ class LoggedOutNav extends React.Component {
     }
   }
 
-  _handleToggleCoursesDropdown = (event) => {
+  _handleToggleCoursesDropdown (event) {
     event.preventDefault()
     this.setState({
       coursesDDVisible: !this.state.coursesDDVisible,
@@ -66,7 +71,7 @@ class LoggedOutNav extends React.Component {
     })
   }
 
-  _handleToggleEducationDropdown = (event) => {
+  _handleToggleEducationDropdown (event) {
     event.preventDefault()
     this.setState({
       coursesDDVisible: false,
@@ -74,7 +79,7 @@ class LoggedOutNav extends React.Component {
     })
   }
 
-  _handleToggleHamburger = (event) => {
+  _handleToggleHamburger (event) {
     event.preventDefault()
     this.setState({
       hamburgerOff: !this.state.hamburgerOff,
@@ -188,6 +193,10 @@ class LoggedOutNav extends React.Component {
       </div>
     </div>
   }
+}
+
+LoggedOutNav.propTypes = {
+  config: PropTypes.object.isRequired,
 }
 
 module.exports = LoggedOutNav
