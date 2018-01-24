@@ -1,28 +1,20 @@
 const cx = require('classnames');
+const PropTypes = require('prop-types');
 const React = require('react');
 
-/**
- * CourseLink
- * @property href
- */
-class CourseLink extends React.Component {
-    static displayName = "CourseLink";
-    static propTypes = {
-      href: React.PropTypes.string,
-      icon: React.PropTypes.string,
-      name: React.PropTypes.string,
-      arrow: React.PropTypes.bool
-    }
+const CourseLink = ({ arrow, href, icon, name }) => (
+  <a className="app-nav-courses-link" href={href}>
+    {icon && <img className="app-nav-courses-icon" src={icon} />}
+    <span className="app-nav-courses-link-text">{name}</span>
+    {arrow && <span className="icon-navigateright" />}
+  </a>
+)
 
-    render() {
-      const {href, icon, name, arrow} = this.props;
-
-      return (<a className="app-nav-courses-link" href={href}>
-        {icon && <img className="app-nav-courses-icon" src={icon} />}
-        <span className="app-nav-courses-link-text">{name}</span>
-        {arrow && <span className="icon-navigateright" />}
-      </a>)
-    }
+CourseLink.propTypes = {
+  href: PropTypes.string,
+  icon: PropTypes.string,
+  name: PropTypes.string,
+  arrow: PropTypes.bool
 }
 
 module.exports = CourseLink

@@ -1,9 +1,9 @@
-const React = require('react');
-const classNames = require('classnames');
-const moment = require('moment');
+const cx = require('classnames');
 const chunk = require('lodash/array/chunk');
 const difference = require('lodash/array/difference');
 const fill = require('lodash/array/fill');
+const moment = require('moment');
+const React = require('react');
 
 const Icon = require('../Icon');
 
@@ -11,36 +11,46 @@ const log = require('debug')('ui:AvailabilityGrid');
 
 const DESKTOP_GRID_WIDTH = 620;
 
-const AvailabilityGridSlot = React.createClass({
-  propTypes: {
-    dayIndex: React.PropTypes.number.isRequired,
-    mouseDown: React.PropTypes.number.isRequired,
-    selectionMode: React.PropTypes.string.isRequired,
-    data: React.PropTypes.object.isRequired,
-    onSelectionModeChanged: React.PropTypes.func.isRequired,
-    onSlotUnselected: React.PropTypes.func.isRequired,
-    onSlotSelected: React.PropTypes.func.isRequired,
-    mobile: React.PropTypes.bool,
-  },
+class AvailabilityGridSlot extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.handleMouseDown = this.handleMouseDown.bind(this)
+    this.handleMouseUp = this.handleMouseUp.bind(this)
+    this.handleMouseEnter = this.handleMouseEnter.bind(this)
+  }
 
   handleMouseDown() {
-    const {data, dayIndex, onSelectionModeChanged, onSlotUnselected, onSlotSelected} = this.props;
+    const {
+      data,
+      dayIndex,
+      onSelectionModeChanged,
+      onSlotUnselected,
+      onSlotSelected,
+    } = this.props;
 
-    if (this.props.data.selected) {
+    if (data.selected) {
       onSelectionModeChanged('unselecting', dayIndex, data.index);
       onSlotUnselected(dayIndex, data.index);
     } else {
       onSelectionModeChanged('selecting', dayIndex, data.index);
       onSlotSelected(dayIndex, data.index);
     }
-  },
+  }
 
   handleMouseUp() {
     this.props.onSelectionModeChanged('neutral');
-  },
+  }
 
   handleMouseEnter() {
-    const {data, mouseDown, dayIndex, selectionMode, onSlotSelected, onSlotUnselected} = this.props;
+    const {
+      data,
+      dayIndex,
+      mouseDown,
+      onSlotSelected,
+      onSlotUnselected,
+      selectionMode,
+    } = this.props;
 
     if (mouseDown === 1) {
       if (selectionMode === 'selecting') {
@@ -49,17 +59,14 @@ const AvailabilityGridSlot = React.createClass({
         onSlotUnselected(dayIndex, data.index);
       }
     }
-  },
+  }
 
   render() {
-    let classes = classNames(
-      'availability-grid-slot',
-      {'selected': this.props.data.selected}
-    );
-
     return (
       <div
-          className={classes}
+          className={cx(
+            'availability-grid-slot',
+            { selected: this.props.data.selected })}
           onMouseEnter={this.handleMouseEnter}
           onMouseDown={this.handleMouseDown}
           onMouseUp={this.handleMouseUp} >
@@ -67,75 +74,98 @@ const AvailabilityGridSlot = React.createClass({
       </div>
     );
   }
-})
+}
 
-const AvailabilityGridDay = React.createClass({
-  propTypes: {
-    minSlot: React.PropTypes.number.isRequired,
-    maxSlot: React.PropTypes.number.isRequired,
-    data: React.PropTypes.object.isRequired,
-    onNavigateDay: React.PropTypes.func,
-    isMinDay: React.PropTypes.bool,
-    isMaxDay: React.PropTypes.bool,
-  },
+AvailabilityGridSlot.propTypes = {
+  data: PropTypes.object.isRequired,
+  dayIndex: PropTypes.number.isRequired,
+  mobile: PropTypes.bool,
+  mouseDown: PropTypes.number.isRequired,
+  onSelectionModeChanged: PropTypes.func.isRequired,
+  onSlotSelected: PropTypes.func.isRequired,
+  onSlotUnselected: PropTypes.func.isRequired,
+  selectionMode: PropTypes.string.isRequired,
+}
 
-  render() {
-    let slotNodes = this.props.data.slots.map((slotData, idx) => {
-      const {data, ...other} = this.props;
-      return (
-        <AvailabilityGridSlot
-            data={slotData}
-            dayIndex={data.index}
-            key={idx}
-            {...other} />
-      );
-    })
+const AvailabilityGridDay = ({ data, ...otherProps }) => {
+  const {
+    isMaxDay,
+    isMinDay,
+    maxSlot,
+    minSlot,
+    mobile,
+    onNavigateDay,
+  } = otherProps
 
-    return (
-      <div className="availability-grid-day">
-        <span className="availability-grid-day-name">
-          {this.props.mobile &&
-            <Icon
-                className={classNames(
-                  "navigation navigation__left",
-                  {disabled: this.props.isMinDay})}
-                name="navigateleft"
-                onClick={e => this.props.onNavigateDay(-1)}/>}
-          {this.props.data.name}
-          {this.props.mobile &&
-            <Icon
-                className={classNames(
-                  "navigation navigation__right",
-                  {disabled: this.props.isMaxDay})}
-                name="navigateright"
-                onClick={e => this.props.onNavigateDay(1)}/>}
-        </span>
-        <div className="availability-grid-items">
-          {slotNodes.slice(this.props.minSlot, this.props.maxSlot)}
-        </div>
+  const slotNodes = data.slots
+    .slice(minSlot, maxSlot)
+    .map((slotData, idx) => (
+      <AvailabilityGridSlot
+          data={slotData}
+          dayIndex={data.index}
+          key={idx}
+          {...otherProps} />));
+
+  return (
+    <div className="availability-grid-day">
+      <span className="availability-grid-day-name">
+        {mobile &&
+          <Icon
+              className={cx(
+                "navigation navigation__left",
+                { disabled: isMinDay })}
+              name="navigateleft"
+              onClick={e => onNavigateDay(-1)} />}
+        {data.name}
+        {mobile &&
+          <Icon
+              className={cx(
+                "navigation navigation__right",
+                { disabled: isMaxDay })}
+              name="navigateright"
+              onClick={e => onNavigateDay(1)} />}
+      </span>
+      <div className="availability-grid-items">
+        {slotNodes}
       </div>
-    );
+    </div>
+  );
+}
+
+AvailabilityGridDay.propTypes = {
+  data: PropTypes.shape({
+    index: PropTypes.number.isRequired,
+    slots: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }).isRequired,
+  isMinDay: PropTypes.bool,
+  isMaxDay: PropTypes.bool,
+  maxSlot: PropTypes.number.isRequired,
+  minSlot: PropTypes.number.isRequired,
+  onNavigateDay: PropTypes.func,
+}
+
+class AvailabilityGrid extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this._digestBitmap = this._digestBitmap.bind(this)
+
+    this.getBitmap = this.getBitmap.bind(this)
+    this.getInitialState = this.getInitialState.bind(this)
+    this.getNumDaysSelected = this.getNumDaysSelected.bind(this)
+    this.getNumHoursSelected = this.getNumHoursSelected.bind(this)
+    this.getSlotsAvailable = this.getSlotsAvailable.bind(this)
+    this.handleMouseEnter = this.handleMouseEnter.bind(this)
+    this.handleNavigateDay = this.handleNavigateDay.bind(this)
+    this.handlePost = this.handlePost.bind(this)
+    this.handleSelectionModeChanged = this.handleSelectionModeChanged.bind(this)
+    this.handleSlot = this.handleSlot.bind(this)
+    this.handleSlotSelected = this.handleSlotSelected.bind(this)
+    this.handleSlotUnselected = this.handleSlotUnselected.bind(this)
+    this.shouldRenderMobile = this.shouldRenderMobile.bind(this)
+
+    this.state = this.getInitialState()
   }
-})
-
-const AvailabilityGrid = React.createClass({
-  propTypes: {
-    slotsHour: React.PropTypes.number.isRequired,
-    minHour: React.PropTypes.number.isRequired,
-    maxHour: React.PropTypes.number.isRequired,
-    onPost: React.PropTypes.func,
-    disabled: React.PropTypes.bool,
-    onChange: React.PropTypes.func,
-    mobile: React.PropTypes.bool,
-  },
-
-  getDefaultProps() {
-    return {
-      minHour: 0,
-      maxHour: 24,
-      onChange: () => {},
-    }
-  },
 
   getInitialState() {
     let days;
@@ -156,7 +186,6 @@ const AvailabilityGrid = React.createClass({
     let daysData = [];
     let slotNames = [];
     let selectionMode = 'neutral';
-
 
     // precalculate the slot names one time
     let formatString = 'h a';
@@ -186,26 +215,27 @@ const AvailabilityGrid = React.createClass({
       selectionStartSlot: 0,
       mouseDown: 0
     };
-  },
+  }
 
   onMouseDown(e) {
     this.setState({mouseDown: this.state.mouseDown + 1});
-  },
+  }
 
   onMouseUp(e) {
     this.setState({mouseDown: this.state.mouseDown - 1});
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     this._digestBitmap(nextProps.bitmap);
-  },
+  }
 
   componentDidMount() {
+    const { bitmap } = this.props
      // If the bitmap is present when the component is mounted, render it.
-     if (this.props.bitmap && this.props.bitmap != '') {
-       this._digestBitmap(this.props.bitmap);
+     if (bitmap) {
+       this._digestBitmap(bitmap);
      }
-   },
+   }
 
   /**
    * Translates bitmapstring to internal data structures and stores it on
@@ -226,6 +256,8 @@ const AvailabilityGrid = React.createClass({
    *
    */
   _digestBitmap(bitmap='') {
+    let { days } = this.state;
+
     const MAX_SLOTS_HOUR = 4;
     const HOURS_DAY = 24;
     const DAYS_SLOT = MAX_SLOTS_HOUR * HOURS_DAY;
@@ -237,14 +269,13 @@ const AvailabilityGrid = React.createClass({
     chunk(bitmap, DAYS_SLOT).
       map((day, dayIndex) => chunk(day, BITS_SLOT).
         map((slot, slotIndex) => {
-          this.state.days[dayIndex].slots[slotIndex].selected =
+          days[dayIndex].slots[slotIndex].selected =
             difference(slot, AVAILABLE_BITMAP).length === 0;
         })
-      )
-    ;
+      );
 
-    this.setState({days: this.state.days});
-  },
+    this.setState({ days: days });
+  }
 
   getBitmap() {
     // translate state to bitmap and return
@@ -254,17 +285,17 @@ const AvailabilityGrid = React.createClass({
         return new Array(4 / this.props.slotsHour + 1).join(value);
       }).join('');
     }).join('');
-  },
+  }
 
   getNumDaysSelected() {
     return this.state.days.reduce((prev, day) => {
       return prev + !!_.find(day.slots, 'selected') * 1;
     }, 0);
-  },
+  }
 
   getNumHoursSelected() {
     return this.getBitmap().replace(/0/g, '').length / 4;
-  },
+  }
 
   getSlotsAvailable() {
     return _.sum(this.state.days.map(dayData => {
@@ -272,17 +303,17 @@ const AvailabilityGrid = React.createClass({
         return slot.selected ? 1 : 0
       }));
     }));
-  },
+  }
 
   handleMouseEnter() {
     if (this.state.mouseDown === 0) {
       this.handleSelectionModeChanged('neutral');
     }
-  },
+  }
 
   handlePost() {
     this.props.onPost(this.getBitmap());
-  },
+  }
 
   handleSelectionModeChanged(newMode, startDay, startSlot) {
     if (!this.props.disabled) {
@@ -303,15 +334,15 @@ const AvailabilityGrid = React.createClass({
         });
       }
     }
-  },
+  }
 
   handleSlotSelected(dayIndex, slotIndex) {
     this.handleSlot(dayIndex, slotIndex, true);
-  },
+  }
 
   handleSlotUnselected(dayIndex, slotIndex) {
     this.handleSlot(dayIndex, slotIndex, false);
-  },
+  }
 
   handleSlot(dayIndex, slotIndex, value) {
     if (this.state.selectionMode === 'selecting' || this.state.selectionMode === 'unselecting') {
@@ -338,17 +369,17 @@ const AvailabilityGrid = React.createClass({
     else {
       this.props.onChange(this.state.days);
     }
-  },
+  }
 
   shouldRenderMobile() {
     return window.innerWidth < DESKTOP_GRID_WIDTH;
-  },
+  }
 
   handleNavigateDay(direction) {
     let newIdx = this.state.activeDayIdx + direction;
     newIdx = Math.max(Math.min(newIdx, this.state.days.length - 1), 0);
     this.setState({activeDayIdx: newIdx});
-  },
+  }
 
   render() {
     let slotNames = this.state.slotNames.map((slotName, idx) => {
@@ -370,31 +401,29 @@ const AvailabilityGrid = React.createClass({
       days = this.state.days;
     }
 
-    let dayNodes = days.map((dayData, idx) => {
-      return (
-        <AvailabilityGridDay
-            data={dayData}
-            isMaxDay={this.state.activeDayIdx >= this.state.days.length - 1}
-            isMinDay={this.state.activeDayIdx <= 0}
-            key={idx}
-            minSlot={minSlot}
-            maxSlot={maxSlot}
-            mobile={this.shouldRenderMobile()}
-            mouseDown={this.state.mouseDown}
-            onSelectionModeChanged={this.handleSelectionModeChanged}
-            onSlotSelected={this.handleSlotSelected}
-            onSlotUnselected={this.handleSlotUnselected}
-            onNavigateDay={this.handleNavigateDay}
-            selectionMode={this.state.selectionMode} />
-      );
-    });
+    let dayNodes = days.map((dayData, idx) => (
+      <AvailabilityGridDay
+          data={dayData}
+          isMaxDay={this.state.activeDayIdx >= this.state.days.length - 1}
+          isMinDay={this.state.activeDayIdx <= 0}
+          key={idx}
+          minSlot={minSlot}
+          maxSlot={maxSlot}
+          mobile={this.shouldRenderMobile()}
+          mouseDown={this.state.mouseDown}
+          onSelectionModeChanged={this.handleSelectionModeChanged}
+          onSlotSelected={this.handleSlotSelected}
+          onSlotUnselected={this.handleSlotUnselected}
+          onNavigateDay={this.handleNavigateDay}
+          selectionMode={this.state.selectionMode} />
+    ));
 
-    let classes = classNames(
-      'availability-grid', {
+    const classes = cx(
+      'availability-grid',
+      {
         'availability-grid__disabled': this.props.disabled,
-        'availability-grid__mobile': this.shouldRenderMobile()
-      }
-    );
+        'availability-grid__mobile': this.shouldRenderMobile(),
+      });
 
     return (
       <div
@@ -422,6 +451,22 @@ const AvailabilityGrid = React.createClass({
       </div>
     );
   }
-})
+}
+
+AvailabilityGrid.propTypes = {
+  slotsHour: PropTypes.number.isRequired,
+  minHour: PropTypes.number.isRequired,
+  maxHour: PropTypes.number.isRequired,
+  onPost: PropTypes.func,
+  disabled: PropTypes.bool,
+  onChange: PropTypes.func,
+  mobile: PropTypes.bool,
+}
+
+AvailabilityGrid.defaultProps = {
+  minHour: 0,
+  maxHour: 24,
+  onChange: () => {},
+}
 
 module.exports = AvailabilityGrid;

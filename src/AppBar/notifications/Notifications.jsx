@@ -7,70 +7,66 @@ const NotificationView = require('../../NotificationView');
 const notificationStore = require('./notificationStore');
 const NotificationActions = require('./NotificationActions');
 
-/**
- * Notifications
- * @property blob
- */
 class Notifications extends React.Component {
-    constructor(props) {
-        super();
-        this.state = {
-            unreadCount: 0,
-            unseenCount: 0,
-            notifications: [],
-        }
-        this.onStatusChange = this.onStatusChange.bind(this);
-        this._handleSeen = this._handleSeen.bind(this);
-        this._handleItemClick = this._handleItemClick.bind(this);
-        this._handleItemDismiss = this._handleItemDismiss.bind(this);
+  constructor(props) {
+    super();
+
+    this.state = {
+      notifications: [],
+      unreadCount: 0,
+      unseenCount: 0,
     }
 
-    componentDidMount() {
-        this.unsubscribe = notificationStore.listen(this.onStatusChange);
-    }
+    this.onStatusChange = this.onStatusChange.bind(this);
+    this._handleSeen = this._handleSeen.bind(this);
+    this._handleItemClick = this._handleItemClick.bind(this);
+    this._handleItemDismiss = this._handleItemDismiss.bind(this);
+  }
 
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
+  componentDidMount() {
+    this.unsubscribe = notificationStore.listen(this.onStatusChange);
+  }
 
-    onStatusChange(bundle) {
-        console.log(
-            "[Notifications] Received new state from Store: " +
-            `${bundle.unseenCount}/${bundle.unreadCount}/${bundle.notifications.length}`);
-        this.setState({
-            unreadCount: bundle.unreadCount,
-            unseenCount: bundle.unseenCount,
-            notifications: bundle.notifications,
-        });
-    }
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
 
-    _handleItemClick(event, id) {
-      const notification = _.find(this.state.notifications, {id: id});
-      console.log("[Notifications] Clicked on notification:", notification);
-      TFAnalytics.track('clicked-notification-item');
-      if (notification.message_hyperlink !== undefined) {
-        window.open(notification.message_hyperlink, '_blank');
-      }
-    }
+  onStatusChange({ notifications, unreadCount, unseenCount }) {
+    this.setState({
+      unreadCount,
+      unseenCount,
+      notifications,
+    });
+  }
 
-    _handleItemDismiss(event, id) {
-      console.log("[Notifications] Dismissed notification:", id);
-      NotificationActions.markRead([id]);
-    }
+  _handleItemClick(event, id) {
+    const notification = _.find(this.state.notifications, { id });
 
-    _handleSeen() {
-      console.log("[Notifications] Seen all!");
-      NotificationActions.markSeen(true);
-    }
+    TFAnalytics.track('clicked-notification-item');
 
-    render() {
-      return (<NotificationView
-        unseenCount={this.state.unseenCount}
-        notifications={this.state.notifications}
-        handleSeen={this._handleSeen}
-        handleItemClick={this._handleItemClick}
-        handleItemDismiss={this._handleItemDismiss} /> );
+    if (notification.message_hyperlink !== undefined) {
+      window.open(notification.message_hyperlink, '_blank');
     }
+  }
+
+  _handleItemDismiss(event, id) {
+    NotificationActions.markRead([id]);
+  }
+
+  _handleSeen() {
+    NotificationActions.markSeen(true);
+  }
+
+  render() {
+    return (
+      <NotificationView
+          handleItemClick={this._handleItemClick}
+          handleItemDismiss={this._handleItemDismiss}
+          handleSeen={this._handleSeen}
+          notifications={this.state.notifications}
+          unseenCount={this.state.unseenCount} />
+    );
+  }
 }
 
 module.exports = Notifications
