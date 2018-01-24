@@ -39,14 +39,14 @@ const educationDropdownItems = [
   },
 ]
 
-const NavDropdownItem = ({ config, href, imageUrl, title }) => {
-  return <li className="splash-nav-dropdown-item">
+const NavDropdownItem = ({ config, href, imageUrl, title }) => (
+  <li className="splash-nav-dropdown-item">
     <a className="splash-nav-dropdown-padding" href={`${config.www.url}${href}`}>
       <img src={imageUrl} />
       <h4 className="splash-nav-dropdown-title">{title}</h4>
     </a>
   </li>
-}
+)
 
 class LoggedOutNav extends React.Component {
   constructor(props) {
