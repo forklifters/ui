@@ -11,7 +11,6 @@ const Loader = require('./Loader');
 const Modal = require('./Modal');
 const NotificationView = require('./NotificationView');
 const OneClickCopy = require('./OneClickCopy');
-const OpenSessionOverview = require('./OpenSessionOverview');
 const SearchBar = require('./SearchBar');
 const SocialShare = require('./SocialShare');
 const Tag = require('./Tag');
@@ -37,7 +36,6 @@ module.exports = {
   MenuItem: SidebarMenuItem,
   NotificationView,
   OneClickCopy,
-  OpenSessionOverview,
   pathWithSlug,
   pathWithoutSlug,
   SearchBar,
