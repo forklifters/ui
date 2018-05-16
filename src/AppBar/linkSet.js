@@ -4,7 +4,7 @@ const defaults = require('lodash/object/defaults');
 const mapValues = require('lodash/object/mapValues');
 
 const getLinkSet = (config, user) => {
-    config = global.__env ? global.__evn.config : config;
+    config = global.__env ? global.__env.config : config;
     user = global.__env ? global.__env.user : user;
 
     let configStub = {
