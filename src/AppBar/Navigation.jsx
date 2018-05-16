@@ -13,6 +13,7 @@ const CourseLink = require('./CourseLink');
 const LoggedOutNav = require('./LoggedOutNav');
 const { getLinkSet } = require('./linkSet');
 const NavLink = require('./NavLink');
+const FaqLink = require('./FaqLink');
 const Notifications = require('./notifications/Notifications');
 const WhiteTLogo = require('./WhiteTLogo')
 
@@ -112,6 +113,7 @@ class AppNav extends React.Component {
           </ul>
 
           <Notifications />
+          <FaqLink />
 
           <a className="app-nav-link app-nav-link__toggle" onClick={this._toggleMenu}>
             <span alt="Menu" className="app-nav-burger" />
