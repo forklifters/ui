@@ -3,6 +3,7 @@ const chunk = require('lodash/array/chunk');
 const difference = require('lodash/array/difference');
 const fill = require('lodash/array/fill');
 const moment = require('moment');
+const PropTypes = require('prop-types');
 const React = require('react');
 
 const Icon = require('../Icon');

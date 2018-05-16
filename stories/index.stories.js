@@ -12,6 +12,10 @@ import '../less/main.less'
 
 import Icon from '../src/Icon'
 import Tag from '../src/Tag'
+import AppBar from '../src/AppBar'
+
+// This is required as storybook is inside an iframe
+import env from './env';
 
 storiesOf('Welcome', module)
   .add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
@@ -31,3 +35,7 @@ storiesOf('Headers', module)
   .add('h4', () => <h4>This is an h4</h4>)
   .add('h5', () => <h5>This is an h5</h5>)
   .add('h6', () => <h6>This is an h6</h6>)
+
+storiesOf('AppBar', module)
+  .add('Logged out', () => <AppBar config={env.config} />)
+  .add('Logged in', () => <AppBar config={env.config} user={env.user} />)

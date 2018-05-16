@@ -11,7 +11,7 @@ const Gravatar = require('../Gravatar');
 
 const CourseLink = require('./CourseLink');
 const LoggedOutNav = require('./LoggedOutNav');
-const linkSet = require('./linkSet');
+const { getLinkSet } = require('./linkSet');
 const NavLink = require('./NavLink');
 const Notifications = require('./notifications/Notifications');
 const WhiteTLogo = require('./WhiteTLogo')
@@ -29,6 +29,8 @@ class AppNav extends React.Component {
       isCourseDropdownVisible: false,
       isMenuVisible: false,
     };
+
+    this.linkSet = getLinkSet(props.config, props.user)
   }
 
   getChildContext() {
@@ -70,7 +72,7 @@ class AppNav extends React.Component {
     const navClassName = cx(
       'app-nav',
       { 'app-nav__visible': this.state.isMenuVisible });
-    const navLinks = linkSet.main.filter(link => !link.search);
+    const navLinks = this.linkSet.main.filter(link => !link.search);
 
     return (
       <div className='app-nav-container'>
@@ -80,7 +82,7 @@ class AppNav extends React.Component {
             key="main-navigation"
             rel="main-navigation">
 
-          <a href={linkSet.home.url}>
+          <a href={this.linkSet.home.url}>
             <div>
               <WhiteTLogo />
             </div>
@@ -102,7 +104,7 @@ class AppNav extends React.Component {
                 <NavLink className="app-nav-link__mobile-only" {...link} />
               </li>
             ))}
-            {linkSet.menu.map((link) => (
+            {this.linkSet.menu.map((link) => (
               <li key={uniqueId('link_')}>
                 <NavLink className="app-nav-link__in-menu" {...link} />
               </li>

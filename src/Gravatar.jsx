@@ -8,7 +8,7 @@ const URL = 'https://www.gravatar.com/avatar';
 const Gravatar = ({ className, style, email, size, ...props }) => (
   <img
     className={cx('gravatar', className)}
-    src={`${URL}/${MD5.hash(email)}?d=${this.props.default}&s=${size}`}
+    src={`${URL}/${MD5.hash(email)}?d=${props.default}&s=${size}`}
     style={style || {}}
     {...props} />
 )
