@@ -9,7 +9,7 @@ const NotificationActions = require('./NotificationActions');
 
 class Notifications extends React.Component {
   constructor(props) {
-    super();
+    super(props);
 
     this.state = {
       notifications: [],

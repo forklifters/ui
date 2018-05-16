@@ -93,7 +93,7 @@ class NotificationView extends React.Component {
       {"tui-notification-count__clear" : unseenCount === 0 }
     )
 
-    const unreadNotifictaions = notifications.filter(notif => ! notif.is_read)
+    const unreadNotifications = notifications.filter(notif => ! notif.is_read)
     const hasNotifications = !_.isEmpty(unreadNotifications);
 
     return (

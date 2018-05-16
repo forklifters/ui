@@ -1,6 +1,6 @@
 {
   "name": "thinkful-ui",
-  "version": "4.0.0-alpha.6",
+  "version": "4.0.0-alpha.7",
   "description": "Shared navigation and UI resources for Thinkful.",
   "main": "lib/index.js",
   "scripts": {
@@ -16,7 +16,9 @@
     "type": "git",
     "url": "git+https://github.com/Thinkful/ui.git"
   },
-  "keywords": ["Thinkful"],
+  "keywords": [
+    "Thinkful"
+  ],
   "author": {
     "name": "Thinkful",
     "email": "engineering@thinkful.com"
@@ -53,6 +55,7 @@
     "escape-string-regexp": "^1.0.3",
     "escope": "3.2.0",
     "eslint": "^0.22.1",
+    "fbjs": "^0.8.16",
     "getstream": "^3.4.0",
     "history": "^1.13.1",
     "is_js": "^0.8.0",
