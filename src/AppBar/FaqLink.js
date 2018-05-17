@@ -24,7 +24,7 @@ class FaqLink extends React.Component {
   render() {
     const containerClasses = cx(
       "tui-notification-list-container",
-      {"tui-notification-list-container__visible" : this.state.visible }
+      { "tui-notification-list-container__visible" : this.state.visible }
     )
 
     return (
