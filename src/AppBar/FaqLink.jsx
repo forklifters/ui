@@ -30,6 +30,7 @@ class FaqLink extends React.Component {
     return (
       <div className="tui-notification-view tui-faq-link">
         <a
+            href="//thinkful.com/support"
             className="tui-notification-toggle"
             onMouseEnter={this.expand}
             onMouseLeave={this.collapse}>

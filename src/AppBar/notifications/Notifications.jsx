@@ -5,7 +5,7 @@ const TFAnalytics = require('@thinkful/tf-analytics');
 
 const NotificationView = require('../../NotificationView');
 const notificationStore = require('./notificationStore');
-const NotificationActions = require('./NotificationActions');
+const { NotificationActions } = require('./NotificationActions');
 
 class Notifications extends React.Component {
   constructor(props) {
