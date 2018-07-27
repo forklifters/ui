@@ -180,7 +180,7 @@ export default {
         },
         "support": {
             "displayName": "Support",
-            "url": "//t.ful:5000/support/"
+            "url": "mailto:success@thinkful.com"
         },
         "takeStudent": {
             "displayName": "Take Student",

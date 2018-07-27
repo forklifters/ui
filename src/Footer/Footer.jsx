@@ -178,7 +178,7 @@ const LegalLinks = ({ config }) => (
     <span className="middot-desktop margin-span">·</span>
     <SectionLink
         className="support-desktop margin-span"
-        location={`${config.www.url}/support/`}
+        location="mailto:success@thinkful.com"
         name="Support"
         mobile={false}/>
     <span className="middot-desktop margin-span">·</span>
