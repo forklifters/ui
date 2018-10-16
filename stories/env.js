@@ -102,7 +102,7 @@ export default {
             "url": "//t.ful:5052"
         },
         "officeHours": {
-            "displayName": "Open Sessions",
+            "displayName": "Office Hours",
             "host": "t.ful:5008",
             "url": "//t.ful:5008/"
         },
@@ -143,7 +143,7 @@ export default {
             "url": "//t.ful:5006/"
         },
         "qaSessions": {
-            "displayName": "Q\u0026A sessions",
+            "displayName": "Office Hours",
             "host": "t.ful:5008",
             "url": "//t.ful:5008/qa-sessions/"
         },
