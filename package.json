@@ -1,6 +1,6 @@
 {
   "name": "thinkful-ui",
-  "version": "4.0.0-alpha.11",
+  "version": "4.0.0-alpha.12",
   "description": "Shared navigation and UI resources for Thinkful.",
   "main": "lib/index.js",
   "scripts": {
@@ -16,9 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/Thinkful/ui.git"
   },
-  "keywords": [
-    "Thinkful"
-  ],
+  "keywords": ["Thinkful"],
   "author": {
     "name": "Thinkful",
     "email": "engineering@thinkful.com"
@@ -47,7 +45,7 @@
     }
   ],
   "dependencies": {
-    "@thinkful/tf-analytics": "^0.0.6",
+    "@thinkful/tf-analytics": "0.0.6",
     "babel-runtime": "^6.26.0",
     "browser-request": "^0.3.3",
     "classnames": "^2.1.1",
