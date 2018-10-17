@@ -1,6 +1,6 @@
 {
   "name": "thinkful-ui",
-  "version": "4.0.0-alpha.11",
+  "version": "4.0.0-alpha.12",
   "description": "Shared navigation and UI resources for Thinkful.",
   "main": "lib/index.js",
   "scripts": {
@@ -16,9 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/Thinkful/ui.git"
   },
-  "keywords": [
-    "Thinkful"
-  ],
+  "keywords": ["Thinkful"],
   "author": {
     "name": "Thinkful",
     "email": "engineering@thinkful.com"
@@ -71,7 +69,7 @@
     "prop-types": "^15.6.0",
     "qs": "^5.2.0",
     "react": "^15.0",
-    "react-avatar-editor": "^3.2.0",
+    "react-avatar-editor": "^11.0.4",
     "react-dom": "^15.0",
     "reflux": "^0.3.0",
     "spark-md5": "0.0.5",
