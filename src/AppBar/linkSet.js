@@ -1,7 +1,4 @@
-const compact = require('lodash/array/compact');
-const assign = require('lodash/object/assign');
-const defaults = require('lodash/object/defaults');
-const mapValues = require('lodash/object/mapValues');
+const _ = require('lodash');
 
 const DESIGN_SYSTEM_FLAG = 'design-system';
 
@@ -16,7 +13,7 @@ const getHomeConfig = (config, user) => {
     }
 
     const brand = user.brand;
-    return _.find(config, { brand }) || config.dashboard;
+    return _.find(_.values(config), { brand }) || config.dashboard;
 }
 
 const getLinkSet = (config, user) => {
@@ -30,9 +27,9 @@ const getLinkSet = (config, user) => {
         },
     }
     if (config) {
-        config = mapValues(
+        config = _.mapValues(
             config,
-            (link, key) => assign({}, link, configStub[key]));
+            (link, key) => _.assign({}, link, configStub[key]));
 
     }
 
@@ -43,7 +40,7 @@ const getLinkSet = (config, user) => {
 
     if(! user) {
       // non-logged in user
-        defaults(home, config.www);
+        _.defaults(home, config.www);
         insertCourseDropdown = true;
         menu.push(config.mentors);
         menu.push(config.pricing);
@@ -54,7 +51,7 @@ const getLinkSet = (config, user) => {
     else {
         // admin, mentor
         if (/admin|mentor/.test(user.role)) {
-            defaults(home, getHomeConfig(config, user));
+            _.defaults(home, getHomeConfig(config, user));
             main.push(home);
 
             main.push(config.qaSessions);
@@ -68,7 +65,7 @@ const getLinkSet = (config, user) => {
         else {
             // TFL student
             if (/tfl/.test(user.student_type)) {
-                assign(home, {
+                _.assign(home, {
                     host: config.projects.host,
                     url: config.workshops.url
                 });
@@ -76,7 +73,7 @@ const getLinkSet = (config, user) => {
             }
             // Core, career path, or full-time student
             else {
-                defaults(home, getHomeConfig(config, user));
+                _.defaults(home, getHomeConfig(config, user));
                 main.push(home);
                 main.push(config.qaSessions);
             }
@@ -93,8 +90,8 @@ const getLinkSet = (config, user) => {
         menu.push(config.signOut);
     }
 
-    main = compact(main);
-    menu = compact(menu);
+    main = _.compact(main);
+    menu = _.compact(menu);
 
     try {
         let url = location.toString();
