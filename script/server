@@ -1,4 +1,2 @@
 #!/bin/bash
-
-export PORT=5029
-(npm run demo) & (script/hotload)
+npm run storybook

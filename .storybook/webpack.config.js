@@ -8,7 +8,7 @@ module.exports = {
         loaders: ['style-loader', 'css-loader', 'less-loader'],
         include: [
           path.resolve(__dirname, '../less'),
-          path.resolve(__dirname, '../node_modules/tfstyleguide')
+          path.resolve(__dirname, '../node_modules/tfstyleguide'),
         ]
       }
     ]

@@ -21,28 +21,31 @@
   height: 45px;
   margin-bottom: 0;
   background-color: @white;
-  color: @gray75;
-  border: 1px solid mix(@gray25, @gray50, 70%);
-  box-shadow: inset 0px 3px 7px @gray15;
+  color: @gray90;
+  border: 1px solid @gray40;
   background-image: none;
+  border-radius: 2px;
+  text-align: left;
+  height: 48px;
+  min-width: 0;
+  padding: 8px 36px 8px 16px;
+  font-size: 16px;
 
   &:hover {
-    background-color: @gray15;
+    background-color: @gray25;
     color: @black;
   }
 
   .icon-navigatedown {
     position: absolute;
-    right: 1em;
+    right: 12px;
     top: 15px;
   }
 }
 
 .date-picker {
   width: 330px;
-  border-top: 1px solid @gray25;
-  border-left: 1px solid @gray25;
-  border-right: 1px solid @gray25;
+  border: 1px solid @gray40;
   border-radius: 3px;
   background-color: @white;
   position: absolute;
@@ -60,7 +63,7 @@
   transform: translateX(-50%);
   top: 5px;
   font-size: 12px;
-  color: @blue125;
+  color: @gray75;
 }
 
 .arrow-left {
@@ -105,7 +108,6 @@
   text-align: center;
   width: ~"calc(100% / 7)";
   height: 40px;
-  border-bottom: 1px solid @gray25;
   padding-top: 9px;
   cursor: pointer;
   position: relative;
@@ -116,16 +118,16 @@
   }
 
   &.other-month {
-    background-color: @gray15;
+    background-color: @gray25;
   }
 
   &.today {
-    color: @blue;
+    color: @gray75;
 
     &::before {
       content: 'Today';
       font-size: 10px;
-      color: @blue;
+      color: @gray75;
       position: absolute;
       top: 0px;
       left: 50%;
@@ -138,12 +140,12 @@
   }
 
   &:hover {
-    background-color: @blue25;
+    background-color: @gray25;
     transition: background-color .1s ease;
   }
 
   &.active {
-    background-color: @blue75;
+    background-color: @gray75;
     color: @white;
   }
 
