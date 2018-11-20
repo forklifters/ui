@@ -3,6 +3,22 @@ const assign = require('lodash/object/assign');
 const defaults = require('lodash/object/defaults');
 const mapValues = require('lodash/object/mapValues');
 
+const DESIGN_SYSTEM_FLAG = 'design-system';
+
+const getHomeConfig = (config, user) => {
+    if (!user) {
+        return config.dashboard;
+    }
+
+    const hasDesignSystem = user.access.indexOf(DESIGN_SYSTEM_FLAG) > -1;
+    if (!hasDesignSystem) {
+        return config.dashboard;
+    }
+
+    const brand = user.brand;
+    return _.find(config, { brand }) || config.dashboard;
+}
+
 const getLinkSet = (config, user) => {
     config = global.__env ? global.__env.config : config;
     user = global.__env ? global.__env.user : user;
@@ -38,7 +54,7 @@ const getLinkSet = (config, user) => {
     else {
         // admin, mentor
         if (/admin|mentor/.test(user.role)) {
-            defaults(home, config.dashboard);
+            defaults(home, getHomeConfig(config, user));
             main.push(home);
 
             main.push(config.qaSessions);
@@ -60,7 +76,7 @@ const getLinkSet = (config, user) => {
             }
             // Core, career path, or full-time student
             else {
-                defaults(home, config.dashboard);
+                defaults(home, getHomeConfig(config, user));
                 main.push(home);
                 main.push(config.qaSessions);
             }
