@@ -1,4 +1,5 @@
 const AvailabilityGrid = require('./AvailabilityGrid');
+const Avatar = require('./Avatar');
 const AvatarUploader = require('./AvatarUploader');
 const DatePicker = require('./DatePicker');
 const Footer = require('./Footer');
@@ -16,6 +17,7 @@ const { pathWithSlug, pathWithoutSlug } = require('./ProxyPathUtils');
 
 module.exports = {
   AvailabilityGrid,
+  Avatar,
   AvatarUploader,
   DatePicker,
   Footer,

@@ -11,6 +11,7 @@ import 'tfstyleguide/core.less';
 import '../less/main.less';
 
 import AvailabilityGrid from '../src/AvailabilityGrid';
+import Avatar from '../src/Avatar';
 import AvatarUploader from '../src/AvatarUploader';
 import DatePicker from '../src/DatePicker';
 import Footer from '../src/Footer';
@@ -43,6 +44,10 @@ storiesOf('AvailabilityGrid', module)
   .add('Disabled', () => (
     <AvailabilityGrid slotsHour={1} minHour={8} maxHour={23} disabled />
   ));
+
+storiesOf('Avatar', module).add('Basic', () => (
+  <Avatar email="kara@thinkful.com" config={env.config} />
+));
 
 storiesOf('AvatarUploader', module).add('Basic', () => (
   <AvatarUploader imageUrl="http://www.gravatar.com/avatar/0?s=100&d=retro" />
