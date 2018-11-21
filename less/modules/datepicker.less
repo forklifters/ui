@@ -1,16 +1,16 @@
-@import "~tfstyleguide/vars";
+@import '~tfstyleguide/vars';
 
 .date-picker-container {
   .icon-navigateleft {
     position: absolute;
-    left: .5em;
+    left: 0.5em;
     top: 5px;
     cursor: pointer;
   }
 
   .icon-navigateright {
     position: absolute;
-    right: .5em;
+    right: 0.5em;
     top: 5px;
     cursor: pointer;
   }
@@ -18,7 +18,6 @@
 
 .button.date-picker-button {
   position: relative;
-  height: 45px;
   margin-bottom: 0;
   background-color: @white;
   color: @gray90;
@@ -26,7 +25,6 @@
   background-image: none;
   border-radius: 2px;
   text-align: left;
-  height: 48px;
   min-width: 0;
   padding: 8px 36px 8px 16px;
   font-size: 16px;
@@ -39,7 +37,7 @@
   .icon-navigatedown {
     position: absolute;
     right: 12px;
-    top: 15px;
+    top: 12px;
   }
 }
 
@@ -94,7 +92,7 @@
 
   .day-heading {
     flex-grow: 1;
-    width: ~"calc(100% / 7)";
+    width: ~'calc(100% / 7)';
     text-align: center;
     font-size: 12px;
     color: @gray50;
@@ -106,12 +104,12 @@
   font-size: 15px;
   flex-grow: 1;
   text-align: center;
-  width: ~"calc(100% / 7)";
+  width: ~'calc(100% / 7)';
   height: 40px;
   padding-top: 9px;
   cursor: pointer;
   position: relative;
-  transition: background-color .2s ease;
+  transition: background-color 0.2s ease;
 
   &.unclickable {
     pointer-events: none;
@@ -141,7 +139,7 @@
 
   &:hover {
     background-color: @gray25;
-    transition: background-color .1s ease;
+    transition: background-color 0.1s ease;
   }
 
   &.active {
