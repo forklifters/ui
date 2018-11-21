@@ -6,22 +6,25 @@ const NOOP = () => {};
 
 const Tag = ({ children, className, displayName, onClick, url }) => (
   <a
-      className={cx("tui-tag", className)}
-      href={url}
-      onClick={onClick}>
+    className={cx('tui-tag', className, {
+      'tui-tag__no-pointer': !onClick && !url,
+    })}
+    href={url}
+    onClick={() => onClick && onClick()}
+  >
     {displayName}
     {children}
   </a>
-)
+);
 
 Tag.propTypes = {
   className: PropTypes.string,
   displayName: PropTypes.string,
-  url: PropTypes.string
-}
+  url: PropTypes.string,
+};
 
 Tag.defaultProps = {
-  onClick: NOOP
-}
+  onClick: null,
+};
 
-module.exports = Tag
+module.exports = Tag;

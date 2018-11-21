@@ -1,23 +1,28 @@
-@import "~tfstyleguide/vars";
+@import '~tfstyleguide/vars';
 
 .tui-tag {
   .body-text-small;
+  .maison-bold;
   display: inline-block;
-  border: 1px solid @darkBlue;
-  border-radius: 3px;
-  color: @blue;
+  border-radius: 2px;
+  color: @gray90;
   position: relative;
   padding-left: 15px;
   padding-right: 15px;
   margin-right: 5px;
-  line-height: 23px;
-  background-color: @white;
+  line-height: 24px;
+  background-color: @gray40;
   cursor: pointer;
-  transition: background-color .11s ease,
-              border-color .11s ease,
-              color .11s ease;
+  transition: background-color 0.11s ease, border-color 0.11s ease,
+    color 0.11s ease;
+  letter-spacing: 0.47px;
   &:hover {
-    background-color: @darkBlue;
+    background-color: @gray75;
     color: @white;
+    text-decoration: none;
+  }
+
+  &.tui-tag__no-pointer {
+    pointer-events: none;
   }
 }
