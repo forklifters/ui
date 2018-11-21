@@ -7,7 +7,7 @@ const NOOP = () => {};
 const Tag = ({ children, className, displayName, onClick, url }) => (
   <a
     className={cx('tui-tag', className, {
-      'tui-tag__no-pointer': !onClick && !url,
+      'tui-tag__disabled': !onClick && !url,
     })}
     href={url}
     onClick={() => onClick && onClick()}
