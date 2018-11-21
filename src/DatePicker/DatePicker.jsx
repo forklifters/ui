@@ -151,7 +151,7 @@ class DatePicker extends React.Component {
     const { className, placeholder } = this.props;
     const { days, activeIndex, monthsNavigated, value, visible } = this.state;
 
-    const activeDay = days[activeIndex] && days[activeIndex].dateObj;
+    const activeDay = days[activeIndex] && days[activeIndex].dateObj || moment();
     const datePickerClasses = cx('date-picker', { hidden: !visible });
 
     return (
@@ -160,7 +160,7 @@ class DatePicker extends React.Component {
             className="button date-picker-button"
             onClick={this._toggleOpen.bind(this)}
             ref={c => this.dropdownButton = c}>
-          {!value && placeholder || activeDay.format('MM/DD/YYYY')}
+          {!value && placeholder || activeDay.format('MM.DD.YYYY')}
           <Icon name="navigatedown" />
         </div>
         <div className={datePickerClasses} ref={c => this.calendar = c}>

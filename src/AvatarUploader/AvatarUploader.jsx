@@ -138,8 +138,12 @@ class AvatarUploader extends React.Component {
 
 AvatarUploader.propTypes = {
   imageUrl: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   email: PropTypes.string,
 }
+
+AvatarUploader.defaultProps = {
+  onChange() {},
+};
 
 module.exports = AvatarUploader

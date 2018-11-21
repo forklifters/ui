@@ -12,3 +12,10 @@ Stories for demoing components using [storybook](https://storybook.js.org)
 `/script`
 
 Standard bootstrap scripts (Thinkful convention).
+
+
+## Demo
+
+```bash
+/script/server
+```

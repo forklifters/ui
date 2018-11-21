@@ -1,7 +1,7 @@
 {
   "name": "thinkful-ui",
-  "version": "4.0.0-alpha.14",
-  "description": "Shared navigation and UI resources for Thinkful.",
+  "version": "6.0.0",
+  "description": "Shared UI resources for Thinkful.",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
@@ -75,7 +75,7 @@
     "spark-md5": "0.0.5",
     "superagent": "^1.4.0",
     "superagent-no-cache": "^0.1.0",
-    "tfstyleguide": "^4.0.0"
+    "tfstyleguide": "^6.0.0"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.3.10",

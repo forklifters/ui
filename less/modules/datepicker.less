@@ -1,16 +1,16 @@
-@import "~tfstyleguide/vars";
+@import '~tfstyleguide/vars';
 
 .date-picker-container {
   .icon-navigateleft {
     position: absolute;
-    left: .5em;
+    left: 0.5em;
     top: 5px;
     cursor: pointer;
   }
 
   .icon-navigateright {
     position: absolute;
-    right: .5em;
+    right: 0.5em;
     top: 5px;
     cursor: pointer;
   }
@@ -18,31 +18,32 @@
 
 .button.date-picker-button {
   position: relative;
-  height: 45px;
   margin-bottom: 0;
   background-color: @white;
-  color: @gray75;
-  border: 1px solid mix(@gray25, @gray50, 70%);
-  box-shadow: inset 0px 3px 7px @gray15;
+  color: @gray90;
+  border: 1px solid @gray40;
   background-image: none;
+  border-radius: 2px;
+  text-align: left;
+  min-width: 0;
+  padding: 8px 36px 8px 16px;
+  font-size: 16px;
 
   &:hover {
-    background-color: @gray15;
+    background-color: @gray25;
     color: @black;
   }
 
   .icon-navigatedown {
     position: absolute;
-    right: 1em;
-    top: 15px;
+    right: 12px;
+    top: 12px;
   }
 }
 
 .date-picker {
   width: 330px;
-  border-top: 1px solid @gray25;
-  border-left: 1px solid @gray25;
-  border-right: 1px solid @gray25;
+  border: 1px solid @gray40;
   border-radius: 3px;
   background-color: @white;
   position: absolute;
@@ -60,7 +61,7 @@
   transform: translateX(-50%);
   top: 5px;
   font-size: 12px;
-  color: @blue125;
+  color: @gray75;
 }
 
 .arrow-left {
@@ -91,7 +92,7 @@
 
   .day-heading {
     flex-grow: 1;
-    width: ~"calc(100% / 7)";
+    width: ~'calc(100% / 7)';
     text-align: center;
     font-size: 12px;
     color: @gray50;
@@ -103,29 +104,28 @@
   font-size: 15px;
   flex-grow: 1;
   text-align: center;
-  width: ~"calc(100% / 7)";
+  width: ~'calc(100% / 7)';
   height: 40px;
-  border-bottom: 1px solid @gray25;
   padding-top: 9px;
   cursor: pointer;
   position: relative;
-  transition: background-color .2s ease;
+  transition: background-color 0.2s ease;
 
   &.unclickable {
     pointer-events: none;
   }
 
   &.other-month {
-    background-color: @gray15;
+    background-color: @gray25;
   }
 
   &.today {
-    color: @blue;
+    color: @gray75;
 
     &::before {
       content: 'Today';
       font-size: 10px;
-      color: @blue;
+      color: @gray75;
       position: absolute;
       top: 0px;
       left: 50%;
@@ -138,12 +138,12 @@
   }
 
   &:hover {
-    background-color: @blue25;
-    transition: background-color .1s ease;
+    background-color: @gray25;
+    transition: background-color 0.1s ease;
   }
 
   &.active {
-    background-color: @blue75;
+    background-color: @gray75;
     color: @white;
   }
 
