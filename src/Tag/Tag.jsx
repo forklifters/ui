@@ -4,10 +4,17 @@ const React = require('react');
 
 const NOOP = () => {};
 
-const Tag = ({ children, className, displayName, onClick, url }) => (
+const Tag = ({
+  children,
+  className,
+  displayName,
+  forceEnabled,
+  onClick,
+  url,
+}) => (
   <a
     className={cx('tui-tag', className, {
-      'tui-tag__disabled': !onClick && !url,
+      'tui-tag__disabled': !forceEnabled && !onClick && !url,
     })}
     href={url}
     onClick={() => onClick && onClick()}
@@ -20,10 +27,12 @@ const Tag = ({ children, className, displayName, onClick, url }) => (
 Tag.propTypes = {
   className: PropTypes.string,
   displayName: PropTypes.string,
+  forceEnabled: PropTypes.bool,
   url: PropTypes.string,
 };
 
 Tag.defaultProps = {
+  forceEnabled: false,
   onClick: null,
 };
 
