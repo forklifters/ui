@@ -35,10 +35,15 @@ class Avatar extends React.Component {
     } = this.props;
 
     return (
-      <img
+      <div
         className={cx('user-avatar', className)}
-        style={{ borderRadius: '2px', width: `${size}px`, height: `${size}px` }}
-        src={this.getImageUrl()}
+        style={{
+          background: `url(${this.getImageUrl()})`,
+          backgroundSize: 'cover',
+          borderRadius: `${size / 24}px`,
+          height: `${size}px`,
+          width: `${size}px`,
+        }}
         {...props}
       />
     );
