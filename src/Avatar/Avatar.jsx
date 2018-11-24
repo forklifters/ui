@@ -40,7 +40,7 @@ class Avatar extends React.Component {
         style={{
           background: `url(${this.getImageUrl()})`,
           backgroundSize: 'cover',
-          borderRadius: '2px',
+          borderRadius: `${size / 24}px`,
           height: `${size}px`,
           width: `${size}px`,
         }}
