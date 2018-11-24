@@ -55,7 +55,9 @@ storiesOf('AvatarUploader', module).add('Basic', () => (
 
 storiesOf('DatePicker', module).add('Basic', () => <DatePicker />);
 
-storiesOf('Footer', module).add('Basic', () => <Footer config={env.config} />);
+storiesOf('Footer', module).add('Basic', () => (
+  <Footer config={env.config} user={{ timezone: 'US/Hawaii' }} />
+));
 
 storiesOf('Icon', module).add('Navigate right', () => (
   <Icon name="navigateright" />

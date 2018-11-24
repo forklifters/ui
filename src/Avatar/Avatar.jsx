@@ -22,9 +22,17 @@ class Avatar extends React.Component {
   }
 
   render() {
-    // Pull config, contactId and email out of props so they're not passed
+    // Pull config, contactId, email and imageUrl out of props so they're not passed
     // to the image tag (throws a warning)
-    const { className, config, contactId, email, size, ...props } = this.props;
+    const {
+      className,
+      config,
+      contactId,
+      email,
+      imageUrl,
+      size,
+      ...props
+    } = this.props;
 
     return (
       <img

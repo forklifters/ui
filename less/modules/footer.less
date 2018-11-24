@@ -1,4 +1,4 @@
-@import "~tfstyleguide/vars";
+@import '~tfstyleguide/vars';
 
 .footer-container {
   width: 100%;
@@ -6,119 +6,47 @@
 }
 
 .footer {
-  max-width: 944px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  text-align: center;
+  .centered-container-mobile;
+  padding: 40px;
 
   @media @nonmobile {
     .centered-container;
-    text-align: left;
-    padding-top: 25px;
-    padding-bottom: 60px;
-  }
-}
-
-.site-links {
-  margin-bottom: 30px;
-  display: flex;
-  flex-direction: column;
-
-  @media @nonmobile {
-    flex-direction: row;
-  }
-}
-
-.footer-column {
-  @media @nonmobile {
-    flex-grow: 1;
-  }
-}
-
-.footer-heading {
-  color: @gray90;
-  display: none;
-  @media @nonmobile {
-    display: block;
-  }
-}
-
-.footer-link {
-  .body-text;
-  display: block;
-  transition: color .11s;
-  &:hover {
-    transition: color .11s;
-  }
-  &.icon {
-    display: inline-block;
-    margin-right: 10px;
-  }
-  &.mobileHidden {
-    display: none;
-    @media @nonmobile {
-      display: block;
-      &.icon {
-        display: inline-block;
-      }
-    }
-  }
-}
-
-.social-mobile {
-  .footer-link:last-child {
-    margin-right: 0;
-  }
-  @media @nonmobile {
-    display: none;
-  }
-}
-
-.support-mobile {
-  @media @nonmobile {
-    display: none;
-  }
-}
-
-.legal-links {
-  .body-text-small;
-  .footer-link {
-    .body-text-small;
-    display: inline-block;
-  }
-  .margin-span {
-    margin-right: 15px;
-  }
-  .support-desktop,
-  .middot-desktop {
-    display: none;
-    @media @nonmobile {
-      display: inline-block;
-    }
-  }
-}
-
-.copyright {
-  display: block;
-  @media @nonmobile {
-    display: inline-block;
+    padding-top: 58px;
+    padding-bottom: 66px;
   }
 }
 
 .timezone {
-  .body-text;
+  .body-text-small;
   color: @black;
-  display: none;
-  @media @nonmobile {
-    display: block;
-  }
-  &.timezone__mobile {
-    display: block;
-    margin-bottom: 25px;
-    @media @nonmobile {
-      display: none;
+  margin-bottom: 42px;
+
+  a {
+    .body-text-small;
+    text-decoration: underline;
+    color: @gray75;
+    display: inline-block;
+    margin-left: 16px;
+
+    &:hover {
+      color: @black;
     }
   }
+}
+
+.footer-link {
+  .maison-regular;
+  font-size: 12px;
+  color: @black;
+  display: inline-block;
+  margin-right: 46px;
+  display: block;
+
+  @media @nonmobile {
+    display: inline-block;
+  }
+}
+
+a.footer-link:hover {
+  text-decoration: underline;
 }
