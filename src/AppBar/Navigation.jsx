@@ -13,39 +13,38 @@ const NavLink = require('./NavLink');
 const FaqLink = require('./FaqLink');
 const Notifications = require('./notifications/Notifications');
 const WhiteTLogo = require('./WhiteTLogo');
+
 class AppNav extends React.Component {
   constructor(props) {
     super(props);
     this._toggleMenu = this._toggleMenu.bind(this);
-    this._toggleCourseDropdown = this._toggleCourseDropdown.bind(this);
     this._handleMouseEnter = this._handleMouseEnter.bind(this);
     this._handleMouseLeave = this._handleMouseLeave.bind(this);
+
     this.state = {
-      isCourseDropdownVisible: false,
       isMenuVisible: false,
+      linkSet: getLinkSet(props.config, props.user),
     };
-    this.linkSet = getLinkSet(props.config, props.user);
   }
+
   getChildContext() {
     return {
       user: this.props.user,
     };
   }
+
   _toggleMenu() {
     this.setState({
       isMenuVisible: !this.state.isMenuVisible,
     });
   }
-  _toggleCourseDropdown() {
-    this.setState({
-      isCourseDropdownVisible: !this.state.isCourseDropdownVisible,
-    });
-  }
+
   _handleMouseEnter(event) {
     if (this.mouseTimeout) {
       clearTimeout(this.mouseTimeout);
     }
   }
+
   _handleMouseLeave(event) {
     clearTimeout(this.mouseTimeout);
     this.mouseTimeout = setTimeout(() => {
@@ -55,11 +54,15 @@ class AppNav extends React.Component {
       });
     }, 400);
   }
+
   renderAuthed(user, config) {
+    const { linkSet } = this.state;
+
     const navClassName = cx('app-nav', {
       'app-nav__visible': this.state.isMenuVisible,
     });
-    const navLinks = this.linkSet.main.filter(link => !link.search);
+    const navLinks = linkSet.main.filter(link => !link.search);
+
     return (
       <div className="app-nav-container">
         <nav
@@ -68,7 +71,7 @@ class AppNav extends React.Component {
           key="main-navigation"
           rel="main-navigation"
         >
-          <a href={this.linkSet.home.url}>
+          <a href={linkSet.home.url}>
             <div>
               <WhiteTLogo />
             </div>
@@ -86,7 +89,7 @@ class AppNav extends React.Component {
                 <NavLink className="app-nav-link__mobile-only" {...link} />
               </li>
             ))}
-            {this.linkSet.menu.map(link => (
+            {linkSet.menu.map(link => (
               <li key={uniqueId('link_')}>
                 <NavLink className="app-nav-link__in-menu" {...link} />
               </li>
@@ -110,16 +113,20 @@ class AppNav extends React.Component {
       </div>
     );
   }
+
   render() {
     const { user, config } = this.props;
     return this.renderAuthed(user, config);
   }
 }
+
 AppNav.propTypes = {
   user: PropTypes.object,
   config: PropTypes.object.isRequired,
 };
+
 AppNav.childContextTypes = {
   user: PropTypes.object.isRequired,
 };
+
 module.exports = AppNav;
