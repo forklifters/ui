@@ -63,7 +63,7 @@
     "marked": "^0.3.5",
     "md5": "^2.1.0",
     "moment": "^2.10.3",
-    "moment-timezone": "^0.4.0",
+    "moment-timezone": "^0.5.21",
     "node-libs-browser": "^0.5.2",
     "node-notifier": "^4.2.1",
     "prop-types": "^15.6.0",

@@ -10,6 +10,7 @@ import { Welcome } from '@storybook/react/demo';
 import 'tfstyleguide/core.less';
 import '../less/main.less';
 
+import AppBar from '../src/AppBar';
 import AvailabilityGrid from '../src/AvailabilityGrid';
 import Avatar from '../src/Avatar';
 import AvatarUploader from '../src/AvatarUploader';
@@ -36,6 +37,10 @@ storiesOf('Headers', module)
   .add('h4', () => <h4>This is an h4</h4>)
   .add('h5', () => <h5>This is an h5</h5>)
   .add('h6', () => <h6>This is an h6</h6>);
+
+storiesOf('AppBar', module)
+  .add('Logged out', () => <AppBar config={env.config} />)
+  .add('Logged in', () => <AppBar config={env.config} user={env.user} />);
 
 storiesOf('AvailabilityGrid', module)
   .add('Basic', () => (
