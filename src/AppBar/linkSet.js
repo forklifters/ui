@@ -7,8 +7,7 @@ const getHomeConfig = (config, user) => {
     return config.dashboard;
   }
 
-  const brand = user.brand;
-  return _.find(_.values(config), { brand }) || config.dashboard;
+  return config.designSystem;
 };
 
 const getLinkSet = (config, user) => {
@@ -21,31 +20,32 @@ const getLinkSet = (config, user) => {
 
   let main = [];
   let menu = [];
+  const brandConfig = _.assign({}, config, config.platforms[user.brand]);
 
   // Shared
   let home = { displayName: 'Overview' };
-  _.defaults(home, getHomeConfig(config, user));
+  _.defaults(home, getHomeConfig(brandConfig, user));
   main.push(home);
-  main.push(config.qaSessions);
+  main.push(brandConfig.qaSessions);
 
   // Admin, mentor only
   if (/admin|mentor/.test(user.role)) {
     menu.push({
       displayName: 'Available Students',
-      host: config.lark.host,
-      url: config.lark.url + '/available-students/',
+      host: brandConfig.lark.host,
+      url: brandConfig.lark.url + '/available-students/',
     });
   }
 
   // TF-brand students only
   if (user.brand === 'thinkful') {
-    menu.push(config.refer);
+    menu.push(brandConfig.refer);
   }
 
-  menu.push(config.slack[user.brand]);
-  menu.push(config.settings);
-  menu.push(config.support[user.brand]);
-  menu.push(config.signOut);
+  menu.push(brandConfig.slack);
+  menu.push(brandConfig.settings);
+  menu.push(brandConfig.support);
+  menu.push(brandConfig.signOut);
 
   main = _.compact(main);
   menu = _.compact(menu);
