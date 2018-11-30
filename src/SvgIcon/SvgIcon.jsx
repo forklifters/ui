@@ -15,7 +15,7 @@ const NAME_TO_COMPONENT = {
 const SvgIcon = ({ className, name, ...props }) => {
   const Icon = NAME_TO_COMPONENT[name];
   return Icon ? (
-    <Icon className={cx('svg-icon', className)} {...props} />
+    <Icon {...props} className={cx('svg-icon', className)} />
   ) : null;
 };
 
