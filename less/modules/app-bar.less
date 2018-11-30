@@ -10,6 +10,10 @@
   background-color: @white;
   margin-bottom: 30px;
   border-bottom: 1px solid @gray40;
+
+  @media @tablet {
+    border-bottom-color: transparent;
+  }
 }
 
 .app-nav {
@@ -36,7 +40,6 @@
   display: none;
   @media @tablet {
     display: block;
-    padding-left: 30px;
   }
   @media @bigger {
     padding-left: 0;
@@ -45,6 +48,16 @@
 
 .app-nav-logo {
   padding-left: 12px;
+
+  @media @tablet {
+    padding-right: 40px;
+  }
+}
+
+.app-nav-left {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
 }
 
 .app-nav-right {
@@ -120,10 +133,6 @@
 .app-nav-main li {
   @media @tablet {
     display: inline-block;
-
-    + li {
-      margin-left: 15px;
-    }
   }
 }
 
@@ -137,11 +146,11 @@
   padding-right: 12px;
   padding-left: 12px;
   cursor: pointer;
-  color: @gray90;
+  color: @gray75;
 
   &.active {
     .maison-bold;
-    color: @black;
+    color: @gray90;
   }
 
   &.disabled {
@@ -153,6 +162,7 @@
   &:active,
   &:focus {
     color: @black;
+    text-decoration: none;
   }
 
   &:visited,
@@ -161,9 +171,10 @@
   }
 
   @media @tablet {
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+    padding-right: 37px;
+    padding-left: 0;
     text-align: left;
+    font-size: 13px;
   }
 
   &.app-nav-link__in-menu {
@@ -183,25 +194,16 @@
   }
 }
 
-.app-nav-link-down-arrow {
-  vertical-align: middle;
-  position: relative;
-  top: 1px;
-  padding-left: 5px;
-}
+.app-nav-arrow {
+  display: none;
+  color: @gray75;
 
-[class^='icon-'].app-nav-icon,
-.tui-icon.app-nav-icon {
-  position: relative;
-  top: 2px;
-  display: inline-block;
-  font-size: 28px;
-  line-height: 28px;
-  vertical-align: middle;
-  padding-right: 4px;
+  .tui-icon {
+    font-weight: bold;
+  }
 
-  @media @big {
-    padding-right: 6px;
+  @media @tablet {
+    display: initial;
   }
 }
 
@@ -209,6 +211,10 @@
   width: 24px;
   &:hover {
     text-decoration: none;
+  }
+
+  @media @tablet {
+    display: none;
   }
 }
 
@@ -219,22 +225,23 @@
 }
 
 .hamburger {
-  @media @mobile {
-    cursor: pointer;
-    display: block;
-    height: 18px;
-    width: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    z-index: 999;
+  cursor: pointer;
+  display: block;
+  height: 18px;
+  width: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 999;
 
-    .hamburger-stripe {
-      background-color: @black;
-      height: 2px;
-      width: 100%;
-      border-radius: 20px;
-    }
+  .hamburger-stripe {
+    background-color: @black;
+    height: 2px;
+    width: 100%;
+    border-radius: 20px;
+  }
+  @media @tablet {
+    display: none;
   }
 }
 
@@ -242,10 +249,10 @@
   vertical-align: middle;
   width: 30px;
   height: 30px;
-  margin-top: -1px;
   background-color: @white;
   border-radius: 100%;
   display: none;
+  margin-left: 8px;
 
   @media @tablet {
     display: inline-block;

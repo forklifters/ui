@@ -68,18 +68,21 @@ class AppNav extends React.Component {
           rel="main-navigation"
         >
           <div className="nav-bar-container">
-            <a className="app-nav-logo" href={linkSet.home.url}>
-              <Logo brand={user.brand} />
-            </a>
-            <ul className="app-nav-main">
-              {linkSet.main.map(link => (
-                <li key={uniqueId('link_')}>
-                  <NavLink {...link} />
-                </li>
-              ))}
-            </ul>
+            <div className="app-nav-left">
+              <a className="app-nav-logo" href={linkSet.home.url}>
+                <Logo brand={user.brand} />
+              </a>
+              <ul className="app-nav-main">
+                {linkSet.main.map(link => (
+                  <li key={uniqueId('link_')}>
+                    <NavLink {...link} />
+                  </li>
+                ))}
+              </ul>
+            </div>
             <div className="app-nav-right">
               <Notifications />
+              {/* Mobile toggle */}
               <a className="app-nav-burger" onClick={this._toggleMenu}>
                 {isMenuVisible ? (
                   <Icon className="app-nav-burger-close" name="close" />
@@ -90,6 +93,10 @@ class AppNav extends React.Component {
                     <div className="hamburger-stripe" />
                   </div>
                 )}
+              </a>
+              {/* Desktop toggle */}
+              <a className="app-nav-arrow" onClick={this._toggleMenu}>
+                <Icon name="navigatedown" />
               </a>
               <Gravatar
                 className="app-nav-gravatar"
