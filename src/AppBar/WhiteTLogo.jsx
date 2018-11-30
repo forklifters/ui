@@ -4,7 +4,7 @@ const WhiteTLogo = () => (
     xmlns="http://www.w3.org/2000/svg"
     width="28"
     height="28"
-    className="app-nav-logo"
+    className="tui-app-nav-logo"
   >
     <g fill="#fff">
       <path d="M9 20h3V8H3V3h17V0H0v11h9v9z" />

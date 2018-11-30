@@ -20,6 +20,7 @@ const getLinkSet = (config, user) => {
 
   let main = [];
   let menu = [];
+
   const brandConfig = _.assign({}, config, config.brands[user.brand]);
 
   // Shared

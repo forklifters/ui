@@ -27,17 +27,17 @@ class NotificationItem extends React.Component {
     const { time, message, votable, votable_url } = this.props;
     const timeDifference = moment.utc(time).fromNow();
     return (
-      <li className="tui-notification-item">
-        <a onClick={this._handleClick} className="tui-notification-content">
-          <time className="tui-notification-time">
+      <li className="tui-app-notification-item">
+        <a onClick={this._handleClick} className="tui-app-notification-content">
+          <time className="tui-app-notification-time">
             {_.capitalize(timeDifference)}
           </time>
-          <p className="tui-notification-message">{message}</p>
+          <p className="tui-app-notification-message">{message}</p>
           {votable && votable_url && <VotingBar url={votable_url} />}
         </a>
         <a
           onClick={this._handleDismiss}
-          className="tui-notification-item-dismiss"
+          className="tui-app-notification-item-dismiss"
         >
           <Icon name="close" />
         </a>

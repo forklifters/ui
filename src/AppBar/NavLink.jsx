@@ -9,11 +9,11 @@ const NavLink = (
 ) => {
   return (
     <a
-      className={cx('app-nav-link', className, { active })}
+      className={cx('tui-app-nav-link', className, { active })}
       href={url}
       target={external ? '_blank' : '_self'}
     >
-      {displayName && <span className="app-nav-text">{displayName}</span>}
+      {displayName && <span className="tui-app-nav-text">{displayName}</span>}
     </a>
   );
 };

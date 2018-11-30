@@ -4,9 +4,9 @@ import React from 'react';
 import Icon from '../Icon';
 
 const MobileMenuToggle = ({ isOpen, onClick }) => (
-  <a className="app-nav-burger" onClick={onClick}>
+  <a className="tui-app-nav-burger" onClick={onClick}>
     {isOpen ? (
-      <Icon className="app-nav-burger-close" name="close" />
+      <Icon className="tui-app-nav-burger-close" name="close" />
     ) : (
       <div className="hamburger">
         <div className="hamburger-stripe" />
