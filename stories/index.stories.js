@@ -18,6 +18,7 @@ import DatePicker from '../lib/DatePicker';
 import Footer from '../lib/Footer';
 import Icon from '../lib/Icon';
 import Loader from '../lib/Loader';
+import Logo from '../lib/Logo';
 import Modal from '../lib/Modal';
 import SocialShare from '../lib/SocialShare';
 import SvgIcon from '../lib/SvgIcon';
@@ -74,6 +75,10 @@ storiesOf('SvgIcon', module).add('Book', () => (
 ));
 
 storiesOf('Loader', module).add('Basic', () => <Loader />);
+
+storiesOf('Logo', module)
+  .add('Thinkful', () => <Logo brand="thinkful" />)
+  .add('Bloc', () => <Logo brand="bloc" />);
 
 storiesOf('Modal', module).add('Basic', () => (
   <Modal onClose={() => {}}>

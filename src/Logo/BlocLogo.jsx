@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { darkBlue } from '../styleguide';
+
 const BlocLogo = ({ color, size }) => (
   <svg
     width={size}
@@ -28,7 +30,7 @@ BlocLogo.propTypes = {
 };
 
 BlocLogo.defaultProps = {
-  color: '#3E2AEE',
+  color: darkBlue,
   size: 24,
 };
 

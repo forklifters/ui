@@ -12,7 +12,7 @@ Logo.propTypes = {
 };
 
 Logo.defaultProps = {
-  brand: null,
+  brand: 'thinkful',
 };
 
 module.exports = Logo;
