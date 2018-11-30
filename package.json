@@ -1,12 +1,12 @@
 {
   "name": "thinkful-ui",
-  "version": "6.0.3",
+  "version": "6.0.4",
   "description": "Shared UI resources for Thinkful.",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
     "dev": "babel src --out-dir lib --watch",
-    "prepare": "npm run build",
+    "prepare": "npm install --upgrade tfstyleguide; npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "getstorybook": "getstorybook",
     "storybook": "start-storybook -p 6006",
@@ -78,7 +78,7 @@
     "spark-md5": "0.0.5",
     "superagent": "^1.4.0",
     "superagent-no-cache": "^0.1.0",
-    "tfstyleguide": "^6.0.1"
+    "tfstyleguide": "^6.0.4"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.3.10",
