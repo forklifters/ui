@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import lessToJs from 'less-vars-to-js';
 
 import sgColorsLess from 'tfstyleguide/colors.less';
 import sgVarsLess from 'tfstyleguide/vars.less';
+import lessToJs from './lessVarsToJs';
 
 module.exports = _.assign(
   {},
