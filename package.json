@@ -16,7 +16,9 @@
     "type": "git",
     "url": "git+https://github.com/Thinkful/ui.git"
   },
-  "keywords": ["Thinkful"],
+  "keywords": [
+    "Thinkful"
+  ],
   "author": {
     "name": "Thinkful",
     "email": "engineering@thinkful.com"
@@ -59,6 +61,7 @@
     "is_js": "^0.8.0",
     "jstz": "^1.0.7",
     "less": "^2.5.1",
+    "less-vars-to-js": "^1.3.0",
     "lodash": "^3.9.3",
     "marked": "^0.3.5",
     "md5": "^2.1.0",
@@ -85,6 +88,7 @@
     "@storybook/react": "^3.3.10",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
+    "babel-plugin-inline-import": "^3.0.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
