@@ -1,0 +1,280 @@
+@import '~tfstyleguide/vars';
+
+@nav-height: 60px;
+@grid-width: 944px;
+
+.app-nav-container {
+  position: relative;
+  z-index: 10;
+  color: @gray75;
+  background-color: @white;
+  margin-bottom: 30px;
+  border-bottom: 1px solid @gray40;
+
+  @media @tablet {
+    border-bottom-color: transparent;
+  }
+}
+
+.app-nav {
+  position: relative;
+  height: @nav-height;
+  top: 0px;
+  max-width: @grid-width;
+  margin: 0 auto;
+  z-index: 15;
+}
+
+.nav-bar-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  background-color: @white;
+  z-index: 2;
+  position: relative;
+  justify-content: space-between;
+
+  @media @tablet {
+    z-index: 0;
+  }
+}
+
+.app-nav-main {
+  margin-bottom: 0;
+  display: none;
+  @media @tablet {
+    display: block;
+  }
+  @media @bigger {
+    padding-left: 0;
+  }
+}
+
+.app-nav-logo {
+  padding-left: 12px;
+
+  @media @tablet {
+    padding-right: 40px;
+  }
+}
+
+.app-nav-left {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.app-nav-right {
+  display: flex;
+  padding-right: 16px;
+  align-items: center;
+}
+
+.app-nav-list {
+  .box-shadow-heavy;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  max-width: 0;
+  padding-top: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-100%, @nav-height);
+  transition: transform 0.35s ease, opacity 0.28s ease, max-width 0.35s ease,
+    max-height 0.22s ease;
+  z-index: 0;
+
+  @media @tablet {
+    right: 16px;
+    left: auto;
+    min-width: 256px;
+    max-height: 0px;
+    transform: translate(0, @nav-height);
+    padding: 6px 0;
+  }
+
+  @media @bigger {
+    right: 0;
+  }
+}
+
+.app-nav-list-sub {
+  background-color: @gray25;
+  margin-top: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+
+  @media @tablet {
+    background-color: @white;
+    margin-top: 0;
+    padding: 0;
+  }
+}
+
+.app-nav__visible .app-nav-list {
+  transform: translate(0px, @nav-height);
+  max-width: 768px;
+  opacity: 1;
+
+  @media @tablet {
+    max-width: none;
+    max-height: 360px;
+  }
+}
+
+.app-nav-list li,
+.app-nav-main li {
+  margin: 0;
+  padding: 0;
+  max-width: none;
+  list-style: none;
+
+  &::before {
+    content: none;
+    display: none;
+  }
+}
+
+.app-nav-main li {
+  @media @tablet {
+    display: inline-block;
+  }
+}
+
+.app-nav-link {
+  .maison-regular;
+  display: block;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 32px;
+  height: 32px;
+  padding-right: 12px;
+  padding-left: 12px;
+  cursor: pointer;
+  color: @gray75;
+
+  &.active {
+    .maison-bold;
+    color: @gray90;
+  }
+
+  &.disabled {
+    color: @gray50;
+    pointer-events: none;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: @black;
+    text-decoration: none;
+  }
+
+  &:visited,
+  &:focus {
+    outline: none;
+  }
+
+  @media @tablet {
+    padding-right: 37px;
+    padding-left: 0;
+    text-align: left;
+    font-size: 13px;
+  }
+
+  &.app-nav-link__in-menu {
+    font-size: 13px;
+    color: @gray90;
+    @media @tablet {
+      .body-text;
+      color: @gray75;
+      line-height: 40px;
+      height: 40px;
+      padding-left: 16px;
+      padding-right: 16px;
+
+      &:hover {
+        .maison-bold;
+        background-color: @gray25;
+        transition: background-color 0.3s ease;
+      }
+    }
+  }
+}
+
+.nav-li__mobile-only {
+  @media @tablet {
+    display: none;
+  }
+}
+
+.app-nav-arrow {
+  display: none;
+  color: @gray75;
+
+  .tui-icon {
+    font-weight: bold;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  @media @tablet {
+    display: initial;
+  }
+}
+
+.app-nav-burger {
+  width: 24px;
+  &:hover {
+    text-decoration: none;
+  }
+
+  @media @tablet {
+    display: none;
+  }
+}
+
+.app-nav-burger-close {
+  font-size: 40px;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.hamburger {
+  cursor: pointer;
+  display: block;
+  height: 18px;
+  width: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 999;
+
+  .hamburger-stripe {
+    background-color: @black;
+    height: 2px;
+    width: 100%;
+    border-radius: 20px;
+  }
+  @media @tablet {
+    display: none;
+  }
+}
+
+.app-nav-gravatar {
+  vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  background-color: @white;
+  border-radius: 100%;
+  display: none;
+  margin-left: 8px;
+
+  @media @tablet {
+    display: inline-block;
+  }
+}
