@@ -2,8 +2,8 @@ const cx = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const TFAnalytics = require('@thinkful/tf-analytics');
-const Icon = require('../Icon');
 const NotificationItem = require('./NotificationItem');
+const SvgIcon = require('../SvgIcon');
 
 const NoNotifications = () => (
   <ul className="tui-app-notification-list">
@@ -86,7 +86,7 @@ class NotificationView extends React.Component {
       <div>
         <a className="tui-app-notification-toggle" onClick={this.toggle}>
           <span className={countClasses}>
-            <Icon name="notification" />
+            <SvgIcon name="bell" size={17} />
           </span>
         </a>
         <div className={containerClasses}>
