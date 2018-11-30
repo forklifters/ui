@@ -39,9 +39,9 @@ storiesOf('Headers', module)
   .add('h5', () => <h5>This is an h5</h5>)
   .add('h6', () => <h6>This is an h6</h6>);
 
-storiesOf('AppBar', module)
-  .add('Logged out', () => <AppBar config={env.config} />)
-  .add('Logged in', () => <AppBar config={env.config} user={env.user} />);
+storiesOf('AppBar', module).add('Logged in', () => (
+  <AppBar config={env.config} user={env.user} />
+));
 
 storiesOf('AvailabilityGrid', module)
   .add('Basic', () => (

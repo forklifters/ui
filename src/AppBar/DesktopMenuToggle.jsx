@@ -13,4 +13,4 @@ DesktopMenuToggle.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export default DesktopMenuToggle;
+module.exports = DesktopMenuToggle;

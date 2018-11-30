@@ -1,15 +1,15 @@
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from 'lodash';
 import cx from 'classnames';
 import moment from 'moment-timezone';
-import uniqueId from 'lodash/utility/uniqueId';
 
 import DesktopMenuToggle from './DesktopMenuToggle';
 import Icon from '../Icon';
 import Gravatar from '../Gravatar';
 import Logo from '../Logo';
-import MobileMenuToggle from './MenuToggle';
+import MenuList from './MenuList';
+import MobileMenuToggle from './MobileMenuToggle';
 import NavLink from './NavLink';
 import Notifications from './notifications/Notifications';
 import { getLinkSet } from './linkSet';
@@ -76,7 +76,7 @@ class AppBar extends React.Component {
               </a>
               <ul className="app-nav-main">
                 {linkSet.main.map(link => (
-                  <li key={uniqueId('link_')}>
+                  <li key={_.uniqueId('link_')}>
                     <NavLink {...link} />
                   </li>
                 ))}
@@ -97,20 +97,7 @@ class AppBar extends React.Component {
               />
             </div>
           </div>
-          <ul onMouseEnter={this._handleMouseEnter} className="app-nav-list">
-            {linkSet.main.map(link => (
-              <li className="nav-li__mobile-only" key={uniqueId('link_')}>
-                <NavLink {...link} />
-              </li>
-            ))}
-            <div className="app-nav-list-sub">
-              {linkSet.menu.map(link => (
-                <li key={uniqueId('link_')}>
-                  <NavLink className="app-nav-link__in-menu" {...link} />
-                </li>
-              ))}
-            </div>
-          </ul>
+          <MenuList linkSet={linkSet} onMouseEnter={this._handleMouseEnter} />
         </nav>
       </div>
     );
