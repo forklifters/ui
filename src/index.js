@@ -11,10 +11,12 @@ const Modal = require('./Modal');
 const NotificationView = require('./NotificationView');
 const OneClickCopy = require('./OneClickCopy');
 const SocialShare = require('./SocialShare');
+const SvgIcon = require('./SvgIcon');
 const Tag = require('./Tag');
 const TopicPicker = require('./TopicPicker');
 const TrackedLink = require('./TrackedLink');
 
+const styleguide = require('./styleguide');
 const { pathWithSlug, pathWithoutSlug } = require('./ProxyPathUtils');
 
 module.exports = {
@@ -32,7 +34,9 @@ module.exports = {
   OneClickCopy,
   pathWithSlug,
   pathWithoutSlug,
+  sgVars: styleguide,
   SocialShare,
+  SvgIcon,
   Tag,
   TopicPicker,
   TrackedLink,
