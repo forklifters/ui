@@ -11,6 +11,7 @@ const Modal = require('./Modal');
 const NotificationView = require('./NotificationView');
 const OneClickCopy = require('./OneClickCopy');
 const SocialShare = require('./SocialShare');
+const SvgIcon = require('./SvgIcon');
 const Tag = require('./Tag');
 const TopicPicker = require('./TopicPicker');
 const TrackedLink = require('./TrackedLink');
@@ -35,6 +36,7 @@ module.exports = {
   pathWithoutSlug,
   sgVars: styleguide,
   SocialShare,
+  SvgIcon,
   Tag,
   TopicPicker,
   TrackedLink,
