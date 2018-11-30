@@ -35,9 +35,9 @@
     top: 10px;
   }
 
-  .icon-notification {
+  .svg-icon {
     position: relative;
-    font-size: 28px;
+    top: 3px;
   }
 
   .tui-app-notification-toggle:hover & {
@@ -74,6 +74,7 @@
   .maison-bold;
   font-size: @font-size;
   display: flex;
+  align-items: center;
 
   z-index: 5;
   position: relative;
@@ -89,23 +90,27 @@
   }
 }
 .tui-app-notification-item-dismiss {
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
+  width: 42px;
+  height: 42px;
+  line-height: 42px;
   text-align: center;
   color: @gray75;
+  background-color: @white;
+  border-radius: 100%;
   &:hover {
-    color: @black;
+    background-color: @gray40;
     text-decoration: none;
+    transition: background-color 0.3s ease;
   }
-  .icon-close {
-    font-size: 24px;
+  .svg-icon {
+    position: relative;
+    top: 3px;
   }
 }
 .tui-app-notification-content {
   .body-text;
   color: @gray90;
-  flex-grow: 1;
+  width: 194px;
   &:hover {
     color: @black;
     text-decoration: none;

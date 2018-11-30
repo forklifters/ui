@@ -3,7 +3,7 @@ const cx = require('classnames');
 const moment = require('moment');
 const PropTypes = require('prop-types');
 const React = require('react');
-const Icon = require('../Icon');
+const SvgIcon = require('../SvgIcon');
 const VotingBar = require('./VotingBar');
 
 const NOOP = () => {};
@@ -39,7 +39,7 @@ class NotificationItem extends React.Component {
           onClick={this._handleDismiss}
           className="tui-app-notification-item-dismiss"
         >
-          <Icon name="close" />
+          <SvgIcon name="close" size={16} />
         </a>
       </li>
     );
