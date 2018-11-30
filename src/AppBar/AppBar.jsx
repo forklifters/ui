@@ -1,18 +1,20 @@
-const cx = require('classnames');
-const _ = require('lodash');
-const uniqueId = require('lodash/utility/uniqueId');
-const moment = require('moment-timezone');
-const PropTypes = require('prop-types');
-const React = require('react');
-// TUI Components
-const Icon = require('../Icon');
-const Gravatar = require('../Gravatar');
-const { getLinkSet } = require('./linkSet');
-const NavLink = require('./NavLink');
-const Notifications = require('./notifications/Notifications');
-const Logo = require('../Logo');
+import PropTypes from 'prop-types';
+import React from 'react';
+import _ from 'lodash';
+import cx from 'classnames';
+import moment from 'moment-timezone';
+import uniqueId from 'lodash/utility/uniqueId';
 
-class AppNav extends React.Component {
+import DesktopMenuToggle from './DesktopMenuToggle';
+import Icon from '../Icon';
+import Gravatar from '../Gravatar';
+import Logo from '../Logo';
+import MobileMenuToggle from './MenuToggle';
+import NavLink from './NavLink';
+import Notifications from './notifications/Notifications';
+import { getLinkSet } from './linkSet';
+
+class AppBar extends React.Component {
   constructor(props) {
     super(props);
     this._toggleMenu = this._toggleMenu.bind(this);
@@ -82,22 +84,11 @@ class AppNav extends React.Component {
             </div>
             <div className="app-nav-right">
               <Notifications />
-              {/* Mobile toggle */}
-              <a className="app-nav-burger" onClick={this._toggleMenu}>
-                {isMenuVisible ? (
-                  <Icon className="app-nav-burger-close" name="close" />
-                ) : (
-                  <div className="hamburger">
-                    <div className="hamburger-stripe" />
-                    <div className="hamburger-stripe" />
-                    <div className="hamburger-stripe" />
-                  </div>
-                )}
-              </a>
-              {/* Desktop toggle */}
-              <a className="app-nav-arrow" onClick={this._toggleMenu}>
-                <Icon name="navigatedown" />
-              </a>
+              <DesktopMenuToggle onClick={this._toggleMenu} />
+              <MobileMenuToggle
+                isOpen={isMenuVisible}
+                onClick={this._toggleMenu}
+              />
               <Gravatar
                 className="app-nav-gravatar"
                 email=""
@@ -126,13 +117,13 @@ class AppNav extends React.Component {
   }
 }
 
-AppNav.propTypes = {
+AppBar.propTypes = {
   user: PropTypes.object,
   config: PropTypes.object.isRequired,
 };
 
-AppNav.childContextTypes = {
+AppBar.childContextTypes = {
   user: PropTypes.object.isRequired,
 };
 
-module.exports = AppNav;
+module.exports = AppBar;
