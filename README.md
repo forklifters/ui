@@ -17,6 +17,7 @@ Standard bootstrap scripts (Thinkful convention).
 ## Demo
 
 ```bash
+npm run dev
 /script/server
 ```
 
