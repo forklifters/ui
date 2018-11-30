@@ -7,12 +7,10 @@ const React = require('react');
 // TUI Components
 const Icon = require('../Icon');
 const Gravatar = require('../Gravatar');
-const CourseLink = require('./CourseLink');
 const { getLinkSet } = require('./linkSet');
 const NavLink = require('./NavLink');
-const FaqLink = require('./FaqLink');
 const Notifications = require('./notifications/Notifications');
-const WhiteTLogo = require('./WhiteTLogo');
+const Logo = require('../Logo');
 
 class AppNav extends React.Component {
   constructor(props) {
@@ -55,68 +53,69 @@ class AppNav extends React.Component {
     }, 400);
   }
 
-  renderAuthed(user, config) {
-    const { linkSet } = this.state;
-
-    const navClassName = cx('app-nav', {
-      'app-nav__visible': this.state.isMenuVisible,
-    });
-    const navLinks = linkSet.main.filter(link => !link.search);
+  render() {
+    const { user, config } = this.props;
+    const { isMenuVisible, linkSet } = this.state;
 
     return (
       <div className="app-nav-container">
         <nav
           onMouseLeave={this._handleMouseLeave}
-          className={navClassName}
+          className={cx('app-nav', {
+            'app-nav__visible': isMenuVisible,
+          })}
           key="main-navigation"
           rel="main-navigation"
         >
-          <a href={linkSet.home.url}>
-            <div>
-              <WhiteTLogo />
+          <div className="nav-bar-container">
+            <a className="app-nav-logo" href={linkSet.home.url}>
+              <Logo brand={user.brand} />
+            </a>
+            <ul className="app-nav-main">
+              {linkSet.main.map(link => (
+                <li key={uniqueId('link_')}>
+                  <NavLink {...link} />
+                </li>
+              ))}
+            </ul>
+            <div className="app-nav-right">
+              <Notifications />
+              <a className="app-nav-burger" onClick={this._toggleMenu}>
+                {isMenuVisible ? (
+                  <Icon className="app-nav-burger-close" name="close" />
+                ) : (
+                  <div className="hamburger">
+                    <div className="hamburger-stripe" />
+                    <div className="hamburger-stripe" />
+                    <div className="hamburger-stripe" />
+                  </div>
+                )}
+              </a>
+              <Gravatar
+                className="app-nav-gravatar"
+                email=""
+                src={`${config.api.url}/api/hupers/me/avatar`}
+                size={120}
+              />
             </div>
-          </a>
-          <ul className="app-nav-main">
-            {navLinks.map(link => (
-              <li key={uniqueId('link_')}>
-                <NavLink {...link} />
-              </li>
-            ))}
-          </ul>
+          </div>
           <ul onMouseEnter={this._handleMouseEnter} className="app-nav-list">
-            {navLinks.map(link => (
+            {linkSet.main.map(link => (
               <li key={uniqueId('link_')}>
                 <NavLink className="app-nav-link__mobile-only" {...link} />
               </li>
             ))}
-            {linkSet.menu.map(link => (
-              <li key={uniqueId('link_')}>
-                <NavLink className="app-nav-link__in-menu" {...link} />
-              </li>
-            ))}
+            <div className="app-nav-list-sub">
+              {linkSet.menu.map(link => (
+                <li key={uniqueId('link_')}>
+                  <NavLink className="app-nav-link__in-menu" {...link} />
+                </li>
+              ))}
+            </div>
           </ul>
-          <Notifications />
-          <FaqLink />
-          <a
-            className="app-nav-link app-nav-link__toggle"
-            onClick={this._toggleMenu}
-          >
-            <span alt="Menu" className="app-nav-burger" />
-            <Gravatar
-              className="app-nav-gravatar"
-              email=""
-              src={`${config.api.url}/api/hupers/me/avatar`}
-              size={120}
-            />
-          </a>
         </nav>
       </div>
     );
-  }
-
-  render() {
-    const { user, config } = this.props;
-    return this.renderAuthed(user, config);
   }
 }
 
