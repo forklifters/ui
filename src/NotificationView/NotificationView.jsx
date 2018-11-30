@@ -4,6 +4,7 @@ const React = require('react');
 const TFAnalytics = require('@thinkful/tf-analytics');
 const Icon = require('../Icon');
 const NotificationItem = require('./NotificationItem');
+
 const NoNotifications = () => (
   <ul className="tui-notification-list">
     <li className="tui-notification-item">
@@ -15,6 +16,7 @@ const NoNotifications = () => (
     </li>
   </ul>
 );
+
 const NotificationItemList = ({
   notifications,
   onItemClick,
@@ -31,11 +33,13 @@ const NotificationItemList = ({
     ))}
   </ul>
 );
+
 NotificationItemList.propTypes = {
   notifications: PropTypes.arrayOf(PropTypes.object),
   onItemClick: PropTypes.func,
   onItemDismiss: PropTypes.func,
 };
+
 class NotificationView extends React.Component {
   constructor(props) {
     super(props);
@@ -74,7 +78,7 @@ class NotificationView extends React.Component {
       'tui-notification-list-container__visible': this.state.visible,
     });
     const countClasses = cx('tui-notification-count', {
-      'tui-notification-count__clear': unseenCount === 0,
+      'tui-notification-count__unread': unseenCount > 0,
     });
     const unreadNotifications = notifications.filter(notif => !notif.is_read);
     const hasNotifications = !_.isEmpty(unreadNotifications);
@@ -82,7 +86,7 @@ class NotificationView extends React.Component {
       <div className="tui-notification-view">
         <a className="tui-notification-toggle" onClick={this.toggle}>
           <span className={countClasses}>
-            {unseenCount || <Icon name="notification" />}
+            <Icon name="notification" />
           </span>
         </a>
         <div className={containerClasses}>
@@ -100,6 +104,7 @@ class NotificationView extends React.Component {
     );
   }
 }
+
 NotificationView.propTypes = {
   handleItemClick: PropTypes.func,
   handleItemDismiss: PropTypes.func,
@@ -107,4 +112,5 @@ NotificationView.propTypes = {
   notifications: PropTypes.arrayOf(PropTypes.object),
   unseenCount: PropTypes.number,
 };
+
 module.exports = NotificationView;

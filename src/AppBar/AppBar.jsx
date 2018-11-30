@@ -83,7 +83,7 @@ class AppBar extends React.Component {
               </ul>
             </div>
             <div className="app-nav-right">
-              <Notifications />
+              {user.access.indexOf('design-system') === -1 && <Notifications />}
               <DesktopMenuToggle onClick={this._toggleMenu} />
               <MobileMenuToggle
                 isOpen={isMenuVisible}
