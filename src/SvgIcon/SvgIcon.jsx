@@ -6,17 +6,17 @@ import Bell from './Icons/Bell';
 import Book from './Icons/Book';
 import Close from './Icons/Close';
 
+const NAME_TO_COMPONENT = {
+  bell: Bell,
+  book: Book,
+  close: Close,
+};
+
 const SvgIcon = ({ className, name, ...props }) => {
-  switch (name) {
-    case 'bell':
-      return <Bell {...props} className={cx('svg-icon', className)} />;
-    case 'book':
-      return <Book {...props} className={cx('svg-icon', className)} />;
-    case 'close':
-      return <Close {...props} className={cx('svg-icon', className)} />;
-    default:
-      return null;
-  }
+  const Icon = NAME_TO_COMPONENT[name];
+  return Icon ? (
+    <Icon className={cx('svg-icon', className)} {...props} />
+  ) : null;
 };
 
 SvgIcon.propTypes = {
