@@ -22,8 +22,10 @@ const MenuList = ({ linkSet, onMouseEnter }) => (
 );
 
 MenuList.propTypes = {
-  linkSet: PropTypes.shape({ main: PropTypes.object, menu: PropTypes.object })
-    .isRequired,
+  linkSet: PropTypes.shape({
+    main: PropTypes.arrayOf(PropTypes.object),
+    menu: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
   onMouseEnter: PropTypes.func.isRequired,
 };
 
