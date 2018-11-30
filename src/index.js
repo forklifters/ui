@@ -15,6 +15,7 @@ const Tag = require('./Tag');
 const TopicPicker = require('./TopicPicker');
 const TrackedLink = require('./TrackedLink');
 
+const styleguide = require('./styleguide');
 const { pathWithSlug, pathWithoutSlug } = require('./ProxyPathUtils');
 
 module.exports = {
@@ -32,6 +33,7 @@ module.exports = {
   OneClickCopy,
   pathWithSlug,
   pathWithoutSlug,
+  sgVars: styleguide,
   SocialShare,
   Tag,
   TopicPicker,

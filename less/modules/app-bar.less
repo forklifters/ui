@@ -33,6 +33,10 @@
   z-index: 2;
   position: relative;
   justify-content: space-between;
+
+  @media @tablet {
+    z-index: 0;
+  }
 }
 
 .app-nav-main {
@@ -83,15 +87,12 @@
   z-index: 0;
 
   @media @tablet {
-    right: 30px;
+    right: 16px;
     left: auto;
-    min-width: 176px;
+    min-width: 256px;
     max-height: 0px;
-    border: 1px solid @gray25;
-    border-top: 0;
-    box-shadow: 0 1px 2px @gray25;
-
     transform: translate(0, @nav-height);
+    padding: 6px 0;
   }
 
   @media @bigger {
@@ -104,6 +105,12 @@
   margin-top: 16px;
   padding-top: 8px;
   padding-bottom: 8px;
+
+  @media @tablet {
+    background-color: @white;
+    margin-top: 0;
+    padding: 0;
+  }
 }
 
 .app-nav__visible .app-nav-list {
@@ -181,16 +188,25 @@
     font-size: 13px;
     color: @gray90;
     @media @tablet {
-      color: @blue;
-      text-align: center;
-      transition: color 0.19s ease, background-color 0.19s ease;
+      .body-text;
+      color: @gray75;
+      line-height: 40px;
+      height: 40px;
+      padding-left: 16px;
+      padding-right: 16px;
+
+      &:hover {
+        .maison-bold;
+        background-color: @gray25;
+        transition: background-color 0.3s ease;
+      }
     }
   }
+}
 
-  &.app-nav-link__mobile-only {
-    @media @tablet {
-      display: none;
-    }
+.nav-li__mobile-only {
+  @media @tablet {
+    display: none;
   }
 }
 
@@ -200,6 +216,10 @@
 
   .tui-icon {
     font-weight: bold;
+  }
+
+  &:hover {
+    text-decoration: none;
   }
 
   @media @tablet {
