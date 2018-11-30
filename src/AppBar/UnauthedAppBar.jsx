@@ -28,7 +28,10 @@ const UnauthedAppBar = ({ config }) => {
 };
 
 UnauthedAppBar.propTypes = {
-  config: PropTypes.object.isRequired,
+  config: PropTypes.shape({
+    accounts: PropTypes.object,
+    www: PropTypes.object,
+  }).isRequired,
 };
 
 export default UnauthedAppBar;
