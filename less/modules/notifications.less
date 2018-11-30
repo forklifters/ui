@@ -10,6 +10,7 @@
   width: 42px;
   height: 42px;
   border-radius: 100%;
+  position: relative;
 
   &:hover {
     background-color: @gray40;
@@ -19,34 +20,36 @@
 
 .tui-notification-count {
   display: inline-block;
-  // color: @gray75;
   line-height: 42px;
   border-radius: 100%;
   text-align: center;
 
+  &.tui-notification-count__unread::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 100%;
+    background-color: @purple;
+    position: absolute;
+    right: 11px;
+    top: 10px;
+  }
+
   .icon-notification {
     position: relative;
     font-size: 28px;
-    top: 1px;
   }
+
   .tui-notification-toggle:hover & {
-    // background-color: @yellow75;
     color: @black;
   }
-  &.tui-notification-count__clear {
-    background-color: transparent;
-    // color: @blue75;
-    .tui-notification-toggle:hover & {
-      background-color: transparent;
-      // color: @blue75;
-    }
-  }
 }
+
 .tui-notification-list-container {
   position: absolute;
   z-index: 5;
   top: 100%;
-  padding-top: 0;
+  padding: 0 186px 15px 15px;
   max-height: 0;
   overflow: scroll;
   opacity: 0;
@@ -57,85 +60,63 @@
     opacity: 1;
     padding-top: 15px;
     max-height: (60px * 5 + 16px);
+    height: auto;
     transform: translate(-50%, 0);
   }
 }
 .tui-notification-list {
   position: relative;
   margin-bottom: 0;
-  // border: 1px solid @gray25;
-  &:before {
-    content: '';
-    position: absolute;
-    bottom: 100%;
-    border-right: 7px solid transparent;
-    border-left: 7px solid transparent;
-    // border-bottom: 11px solid @gray25;
-    left: 56.4%;
-    transform: translate(-50%, 0);
-  }
-  &:after {
-    content: '';
-    position: absolute;
-    bottom: 100%;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 10px solid @white;
-    left: 56.4%;
-    transform: translate(-50%, 0);
-  }
 }
 .tui-notification-item {
+  .box-shadow-heavy;
+  .maison-bold;
+  font-size: @font-size;
+  display: flex;
+
   z-index: 5;
   position: relative;
   list-style: none;
   margin-left: 0;
   margin-bottom: 0;
-  padding: 9px 15px 10px;
-  width: 330px;
+  padding: 9px 16px 10px;
+  width: 258px;
   max-width: 100%;
   background-color: @white;
   + .tui-notification-item {
-    // border-top: 1px solid @gray25;
-  }
-  &:hover {
-    // background: @gray5;
+    margin-top: 8px;
   }
 }
 .tui-notification-item-dismiss {
-  position: absolute;
-  top: 0;
-  right: 0;
   width: 30px;
   height: 30px;
   line-height: 30px;
   text-align: center;
-  // color: @gray50;
+  color: @gray75;
   &:hover {
-    // color: @gray75;
+    color: @black;
+    text-decoration: none;
   }
   .icon-close {
     font-size: 24px;
   }
 }
 .tui-notification-content {
-  display: block;
-  color: @black;
+  .body-text;
+  color: @gray90;
+  flex-grow: 1;
   &:hover {
     color: @black;
+    text-decoration: none;
   }
 }
 .tui-notification-time {
   display: block;
-  font-size: 12px;
-  line-height: 20px;
-  // color: @gray50;
-  text-transform: uppercase;
+  color: @gray50;
 }
 .tui-notification-message {
+  .maison-bold;
   margin-bottom: 0;
-  line-height: 20px;
-  font-size: 14.5px;
 }
 .tui-notification-voting-bar {
   direction: rtl;
@@ -144,12 +125,12 @@
 }
 .tui-voting-star {
   &:hover g {
-    // fill: @blue;
+    fill: @blue;
   }
   + .tui-voting-star {
     padding-right: 5px;
   }
 }
 .tui-voting-star:hover ~ .tui-voting-star g {
-  // fill: @blue;
+  fill: @blue;
 }
