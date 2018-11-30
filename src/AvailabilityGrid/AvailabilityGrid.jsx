@@ -170,6 +170,8 @@ class AvailabilityGrid extends React.Component {
     this.handleSlot = this.handleSlot.bind(this);
     this.handleSlotSelected = this.handleSlotSelected.bind(this);
     this.handleSlotUnselected = this.handleSlotUnselected.bind(this);
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onMouseUp = this.onMouseUp.bind(this);
     this.shouldRenderMobile = this.shouldRenderMobile.bind(this);
 
     this.state = this.getInitialState();
