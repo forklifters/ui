@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
-import sgVars from '../../styleguide';
+import { darkBlue } from '../../styleguide';
 
 const WIDTH_MULTIPLIER = 17 / 22;
 
@@ -28,7 +28,7 @@ Book.propTypes = {
 };
 
 Book.defaultProps = {
-  color: sgVars.darkBlue,
+  color: darkBlue,
 };
 
-module.exports = Book;
+export default Book;
