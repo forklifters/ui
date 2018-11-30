@@ -12,6 +12,7 @@ import MenuList from './MenuList';
 import MobileMenuToggle from './MobileMenuToggle';
 import NavLink from './NavLink';
 import Notifications from './notifications/Notifications';
+import UnauthedAppBar from './UnauthedAppBar';
 import { getLinkSet } from './linkSet';
 
 class AppBar extends React.Component {
@@ -23,7 +24,7 @@ class AppBar extends React.Component {
 
     this.state = {
       isMenuVisible: false,
-      linkSet: getLinkSet(props.config, props.user),
+      linkSet: props.user ? getLinkSet(props.config, props.user) : null,
     };
   }
 
@@ -59,22 +60,26 @@ class AppBar extends React.Component {
     const { user, config } = this.props;
     const { isMenuVisible, linkSet } = this.state;
 
+    if (!user) {
+      return <UnauthedAppBar config={config} />;
+    }
+
     return (
-      <div className="app-nav-container">
+      <div className="tui-app-nav-container">
         <nav
           onMouseLeave={this._handleMouseLeave}
-          className={cx('app-nav', {
-            'app-nav__visible': isMenuVisible,
+          className={cx('tui-app-nav', {
+            'tui-app-nav__visible': isMenuVisible,
           })}
           key="main-navigation"
           rel="main-navigation"
         >
           <div className="nav-bar-container">
-            <div className="app-nav-left">
-              <a className="app-nav-logo" href={linkSet.home.url}>
+            <div className="tui-app-nav-left">
+              <a className="tui-app-nav-logo" href={linkSet.home.url}>
                 <Logo brand={user.brand} />
               </a>
-              <ul className="app-nav-main">
+              <ul className="tui-app-nav-main">
                 {linkSet.main.map(link => (
                   <li key={_.uniqueId('link_')}>
                     <NavLink {...link} />
@@ -82,7 +87,7 @@ class AppBar extends React.Component {
                 ))}
               </ul>
             </div>
-            <div className="app-nav-right">
+            <div className="tui-app-nav-right">
               {user.access.indexOf('design-system') === -1 && <Notifications />}
               <DesktopMenuToggle onClick={this._toggleMenu} />
               <MobileMenuToggle
@@ -90,7 +95,7 @@ class AppBar extends React.Component {
                 onClick={this._toggleMenu}
               />
               <Gravatar
-                className="app-nav-gravatar"
+                className="tui-app-nav-gravatar"
                 email=""
                 src={`${config.api.url}/api/hupers/me/avatar`}
                 size={120}

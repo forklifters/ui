@@ -20,7 +20,7 @@ VotingStar.propTypes = {
   href: PropTypes.string.isRequired,
 };
 const VotingBar = ({ url }) => (
-  <div className="tui-notification-voting-bar">
+  <div className="tui-app-notification-voting-bar">
     {starArray.map(num => (
       <VotingStar href={url + num.toString()} />
     ))}

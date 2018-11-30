@@ -3,7 +3,7 @@
 @nav-height: 60px;
 @grid-width: 944px;
 
-.app-nav-container {
+.tui-app-nav-container {
   position: relative;
   z-index: 10;
   color: @gray75;
@@ -16,7 +16,7 @@
   }
 }
 
-.app-nav {
+.tui-app-nav {
   position: relative;
   height: @nav-height;
   top: 0px;
@@ -39,7 +39,7 @@
   }
 }
 
-.app-nav-main {
+.tui-app-nav-main {
   margin-bottom: 0;
   display: none;
   @media @tablet {
@@ -50,7 +50,8 @@
   }
 }
 
-.app-nav-logo {
+.tui-app-nav-logo {
+  display: flex;
   padding-left: 12px;
 
   @media @tablet {
@@ -58,21 +59,22 @@
   }
 }
 
-.app-nav-left {
+.tui-app-nav-left {
   flex-grow: 1;
   display: flex;
   align-items: center;
 }
 
-.app-nav-right {
+.tui-app-nav-right {
   display: flex;
   padding-right: 16px;
   align-items: center;
 }
 
-.app-nav-list {
+.tui-app-nav-list {
   .box-shadow-heavy;
   position: absolute;
+  background-color: @white;
   top: 0;
   right: 0;
   left: 0;
@@ -100,7 +102,7 @@
   }
 }
 
-.app-nav-list-sub {
+.tui-app-nav-list-sub {
   background-color: @gray25;
   margin-top: 16px;
   padding-top: 8px;
@@ -113,7 +115,7 @@
   }
 }
 
-.app-nav__visible .app-nav-list {
+.tui-app-nav__visible .tui-app-nav-list {
   transform: translate(0px, @nav-height);
   max-width: 768px;
   opacity: 1;
@@ -124,8 +126,8 @@
   }
 }
 
-.app-nav-list li,
-.app-nav-main li {
+.tui-app-nav-list li,
+.tui-app-nav-main li {
   margin: 0;
   padding: 0;
   max-width: none;
@@ -137,13 +139,13 @@
   }
 }
 
-.app-nav-main li {
+.tui-app-nav-main li {
   @media @tablet {
     display: inline-block;
   }
 }
 
-.app-nav-link {
+.tui-app-nav-link {
   .maison-regular;
   display: block;
   text-decoration: none;
@@ -184,7 +186,7 @@
     font-size: 13px;
   }
 
-  &.app-nav-link__in-menu {
+  &.tui-app-nav-link__in-menu {
     font-size: 13px;
     color: @gray90;
     @media @tablet {
@@ -210,7 +212,7 @@
   }
 }
 
-.app-nav-arrow {
+.tui-app-nav-arrow {
   display: none;
   color: @gray75;
 
@@ -227,7 +229,7 @@
   }
 }
 
-.app-nav-burger {
+.tui-app-nav-burger {
   width: 24px;
   &:hover {
     text-decoration: none;
@@ -238,7 +240,7 @@
   }
 }
 
-.app-nav-burger-close {
+.tui-app-nav-burger-close {
   font-size: 40px;
   display: inline-block;
   margin-top: 10px;
@@ -265,7 +267,7 @@
   }
 }
 
-.app-nav-gravatar {
+.tui-app-nav-gravatar {
   vertical-align: middle;
   width: 30px;
   height: 30px;

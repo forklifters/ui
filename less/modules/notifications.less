@@ -1,6 +1,6 @@
 @import '~tfstyleguide/vars';
 
-.tui-notification-toggle {
+.tui-app-notification-toggle {
   z-index: 1;
   display: inline-block;
   margin-right: 26px;
@@ -18,13 +18,13 @@
   }
 }
 
-.tui-notification-count {
+.tui-app-notification-count {
   display: inline-block;
   line-height: 42px;
   border-radius: 100%;
   text-align: center;
 
-  &.tui-notification-count__unread::after {
+  &.tui-app-notification-count__unread::after {
     content: '';
     width: 6px;
     height: 6px;
@@ -40,12 +40,12 @@
     font-size: 28px;
   }
 
-  .tui-notification-toggle:hover & {
+  .tui-app-notification-toggle:hover & {
     color: @black;
   }
 }
 
-.tui-notification-list-container {
+.tui-app-notification-list-container {
   position: absolute;
   z-index: 5;
   top: 100%;
@@ -56,7 +56,7 @@
   transform: translate(-50%, -8px);
   transition: padding-top 0.22s ease, transform 0.22s ease, opacity 0.22s ease,
     max-height 0.15s ease;
-  &.tui-notification-list-container__visible {
+  &.tui-app-notification-list-container__visible {
     opacity: 1;
     padding-top: 15px;
     margin-top: -15px;
@@ -65,11 +65,11 @@
     transform: translate(-50%, 0);
   }
 }
-.tui-notification-list {
+.tui-app-notification-list {
   position: relative;
   margin-bottom: 0;
 }
-.tui-notification-item {
+.tui-app-notification-item {
   .box-shadow-heavy;
   .maison-bold;
   font-size: @font-size;
@@ -84,11 +84,11 @@
   width: 258px;
   max-width: 100%;
   background-color: @white;
-  + .tui-notification-item {
+  + .tui-app-notification-item {
     margin-top: 8px;
   }
 }
-.tui-notification-item-dismiss {
+.tui-app-notification-item-dismiss {
   width: 30px;
   height: 30px;
   line-height: 30px;
@@ -102,7 +102,7 @@
     font-size: 24px;
   }
 }
-.tui-notification-content {
+.tui-app-notification-content {
   .body-text;
   color: @gray90;
   flex-grow: 1;
@@ -111,15 +111,15 @@
     text-decoration: none;
   }
 }
-.tui-notification-time {
+.tui-app-notification-time {
   display: block;
   color: @gray50;
 }
-.tui-notification-message {
+.tui-app-notification-message {
   .maison-bold;
   margin-bottom: 0;
 }
-.tui-notification-voting-bar {
+.tui-app-notification-voting-bar {
   direction: rtl;
   padding-top: 10px;
   text-align: center;

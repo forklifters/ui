@@ -6,10 +6,10 @@ const Icon = require('../Icon');
 const NotificationItem = require('./NotificationItem');
 
 const NoNotifications = () => (
-  <ul className="tui-notification-list">
-    <li className="tui-notification-item">
-      <div className="tui-notification-content">
-        <p className="tui-notification-message">
+  <ul className="tui-app-notification-list">
+    <li className="tui-app-notification-item">
+      <div className="tui-app-notification-content">
+        <p className="tui-app-notification-message">
           No new notifications. When you receive any, they'll show up here.
         </p>
       </div>
@@ -22,7 +22,7 @@ const NotificationItemList = ({
   onItemClick,
   onItemDismiss,
 }) => (
-  <ul className="tui-notification-list">
+  <ul className="tui-app-notification-list">
     {notifications.map((notification, idx) => (
       <NotificationItem
         key={idx}
@@ -74,17 +74,17 @@ class NotificationView extends React.Component {
       notifications,
       unseenCount,
     } = this.props;
-    const containerClasses = cx('tui-notification-list-container', {
-      'tui-notification-list-container__visible': this.state.visible,
+    const containerClasses = cx('tui-app-notification-list-container', {
+      'tui-app-notification-list-container__visible': this.state.visible,
     });
-    const countClasses = cx('tui-notification-count', {
-      'tui-notification-count__unread': unseenCount > 0,
+    const countClasses = cx('tui-app-notification-count', {
+      'tui-app-notification-count__unread': unseenCount > 0,
     });
     const unreadNotifications = notifications.filter(notif => !notif.is_read);
     const hasNotifications = !_.isEmpty(unreadNotifications);
     return (
-      <div className="tui-notification-view">
-        <a className="tui-notification-toggle" onClick={this.toggle}>
+      <div>
+        <a className="tui-app-notification-toggle" onClick={this.toggle}>
           <span className={countClasses}>
             <Icon name="notification" />
           </span>
