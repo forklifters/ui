@@ -10,18 +10,19 @@ import { Welcome } from '@storybook/react/demo';
 import 'tfstyleguide/core.less';
 import '../less/main.less';
 
-import AppBar from '../src/AppBar';
-import AvailabilityGrid from '../src/AvailabilityGrid';
-import Avatar from '../src/Avatar';
-import AvatarUploader from '../src/AvatarUploader';
-import DatePicker from '../src/DatePicker';
-import Footer from '../src/Footer';
-import Icon from '../src/Icon';
-import Loader from '../src/Loader';
-import Modal from '../src/Modal';
-import SocialShare from '../src/SocialShare';
-import Tag from '../src/Tag';
-import TopicPicker from '../src/TopicPicker';
+import AppBar from '../lib/AppBar';
+import AvailabilityGrid from '../lib/AvailabilityGrid';
+import Avatar from '../lib/Avatar';
+import AvatarUploader from '../lib/AvatarUploader';
+import DatePicker from '../lib/DatePicker';
+import Footer from '../lib/Footer';
+import Icon from '../lib/Icon';
+import Loader from '../lib/Loader';
+import Modal from '../lib/Modal';
+import SocialShare from '../lib/SocialShare';
+import SvgIcon from '../lib/SvgIcon';
+import Tag from '../lib/Tag';
+import TopicPicker from '../lib/TopicPicker';
 
 // This is required as storybook is inside an iframe
 import env from './env';
@@ -66,6 +67,10 @@ storiesOf('Footer', module).add('Basic', () => (
 
 storiesOf('Icon', module).add('Navigate right', () => (
   <Icon name="navigateright" />
+));
+
+storiesOf('SvgIcon', module).add('Book', () => (
+  <SvgIcon size={60} name="book" />
 ));
 
 storiesOf('Loader', module).add('Basic', () => <Loader />);

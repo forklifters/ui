@@ -1,18 +1,20 @@
-const cx = require('classnames');
-const _ = require('lodash');
-const uniqueId = require('lodash/utility/uniqueId');
-const moment = require('moment-timezone');
-const PropTypes = require('prop-types');
-const React = require('react');
-// TUI Components
-const Icon = require('../Icon');
-const Gravatar = require('../Gravatar');
-const { getLinkSet } = require('./linkSet');
-const NavLink = require('./NavLink');
-const Notifications = require('./notifications/Notifications');
-const Logo = require('../Logo');
+import PropTypes from 'prop-types';
+import React from 'react';
+import _ from 'lodash';
+import cx from 'classnames';
+import moment from 'moment-timezone';
+import uniqueId from 'lodash/utility/uniqueId';
 
-class AppNav extends React.Component {
+import DesktopMenuToggle from './DesktopMenuToggle';
+import Icon from '../Icon';
+import Gravatar from '../Gravatar';
+import Logo from '../Logo';
+import MobileMenuToggle from './MenuToggle';
+import NavLink from './NavLink';
+import Notifications from './notifications/Notifications';
+import { getLinkSet } from './linkSet';
+
+class AppBar extends React.Component {
   constructor(props) {
     super(props);
     this._toggleMenu = this._toggleMenu.bind(this);
@@ -68,29 +70,25 @@ class AppNav extends React.Component {
           rel="main-navigation"
         >
           <div className="nav-bar-container">
-            <a className="app-nav-logo" href={linkSet.home.url}>
-              <Logo brand={user.brand} />
-            </a>
-            <ul className="app-nav-main">
-              {linkSet.main.map(link => (
-                <li key={uniqueId('link_')}>
-                  <NavLink {...link} />
-                </li>
-              ))}
-            </ul>
+            <div className="app-nav-left">
+              <a className="app-nav-logo" href={linkSet.home.url}>
+                <Logo brand={user.brand} />
+              </a>
+              <ul className="app-nav-main">
+                {linkSet.main.map(link => (
+                  <li key={uniqueId('link_')}>
+                    <NavLink {...link} />
+                  </li>
+                ))}
+              </ul>
+            </div>
             <div className="app-nav-right">
               <Notifications />
-              <a className="app-nav-burger" onClick={this._toggleMenu}>
-                {isMenuVisible ? (
-                  <Icon className="app-nav-burger-close" name="close" />
-                ) : (
-                  <div className="hamburger">
-                    <div className="hamburger-stripe" />
-                    <div className="hamburger-stripe" />
-                    <div className="hamburger-stripe" />
-                  </div>
-                )}
-              </a>
+              <DesktopMenuToggle onClick={this._toggleMenu} />
+              <MobileMenuToggle
+                isOpen={isMenuVisible}
+                onClick={this._toggleMenu}
+              />
               <Gravatar
                 className="app-nav-gravatar"
                 email=""
@@ -101,8 +99,8 @@ class AppNav extends React.Component {
           </div>
           <ul onMouseEnter={this._handleMouseEnter} className="app-nav-list">
             {linkSet.main.map(link => (
-              <li key={uniqueId('link_')}>
-                <NavLink className="app-nav-link__mobile-only" {...link} />
+              <li className="nav-li__mobile-only" key={uniqueId('link_')}>
+                <NavLink {...link} />
               </li>
             ))}
             <div className="app-nav-list-sub">
@@ -119,13 +117,13 @@ class AppNav extends React.Component {
   }
 }
 
-AppNav.propTypes = {
+AppBar.propTypes = {
   user: PropTypes.object,
   config: PropTypes.object.isRequired,
 };
 
-AppNav.childContextTypes = {
+AppBar.childContextTypes = {
   user: PropTypes.object.isRequired,
 };
 
-module.exports = AppNav;
+module.exports = AppBar;

@@ -10,6 +10,10 @@
   background-color: @white;
   margin-bottom: 30px;
   border-bottom: 1px solid @gray40;
+
+  @media @tablet {
+    border-bottom-color: transparent;
+  }
 }
 
 .app-nav {
@@ -29,6 +33,10 @@
   z-index: 2;
   position: relative;
   justify-content: space-between;
+
+  @media @tablet {
+    z-index: 0;
+  }
 }
 
 .app-nav-main {
@@ -36,7 +44,6 @@
   display: none;
   @media @tablet {
     display: block;
-    padding-left: 30px;
   }
   @media @bigger {
     padding-left: 0;
@@ -45,6 +52,16 @@
 
 .app-nav-logo {
   padding-left: 12px;
+
+  @media @tablet {
+    padding-right: 40px;
+  }
+}
+
+.app-nav-left {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
 }
 
 .app-nav-right {
@@ -70,15 +87,12 @@
   z-index: 0;
 
   @media @tablet {
-    right: 30px;
+    right: 16px;
     left: auto;
-    min-width: 176px;
+    min-width: 256px;
     max-height: 0px;
-    border: 1px solid @gray25;
-    border-top: 0;
-    box-shadow: 0 1px 2px @gray25;
-
     transform: translate(0, @nav-height);
+    padding: 6px 0;
   }
 
   @media @bigger {
@@ -91,6 +105,12 @@
   margin-top: 16px;
   padding-top: 8px;
   padding-bottom: 8px;
+
+  @media @tablet {
+    background-color: @white;
+    margin-top: 0;
+    padding: 0;
+  }
 }
 
 .app-nav__visible .app-nav-list {
@@ -120,10 +140,6 @@
 .app-nav-main li {
   @media @tablet {
     display: inline-block;
-
-    + li {
-      margin-left: 15px;
-    }
   }
 }
 
@@ -137,11 +153,11 @@
   padding-right: 12px;
   padding-left: 12px;
   cursor: pointer;
-  color: @gray90;
+  color: @gray75;
 
   &.active {
     .maison-bold;
-    color: @black;
+    color: @gray90;
   }
 
   &.disabled {
@@ -153,6 +169,7 @@
   &:active,
   &:focus {
     color: @black;
+    text-decoration: none;
   }
 
   &:visited,
@@ -161,47 +178,52 @@
   }
 
   @media @tablet {
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+    padding-right: 37px;
+    padding-left: 0;
     text-align: left;
+    font-size: 13px;
   }
 
   &.app-nav-link__in-menu {
     font-size: 13px;
     color: @gray90;
     @media @tablet {
-      color: @blue;
-      text-align: center;
-      transition: color 0.19s ease, background-color 0.19s ease;
-    }
-  }
+      .body-text;
+      color: @gray75;
+      line-height: 40px;
+      height: 40px;
+      padding-left: 16px;
+      padding-right: 16px;
 
-  &.app-nav-link__mobile-only {
-    @media @tablet {
-      display: none;
+      &:hover {
+        .maison-bold;
+        background-color: @gray25;
+        transition: background-color 0.3s ease;
+      }
     }
   }
 }
 
-.app-nav-link-down-arrow {
-  vertical-align: middle;
-  position: relative;
-  top: 1px;
-  padding-left: 5px;
+.nav-li__mobile-only {
+  @media @tablet {
+    display: none;
+  }
 }
 
-[class^='icon-'].app-nav-icon,
-.tui-icon.app-nav-icon {
-  position: relative;
-  top: 2px;
-  display: inline-block;
-  font-size: 28px;
-  line-height: 28px;
-  vertical-align: middle;
-  padding-right: 4px;
+.app-nav-arrow {
+  display: none;
+  color: @gray75;
 
-  @media @big {
-    padding-right: 6px;
+  .tui-icon {
+    font-weight: bold;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  @media @tablet {
+    display: initial;
   }
 }
 
@@ -209,6 +231,10 @@
   width: 24px;
   &:hover {
     text-decoration: none;
+  }
+
+  @media @tablet {
+    display: none;
   }
 }
 
@@ -219,22 +245,23 @@
 }
 
 .hamburger {
-  @media @mobile {
-    cursor: pointer;
-    display: block;
-    height: 18px;
-    width: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    z-index: 999;
+  cursor: pointer;
+  display: block;
+  height: 18px;
+  width: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 999;
 
-    .hamburger-stripe {
-      background-color: @black;
-      height: 2px;
-      width: 100%;
-      border-radius: 20px;
-    }
+  .hamburger-stripe {
+    background-color: @black;
+    height: 2px;
+    width: 100%;
+    border-radius: 20px;
+  }
+  @media @tablet {
+    display: none;
   }
 }
 
@@ -242,10 +269,10 @@
   vertical-align: middle;
   width: 30px;
   height: 30px;
-  margin-top: -1px;
   background-color: @white;
   border-radius: 100%;
   display: none;
+  margin-left: 8px;
 
   @media @tablet {
     display: inline-block;

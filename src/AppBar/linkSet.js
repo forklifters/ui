@@ -20,7 +20,7 @@ const getLinkSet = (config, user) => {
 
   let main = [];
   let menu = [];
-  const brandConfig = _.assign({}, config, config.platforms[user.brand]);
+  const brandConfig = _.assign({}, config, config.brands[user.brand]);
 
   // Shared
   let home = { displayName: 'Overview' };

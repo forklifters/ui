@@ -1,6 +1,6 @@
 const React = require('react');
 // NOTE: You must import standalone.less from the lib root
-const AppBar = require('./Navigation');
+const AppBar = require('./AppBar');
 module.exports = {
   AppBar,
   mount() {

@@ -221,7 +221,7 @@ export default {
             host: 't.ful:5000',
             url: '//t.ful:5000',
         },
-        platforms: {
+        brands: {
             thinkful: {
                 designSystem: {
                     displayName: 'Overview',
