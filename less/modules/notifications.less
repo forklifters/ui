@@ -1,38 +1,29 @@
 @import '~tfstyleguide/vars';
-.tui-notification-view {
-  position: absolute;
-  right: 180px;
-  top: 0;
-  @media @tablet {
-    right: 210px;
-  }
-  @media @bigger {
-    right: 180px;
-  }
-}
+
 .tui-notification-toggle {
   z-index: 1;
-  // .proxima-bold;
   display: inline-block;
-  width: 46px;
-  height: 46px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  margin-right: 26px;
   text-align: center;
   user-select: none;
+  color: @gray75;
+  width: 42px;
+  height: 42px;
+  border-radius: 100%;
+
   &:hover {
-    color: @black;
+    background-color: @gray40;
+    transition: background-color 0.3s ease;
   }
 }
+
 .tui-notification-count {
   display: inline-block;
   // color: @gray75;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
+  line-height: 42px;
   border-radius: 100%;
   text-align: center;
-  // background-color: @yellow;
+
   .icon-notification {
     position: relative;
     font-size: 28px;

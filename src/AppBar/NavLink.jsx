@@ -13,7 +13,6 @@ const NavLink = (
       href={url}
       target={external ? '_blank' : '_self'}
     >
-      {icon && <Icon className="app-nav-icon" name={icon} />}
       {displayName && <span className="app-nav-text">{displayName}</span>}
     </a>
   );
