@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Icon from '../Icon';
+import SvgIcon from '../SvgIcon';
 
 const MobileMenuToggle = ({ isOpen, onClick }) => (
   <a className="tui-app-nav-burger" onClick={onClick}>
     {isOpen ? (
-      <Icon className="tui-app-nav-burger-close" name="close" />
+      <SvgIcon className="tui-app-nav-burger-close" name="close" size={16} />
     ) : (
       <div className="hamburger">
         <div className="hamburger-stripe" />
