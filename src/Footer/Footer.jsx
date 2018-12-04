@@ -3,12 +3,12 @@ import React from 'react';
 import cx from 'classnames';
 import moment from 'moment';
 
-const Footer = ({ config, user }) => {
+const Footer = ({ className, config, user }) => {
   // Can't be set via defaultProps because of frontend testing and global.__env
   config = config || global.__env.config;
 
   return (
-    <div className="footer-container">
+    <div className={cx('footer-container', className)}>
       <footer className="footer">
         {user &&
           user.timezone && (
@@ -46,11 +46,13 @@ const Footer = ({ config, user }) => {
 };
 
 Footer.propTypes = {
+  className: PropTypes.string,
   config: PropTypes.object,
   user: PropTypes.object,
 };
 
 Footer.defaultProps = {
+  className: null,
   user: {},
 };
 
