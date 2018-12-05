@@ -223,9 +223,24 @@ export default {
         },
         brands: {
             thinkful: {
-                designSystem: {
+                name: 'Thinkful',
+                legal: {
+                    courseCatalog: '//www.thinkful.com/course-catalog/',
+                    privacyPolicy: '//www.thinkful.com/privacy-policy/',
+                    termsOfService: '//www.thinkful.com/terms-of-service/',
+                },
+                platform: {
                     displayName: 'Overview',
-                    url: '//t.ful:5100',
+                    url: '//overview.thinkful.com',
+                },
+                slack: {
+                    displayName: 'Slack',
+                    url: 'https://thinkful.slack.com',
+                },
+                support: {
+                    displayName: 'Support',
+                    email: 'success@thinkful.com',
+                    url: '//www.thinkful.com/support/',
                 },
             },
         },

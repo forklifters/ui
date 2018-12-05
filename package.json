@@ -16,7 +16,9 @@
     "type": "git",
     "url": "git+https://github.com/Thinkful/ui.git"
   },
-  "keywords": ["Thinkful"],
+  "keywords": [
+    "Thinkful"
+  ],
   "author": {
     "name": "Thinkful",
     "email": "engineering@thinkful.com"
