@@ -3,9 +3,11 @@ import React from 'react';
 import cx from 'classnames';
 import moment from 'moment';
 
-const Footer = ({ className, config, user }) => {
+const Footer = ({ className, config, user, brand }) => {
   // Can't be set via defaultProps because of frontend testing and global.__env
   config = config || global.__env.config;
+  const displayBrand = brand || user.brand || 'thinkful';
+  const brandConfig = _.assign({}, config, config.brands[displayBrand] || {});
 
   return (
     <div className={cx('footer-container', className)}>
@@ -14,31 +16,33 @@ const Footer = ({ className, config, user }) => {
           user.timezone && (
             <div className="timezone">
               All times are in {user.timezone}
-              <a href={config.settings.url}>Change</a>
+              <a href={brandConfig.settings.url}>Change</a>
             </div>
           )}
         <div className="footer-links">
           <div className="footer-link">
-            &copy; {moment().format('YYYY')} Thinkful, Inc.
+            &copy; {moment().format('YYYY')} {brandConfig.name}, Inc.
           </div>
-          <a
-            className="footer-link"
-            href={`${config.www.url}/terms-of-service/`}
-          >
+          <a className="footer-link" href={brandConfig.legal.termsOfService}>
             Terms of use
           </a>
-          <a className="footer-link" href={`${config.www.url}/privacy-policy/`}>
+          <a className="footer-link" href={brandConfig.legal.privacyPolicy}>
             Privacy Policy
           </a>
-          <a className="footer-link" href={`${config.www.url}/support/`}>
+          <a className="footer-link" href={brandConfig.support.url}>
             Support
           </a>
-          <a
-            className="footer-link"
-            href={`${config.www.url}/responsible-disclosure/`}
-          >
-            Responsible Disclosure
+          <a className="footer-link" href={brandConfig.legal.courseCatalog}>
+            Course Catalog
           </a>
+          {brandConfig.legal.responsibleDisclosure && (
+            <a
+              className="footer-link"
+              href={brandConfig.legal.responsibleDisclosure}
+            >
+              Responsible Disclosure
+            </a>
+          )}
         </div>
       </footer>
     </div>
