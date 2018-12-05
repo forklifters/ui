@@ -52,10 +52,10 @@
 
 .tui-app-nav-logo {
   display: flex;
-  padding-left: 12px;
+  margin-left: 12px;
 
   @media @tablet {
-    padding-right: 40px;
+    margin-right: 40px;
   }
 }
 
@@ -63,6 +63,16 @@
   flex-grow: 1;
   display: flex;
   align-items: center;
+
+  .nav-enrollment-switcher {
+    display: none;
+  }
+
+  @media @tablet {
+    .nav-enrollment-switcher {
+      display: initial;
+    }
+  }
 }
 
 .tui-app-nav-right {
@@ -96,10 +106,18 @@
     max-height: 0px;
     transform: translate(0, @nav-height);
     padding: 6px 0;
+    .nav-enrollment-switcher {
+      display: none;
+    }
   }
 
   @media @bigger {
     right: 0;
+  }
+
+  .nav-enrollment-switcher {
+    margin-left: 12px;
+    margin-bottom: 16px;
   }
 }
 
@@ -153,8 +171,8 @@
   font-size: 16px;
   line-height: 32px;
   height: 40px;
-  padding-right: 12px;
-  padding-left: 12px;
+  margin-right: 12px;
+  margin-left: 12px;
   cursor: pointer;
   color: @gray75;
 
@@ -177,12 +195,12 @@
 
   &:visited,
   &:focus {
-    outline: none;
+    outline-color: @purple;
   }
 
   @media @tablet {
-    padding-right: 37px;
-    padding-left: 0;
+    margin-right: 40px;
+    margin-left: 0;
     text-align: left;
     font-size: 13px;
     height: 32px;
@@ -198,6 +216,7 @@
       height: 40px;
       padding-left: 16px;
       padding-right: 16px;
+      margin-right: 0;
 
       &:hover {
         .maison-bold;
