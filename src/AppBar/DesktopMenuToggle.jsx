@@ -17,6 +17,11 @@ const DesktopMenuToggle = ({ config, onClick }) => (
 );
 
 DesktopMenuToggle.propTypes = {
+  config: PropTypes.shape({
+    api: PropTypes.shape({
+      url: PropTypes.string,
+    })
+  }).isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
