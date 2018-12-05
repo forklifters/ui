@@ -56,7 +56,7 @@ class AppBar extends React.Component {
   }
 
   render() {
-    const { className, config, EnrollmentView, user } = this.props;
+    const { brand, className, config, EnrollmentView, user } = this.props;
     const { isMenuVisible, linkSet } = this.state;
 
     if (!user) {
@@ -76,7 +76,7 @@ class AppBar extends React.Component {
           <div className="nav-bar-container">
             <div className="tui-app-nav-left">
               <a className="tui-app-nav-logo" href={linkSet.home.url}>
-                <Logo brand={user.brand} />
+                <Logo brand={brand || user.brand} />
               </a>
               {EnrollmentView}
               <ul className="tui-app-nav-main">
@@ -108,12 +108,14 @@ class AppBar extends React.Component {
 }
 
 AppBar.propTypes = {
+  brand: PropTypes.string,
   config: PropTypes.object.isRequired,
   EnrollmentView: PropTypes.object,
   user: PropTypes.object,
 };
 
 AppBar.defaultProps = {
+  brand: null,
   EnrollmentView: null,
 };
 
