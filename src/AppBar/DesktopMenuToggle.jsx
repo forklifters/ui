@@ -1,11 +1,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import Gravatar from '../Gravatar';
 import Icon from '../Icon';
 
-const DesktopMenuToggle = ({ onClick }) => (
+const DesktopMenuToggle = ({ config, onClick }) => (
   <a className="tui-app-nav-arrow" onClick={onClick}>
     <Icon name="navigatedown" />
+    <Gravatar
+      className="tui-app-nav-gravatar"
+      email=""
+      src={`${config.api.url}/api/hupers/me/avatar`}
+      size={120}
+    />
   </a>
 );
 

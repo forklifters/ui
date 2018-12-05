@@ -6,7 +6,6 @@ import moment from 'moment-timezone';
 
 import DesktopMenuToggle from './DesktopMenuToggle';
 import Icon from '../Icon';
-import Gravatar from '../Gravatar';
 import Logo from '../Logo';
 import MenuList from './MenuList';
 import MobileMenuToggle from './MobileMenuToggle';
@@ -89,16 +88,10 @@ class AppBar extends React.Component {
             </div>
             <div className="tui-app-nav-right">
               {user.access.indexOf('design-system') === -1 && <Notifications />}
-              <DesktopMenuToggle onClick={this._toggleMenu} />
+              <DesktopMenuToggle onClick={this._toggleMenu} config={config} />
               <MobileMenuToggle
                 isOpen={isMenuVisible}
                 onClick={this._toggleMenu}
-              />
-              <Gravatar
-                className="tui-app-nav-gravatar"
-                email=""
-                src={`${config.api.url}/api/hupers/me/avatar`}
-                size={120}
               />
             </div>
           </div>
