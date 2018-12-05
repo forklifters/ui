@@ -7,7 +7,7 @@ const getHomeConfig = (config, user) => {
     return config.dashboard;
   }
 
-  return config.designSystem;
+  return config.platform;
 };
 
 const getLinkSet = (config, user) => {
