@@ -50,13 +50,21 @@ const Footer = ({ className, config, user, brand }) => {
 };
 
 Footer.propTypes = {
+  brand: PropTypes.string,
   className: PropTypes.string,
-  config: PropTypes.object,
-  user: PropTypes.object,
+  config: PropTypes.shape({
+    brands: PropTypes.object,
+    settings: PropTypes.object,
+  }),
+  user: PropTypes.shape({
+    timezone: PropTypes.string,
+  }),
 };
 
 Footer.defaultProps = {
+  brand: null,
   className: null,
+  config: null,
   user: {},
 };
 
