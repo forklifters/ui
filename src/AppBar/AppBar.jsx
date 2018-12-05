@@ -56,7 +56,7 @@ class AppBar extends React.Component {
   }
 
   render() {
-    const { user, config } = this.props;
+    const { className, config, EnrollmentView, user } = this.props;
     const { isMenuVisible, linkSet } = this.state;
 
     if (!user) {
@@ -64,7 +64,7 @@ class AppBar extends React.Component {
     }
 
     return (
-      <div className="tui-app-nav-container">
+      <div className={cx('tui-app-nav-container', className)}>
         <nav
           onMouseLeave={this._handleMouseLeave}
           className={cx('tui-app-nav', {
@@ -78,6 +78,7 @@ class AppBar extends React.Component {
               <a className="tui-app-nav-logo" href={linkSet.home.url}>
                 <Logo brand={user.brand} />
               </a>
+              {EnrollmentView}
               <ul className="tui-app-nav-main">
                 {linkSet.main.map(link => (
                   <li key={_.uniqueId('link_')}>
@@ -95,7 +96,11 @@ class AppBar extends React.Component {
               />
             </div>
           </div>
-          <MenuList linkSet={linkSet} onMouseEnter={this._handleMouseEnter} />
+          <MenuList
+            linkSet={linkSet}
+            onMouseEnter={this._handleMouseEnter}
+            EnrollmentView={EnrollmentView}
+          />
         </nav>
       </div>
     );
@@ -103,8 +108,13 @@ class AppBar extends React.Component {
 }
 
 AppBar.propTypes = {
-  user: PropTypes.object,
   config: PropTypes.object.isRequired,
+  EnrollmentView: PropTypes.object,
+  user: PropTypes.object,
+};
+
+AppBar.defaultProps = {
+  EnrollmentView: null,
 };
 
 AppBar.childContextTypes = {
