@@ -7,7 +7,7 @@ const Footer = ({ className, config, user, brand }) => {
   // Can't be set via defaultProps because of frontend testing and global.__env
   config = config || global.__env.config;
   const displayBrand = brand || user.brand || 'thinkful';
-  const brandConfig = _.assign({}, config, config.brands[displayBrand] || {});
+  const brandConfig = _.assign({}, config, config.brands[displayBrand]);
 
   return (
     <div className={cx('footer-container', className)}>
