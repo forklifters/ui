@@ -78,7 +78,7 @@ class AppBar extends React.Component {
               <a className="tui-app-nav-logo" href={linkSet.home.url}>
                 <Logo brand={user.brand} />
               </a>
-              {EnrollmentView && <EnrollmentView />}
+              {EnrollmentView}
               <ul className="tui-app-nav-main">
                 {linkSet.main.map(link => (
                   <li key={_.uniqueId('link_')}>
@@ -109,7 +109,7 @@ class AppBar extends React.Component {
 
 AppBar.propTypes = {
   config: PropTypes.object.isRequired,
-  EnrollmentView: PropTypes.func,
+  EnrollmentView: PropTypes.object,
   user: PropTypes.object,
 };
 
