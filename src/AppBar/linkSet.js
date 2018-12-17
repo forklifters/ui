@@ -38,7 +38,16 @@ const getLinkSet = (config, user) => {
     menu.push({
       displayName: 'Available Students',
       host: brandConfig.lark.host,
-      url: brandConfig.lark.url + '/available-students/',
+      url: `${brandConfig.lark.url}/available-students/`,
+    });
+  }
+
+  // Mentor only
+  if (user.role === 'mentor') {
+    menu.push({
+      displayName: 'Student Search',
+      host: brandConfig.lark.host,
+      url: `${brandConfig.lark.url}/student-search/`,
     });
   }
 
