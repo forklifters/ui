@@ -94,7 +94,9 @@ class DatePicker extends React.Component {
     // If called on initial render, check defaultDate to determine if calendar
     // should start on a month different than the current one
     if (defaultDate) {
-      monthsNavigated = defaultDate.month() - moment().month();
+      monthsNavigated = defaultDate
+        .startOf('month')
+        .diff(moment().startOf('month'), 'months');
     }
 
     const startDay = moment()
