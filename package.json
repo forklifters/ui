@@ -1,6 +1,6 @@
 {
   "name": "thinkful-ui",
-  "version": "4.0.0-alpha.15",
+  "version": "4.0.0-alpha.16",
   "description": "Shared navigation and UI resources for Thinkful.",
   "main": "lib/index.js",
   "scripts": {
@@ -68,9 +68,9 @@
     "node-notifier": "^4.2.1",
     "prop-types": "^15.6.0",
     "qs": "^5.2.0",
-    "react": "^15.0",
+    "react": "^16.7.0",
     "react-avatar-editor": "^11.0.4",
-    "react-dom": "^15.0",
+    "react-dom": "^16.7.0",
     "reflux": "^0.3.0",
     "spark-md5": "0.0.5",
     "superagent": "^1.4.0",
