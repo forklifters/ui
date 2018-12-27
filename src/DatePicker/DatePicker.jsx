@@ -40,8 +40,8 @@ Day.propTypes = {
 };
 
 class DatePicker extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this._checkClickAway = this._checkClickAway.bind(this);
     this._generateDays = this._generateDays.bind(this);
@@ -54,7 +54,7 @@ class DatePicker extends React.Component {
       activeIndex: null,
       days: [],
       monthsNavigated: 0,
-      value: null,
+      value: props.defaultDate ? moment(props.defaultDate) : moment(),
       visible: false,
     };
   }
@@ -134,17 +134,21 @@ class DatePicker extends React.Component {
   }
 
   _handleClick(event, newDay) {
+    event.stopPropagation();
     const { days } = this.state;
     const { handleChange } = this.props;
     const newActiveIndex = _.findIndex(days, { dayOfYear: newDay });
 
-    this.setState({
-      activeIndex: newActiveIndex,
-      value: days[newActiveIndex].dateObj,
-    });
-    this._toggleOpen();
+    const newValue = moment.tz(days[newActiveIndex].dateObj.format(), 'UTC');
 
-    handleChange(days[newActiveIndex].dateObj);
+    this.setState(
+      {
+        activeIndex: newActiveIndex,
+        value: newValue,
+        visible: false,
+      },
+      () => handleChange(newValue.format('YYYY-MM-DD')),
+    );
   }
 
   _navigateForward() {
@@ -165,7 +169,6 @@ class DatePicker extends React.Component {
     const { className, placeholder } = this.props;
     const { days, activeIndex, monthsNavigated, value, visible } = this.state;
 
-    const activeDay = days[activeIndex] && days[activeIndex].dateObj;
     const datePickerClasses = cx('date-picker', { hidden: !visible });
 
     return (
@@ -175,7 +178,7 @@ class DatePicker extends React.Component {
           onClick={this._toggleOpen.bind(this)}
           ref={c => (this.dropdownButton = c)}
         >
-          {(!value && placeholder) || activeDay.format('MM/DD/YYYY')}
+          {value ? value.format('MM/DD/YYYY') : placeholder}
           <Icon name="navigatedown" />
         </div>
         <div className={datePickerClasses} ref={c => (this.calendar = c)}>
@@ -184,9 +187,7 @@ class DatePicker extends React.Component {
             name="navigateright"
             onClick={this._navigateForward.bind(this)}
           />
-          <div className="selected-day">
-            {moment(activeDay).format('dddd, MMMM Do')}
-          </div>
+          <div className="selected-day">{value.format('dddd, MMMM Do')}</div>
           <div className="day-headings">
             {['S', 'M', 'T', 'W', 'H', 'F', 'S'].map((day, key) => (
               <div key={key} className="day-heading">
