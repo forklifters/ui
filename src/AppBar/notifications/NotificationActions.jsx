@@ -1,17 +1,34 @@
 const Reflux = require('reflux');
 const stream = require('getstream');
 const _ = require('lodash');
+
 const CONFIG = global.__env ? global.__env.config : null;
 const USER = global.__env ? global.__env.user : null;
+const DESIGN_SYS_FLAG = 'design-system';
+const LIMIT = 5;
+
 const NotificationActions = Reflux.createActions({
   fetchNotifications: { asyncResult: true },
   markSeen: { asyncResult: true },
   markRead: { asyncResult: true },
   processEvent: { asyncResult: true },
 });
+
 let client = null;
 let userFeed = null;
-if (CONFIG && CONFIG.vendor.getstream.userFeedToken) {
+
+const shouldInitNotifications = () => {
+  // Initialize notifications if we have the token in config and the user
+  // is not on the design system
+  return (
+    CONFIG &&
+    USER &&
+    CONFIG.vendor.getstream.userFeedToken &&
+    USER.access.indexOf(DESIGN_SYS_FLAG) === -1
+  )
+}
+
+if (shouldInitNotifications()) {
   client = stream.connect(
     CONFIG.vendor.getstream.apiKey,
     null,
@@ -22,9 +39,8 @@ if (CONFIG && CONFIG.vendor.getstream.userFeedToken) {
     (USER ? USER.contact_id : 1).toString(),
     CONFIG.vendor.getstream.userFeedToken,
   );
-} else {
 }
-const LIMIT = 5;
+
 const processFetch = function(refetch, error, response, body) {
   if (!response || response.status === 200) {
     let unread = body.unread;
@@ -67,10 +83,12 @@ const processFetch = function(refetch, error, response, body) {
     this.failed(error);
   }
 };
+
 NotificationActions.fetchNotifications.listen(function() {
   if (!userFeed) return;
   userFeed.get({ limit: LIMIT }, processFetch.bind(this, false));
 });
+
 NotificationActions.markSeen.listen(function(markSeen) {
   if (!userFeed) return;
   userFeed.get(
@@ -78,6 +96,7 @@ NotificationActions.markSeen.listen(function(markSeen) {
     processFetch.bind(this, true),
   );
 });
+
 NotificationActions.markRead.listen(function(markRead) {
   if (!userFeed) return;
   userFeed.get(
@@ -85,6 +104,7 @@ NotificationActions.markRead.listen(function(markRead) {
     processFetch.bind(this, true),
   );
 });
+
 NotificationActions.processEvent.listen(function(data) {
   console.log('Processing push event...', data);
   let unread = data.unread;
@@ -114,6 +134,7 @@ NotificationActions.processEvent.listen(function(data) {
     deleted: deleted,
   });
 });
+
 module.exports = {
   NotificationActions,
   userFeed,
