@@ -5,7 +5,7 @@ const _ = require('lodash');
 const CONFIG = global.__env ? global.__env.config : null;
 const USER = global.__env ? global.__env.user : null;
 const DESIGN_SYS_FLAG = 'design-system';
-const LIMIT = 5;
+const NOTIFICATION_LIMIT = 5;
 
 const NotificationActions = Reflux.createActions({
   fetchNotifications: { asyncResult: true },
@@ -23,7 +23,7 @@ const shouldInitNotifications = () => {
   return (
     CONFIG &&
     USER &&
-    CONFIG.vendor.getstream.userFeedToken &&
+    _.get(CONFIG, 'vendor.getstream.userFeedToken') &&
     USER.access.indexOf(DESIGN_SYS_FLAG) === -1
   )
 }
@@ -86,13 +86,13 @@ const processFetch = function(refetch, error, response, body) {
 
 NotificationActions.fetchNotifications.listen(function() {
   if (!userFeed) return;
-  userFeed.get({ limit: LIMIT }, processFetch.bind(this, false));
+  userFeed.get({ limit: NOTIFICATION_LIMIT }, processFetch.bind(this, false));
 });
 
 NotificationActions.markSeen.listen(function(markSeen) {
   if (!userFeed) return;
   userFeed.get(
-    { limit: LIMIT, mark_seen: markSeen },
+    { limit: NOTIFICATION_LIMIT, mark_seen: markSeen },
     processFetch.bind(this, true),
   );
 });
@@ -100,7 +100,7 @@ NotificationActions.markSeen.listen(function(markSeen) {
 NotificationActions.markRead.listen(function(markRead) {
   if (!userFeed) return;
   userFeed.get(
-    { limit: LIMIT, mark_read: markRead },
+    { limit: NOTIFICATION_LIMIT, mark_read: markRead },
     processFetch.bind(this, true),
   );
 });
