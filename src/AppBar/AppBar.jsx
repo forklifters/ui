@@ -20,22 +20,23 @@ class AppBar extends React.Component {
     this._toggleMenu = this._toggleMenu.bind(this);
     this._handleMouseEnter = this._handleMouseEnter.bind(this);
     this._handleMouseLeave = this._handleMouseLeave.bind(this);
+    this._shouldInitNotifications = this._shouldInitNotifications.bind(this);
 
     this.state = {
       isMenuVisible: false,
-      linkSet: props.user ? getLinkSet(props.config, props.user) : null,
+      linkSet: props.user ? getLinkSet(props.config, props.user) : null
     };
   }
 
   getChildContext() {
     return {
-      user: this.props.user,
+      user: this.props.user
     };
   }
 
   _toggleMenu() {
     this.setState({
-      isMenuVisible: !this.state.isMenuVisible,
+      isMenuVisible: !this.state.isMenuVisible
     });
   }
 
@@ -50,9 +51,18 @@ class AppBar extends React.Component {
     this.mouseTimeout = setTimeout(() => {
       this.setState({
         isMenuVisible: false,
-        isCourseDropdownVisible: false,
+        isCourseDropdownVisible: false
       });
     }, 400);
+  }
+
+  _shouldInitNotifications() {
+    const { user } = this.props;
+
+    return (
+      !/mentor|admin/.test(user.role) &&
+      user.access.indexOf('design-system') === -1
+    );
   }
 
   render() {
@@ -68,7 +78,7 @@ class AppBar extends React.Component {
         <nav
           onMouseLeave={this._handleMouseLeave}
           className={cx('tui-app-nav', {
-            'tui-app-nav__visible': isMenuVisible,
+            'tui-app-nav__visible': isMenuVisible
           })}
           key="main-navigation"
           rel="main-navigation"
@@ -88,7 +98,7 @@ class AppBar extends React.Component {
               </ul>
             </div>
             <div className="tui-app-nav-right">
-              {user.access.indexOf('design-system') === -1 && <Notifications />}
+              {this._shouldInitNotifications() && <Notifications />}
               <DesktopMenuToggle onClick={this._toggleMenu} config={config} />
               <MobileMenuToggle
                 isOpen={isMenuVisible}
@@ -111,16 +121,16 @@ AppBar.propTypes = {
   brand: PropTypes.string,
   config: PropTypes.object.isRequired,
   EnrollmentView: PropTypes.object,
-  user: PropTypes.object,
+  user: PropTypes.object
 };
 
 AppBar.defaultProps = {
   brand: null,
-  EnrollmentView: null,
+  EnrollmentView: null
 };
 
 AppBar.childContextTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 module.exports = AppBar;
