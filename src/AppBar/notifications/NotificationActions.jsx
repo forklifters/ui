@@ -11,7 +11,7 @@ const NotificationActions = Reflux.createActions({
   fetchNotifications: { asyncResult: true },
   markSeen: { asyncResult: true },
   markRead: { asyncResult: true },
-  processEvent: { asyncResult: true },
+  processEvent: { asyncResult: true }
 });
 
 let client = null;
@@ -24,20 +24,21 @@ const shouldInitNotifications = () => {
     CONFIG &&
     USER &&
     _.get(CONFIG, 'vendor.getstream.userFeedToken') &&
-    USER.access.indexOf(DESIGN_SYS_FLAG) === -1
-  )
-}
+    USER.access.indexOf(DESIGN_SYS_FLAG) === -1 &&
+    !/admin|mentor/.test(user.role)
+  );
+};
 
 if (shouldInitNotifications()) {
   client = stream.connect(
     CONFIG.vendor.getstream.apiKey,
     null,
-    CONFIG.vendor.getstream.appId,
+    CONFIG.vendor.getstream.appId
   );
   userFeed = client.feed(
     'navbar_notifications',
     (USER ? USER.contact_id : 1).toString(),
-    CONFIG.vendor.getstream.userFeedToken,
+    CONFIG.vendor.getstream.userFeedToken
   );
 }
 
@@ -50,9 +51,9 @@ const processFetch = function(refetch, error, response, body) {
         _.flatten(_.pluck(body.results, 'activities')),
         _.map(body.results, function(item) {
           return _.pick(item, ['is_seen', 'is_read', 'id']);
-        }),
+        })
       ),
-      'time',
+      'time'
     ).reverse();
     /* Sample result
         actor: "Thinkful"
@@ -73,7 +74,7 @@ const processFetch = function(refetch, error, response, body) {
     this.completed({
       unreadCount: unread,
       unseenCount: unseen,
-      notifications: notifications,
+      notifications: notifications
     });
   } else {
     console.log('[NotificationActions][processFetch] Failure processing...');
@@ -93,7 +94,7 @@ NotificationActions.markSeen.listen(function(markSeen) {
   if (!userFeed) return;
   userFeed.get(
     { limit: NOTIFICATION_LIMIT, mark_seen: markSeen },
-    processFetch.bind(this, true),
+    processFetch.bind(this, true)
   );
 });
 
@@ -101,7 +102,7 @@ NotificationActions.markRead.listen(function(markRead) {
   if (!userFeed) return;
   userFeed.get(
     { limit: NOTIFICATION_LIMIT, mark_read: markRead },
-    processFetch.bind(this, true),
+    processFetch.bind(this, true)
   );
 });
 
@@ -114,28 +115,28 @@ NotificationActions.processEvent.listen(function(data) {
       _.flatten(_.pluck(data.deleted, 'activities')),
       _.map(data.deleted, function(item) {
         return _.pick(item, ['is_seen', 'is_read', 'id']);
-      }),
+      })
     ),
-    'time',
+    'time'
   );
   let added = _.sortBy(
     _.merge(
       _.flatten(_.pluck(data.new, 'activities')),
       _.map(data.new, function(item) {
         return _.pick(item, ['is_seen', 'is_read', 'id']);
-      }),
+      })
     ),
-    'time',
+    'time'
   );
   this.completed({
     unreadCount: unread,
     unseenCount: unseen,
     added: added,
-    deleted: deleted,
+    deleted: deleted
   });
 });
 
 module.exports = {
   NotificationActions,
-  userFeed,
+  userFeed
 };
