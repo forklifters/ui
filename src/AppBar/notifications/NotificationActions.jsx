@@ -25,7 +25,7 @@ const shouldInitNotifications = () => {
     USER &&
     _.get(CONFIG, 'vendor.getstream.userFeedToken') &&
     USER.access.indexOf(DESIGN_SYS_FLAG) === -1 &&
-    !/admin|mentor/.test(user.role)
+    !/admin|mentor/.test(USER.role)
   );
 };
 
