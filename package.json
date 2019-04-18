@@ -1,6 +1,6 @@
 {
   "name": "thinkful-ui",
-  "version": "6.0.19",
+  "version": "6.0.20",
   "description": "Shared UI resources for Thinkful.",
   "main": "lib/index.js",
   "scripts": {
@@ -93,6 +93,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.9",
     "less-loader": "^4.0.5",
+    "strip-json-comments": "^2.0.1",
     "style-loader": "^0.19.1"
   },
   "readmeFilename": "README.md",
