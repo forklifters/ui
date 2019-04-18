@@ -51,11 +51,6 @@ const getLinkSet = (config, user) => {
     });
   }
 
-  // TF-brand students only
-  if (user.brand === 'thinkful') {
-    menu.push(brandConfig.refer);
-  }
-
   menu.push(brandConfig.slack);
   menu.push(brandConfig.settings);
   menu.push(brandConfig.support);
