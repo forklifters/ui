@@ -5,7 +5,7 @@ import Gravatar from '../Gravatar';
 import Icon from '../Icon';
 
 const DesktopMenuToggle = ({ config, onClick }) => (
-  <a className="tui-app-nav-arrow" onClick={onClick}>
+  <a className="tui-app-nav-arrow" onClick={onClick} href="javascript:void(0)">
     <Icon name="navigatedown" />
     <Gravatar
       className="tui-app-nav-gravatar"
@@ -19,10 +19,10 @@ const DesktopMenuToggle = ({ config, onClick }) => (
 DesktopMenuToggle.propTypes = {
   config: PropTypes.shape({
     api: PropTypes.shape({
-      url: PropTypes.string,
+      url: PropTypes.string
     })
   }).isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 module.exports = DesktopMenuToggle;
