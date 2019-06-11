@@ -58,7 +58,12 @@ class Modal extends React.Component {
 
 Modal.propTypes = {
   className: PropTypes.string,
-  close: PropTypes.func
-}
+  close: PropTypes.func,
+  curtainColor: PropTypes.string,
+};
+
+Modal.defaultProps = {
+  curtainColor: '',
+};
 
 module.exports = Modal;
