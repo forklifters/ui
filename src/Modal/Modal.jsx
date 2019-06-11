@@ -36,7 +36,7 @@ class Modal extends React.Component {
   render() {
     const { className, curtainColor } = this.props;
     const { controlledByParent, isOpen } = this.state;
-    console.log({curtainColor});
+
     const modalClasses = cx('tui-modal-content', className);
     const wrapperClasses = cx(
       'tui-modal-wrapper',
