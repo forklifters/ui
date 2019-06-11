@@ -34,9 +34,9 @@ class Modal extends React.Component {
   }
 
   render() {
-    const { className } = this.props;
+    const { className, curtainColor } = this.props;
     const { controlledByParent, isOpen } = this.state;
-
+    console.log({curtainColor});
     const modalClasses = cx('tui-modal-content', className);
     const wrapperClasses = cx(
       'tui-modal-wrapper',
@@ -44,7 +44,7 @@ class Modal extends React.Component {
 
     return (
       <div className={wrapperClasses}>
-        <div className="tui-modal-curtain" onClick={this._closeModal}/>
+        <div className="tui-modal-curtain" onClick={this._closeModal} style={{ backgroundColor: curtainColor }}/>
         <div className={modalClasses}>
           <a className="tui-modal-close-button" onClick={this._closeModal}>
             <Icon name="close" />
