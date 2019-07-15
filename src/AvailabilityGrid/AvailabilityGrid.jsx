@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const cx = require('classnames');
 const chunk = require('lodash/array/chunk');
 const difference = require('lodash/array/difference');
