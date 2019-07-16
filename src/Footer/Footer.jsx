@@ -4,7 +4,7 @@ import React from 'react';
 import cx from 'classnames';
 import moment from 'moment';
 
-const Footer = ({ className, config, user, brand }) => {
+const Footer = ({ className, config, hideTimezone, user, brand }) => {
   // Can't be set via defaultProps because of frontend testing and global.__env
   config = config || global.__env.config;
   const displayBrand = brand || user.brand || 'thinkful';
@@ -13,13 +13,12 @@ const Footer = ({ className, config, user, brand }) => {
   return (
     <div className={cx('footer-container', className)}>
       <footer className="footer">
-        {user &&
-          user.timezone && (
-            <div className="timezone">
-              All times are in {user.timezone}
-              <a href={brandConfig.settings.url}>Change</a>
-            </div>
-          )}
+        {!hideTimezone && user && user.timezone && (
+          <div className="timezone">
+            All times are in {user.timezone}
+            <a href={brandConfig.settings.url}>Change</a>
+          </div>
+        )}
         <div className="footer-links">
           <div className="footer-link">
             &copy; {moment().format('YYYY')} {brandConfig.name}, Inc.
@@ -55,18 +54,20 @@ Footer.propTypes = {
   className: PropTypes.string,
   config: PropTypes.shape({
     brands: PropTypes.object,
-    settings: PropTypes.object,
+    settings: PropTypes.object
   }),
+  hideTimezone: PropTypes.bool,
   user: PropTypes.shape({
-    timezone: PropTypes.string,
-  }),
+    timezone: PropTypes.string
+  })
 };
 
 Footer.defaultProps = {
   brand: null,
   className: null,
   config: null,
-  user: {},
+  hideTimezone: false,
+  user: {}
 };
 
 module.exports = Footer;
