@@ -10,10 +10,12 @@ const Footer = ({ className, config, hideTimezone, user, brand }) => {
   const displayBrand = brand || user.brand || 'thinkful';
   const brandConfig = _.assign({}, config, config.brands[displayBrand]);
 
+  const showTimezone = Boolean(!hideTimezone && user && user.timezone);
+
   return (
     <div className={cx('footer-container', className)}>
       <footer className="footer">
-        {!hideTimezone && user && user.timezone && (
+        {showTimezone && (
           <div className="timezone">
             All times are in {user.timezone}
             <a href={brandConfig.settings.url}>Change</a>
@@ -54,12 +56,12 @@ Footer.propTypes = {
   className: PropTypes.string,
   config: PropTypes.shape({
     brands: PropTypes.object,
-    settings: PropTypes.object
+    settings: PropTypes.object,
   }),
   hideTimezone: PropTypes.bool,
   user: PropTypes.shape({
-    timezone: PropTypes.string
-  })
+    timezone: PropTypes.string,
+  }),
 };
 
 Footer.defaultProps = {
@@ -67,7 +69,7 @@ Footer.defaultProps = {
   className: null,
   config: null,
   hideTimezone: false,
-  user: {}
+  user: {},
 };
 
 module.exports = Footer;
