@@ -1,6 +1,6 @@
 {
   "name": "thinkful-ui",
-  "version": "6.0.22",
+  "version": "6.0.23",
   "description": "Shared UI resources for Thinkful.",
   "main": "lib/index.js",
   "scripts": {
