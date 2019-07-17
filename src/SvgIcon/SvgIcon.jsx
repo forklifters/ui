@@ -22,7 +22,6 @@ const NAME_TO_COMPONENT = {
 
 const SvgIcon = ({ className, name, ...props }) => {
   const Icon = NAME_TO_COMPONENT[name];
-  console.log('SVGICON...', {Icon, name});
   return Icon ? (
     <Icon {...props} className={cx('svg-icon', className)} />
   ) : null;
