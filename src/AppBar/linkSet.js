@@ -1,9 +1,8 @@
 const _ = require('lodash');
-const DESIGN_SYSTEM_FLAG = 'design-system';
+const LEGACY_PLATFORM = 'legacy';
 
 const getHomeConfig = (config, user) => {
-  const hasDesignSystem = user.access.indexOf(DESIGN_SYSTEM_FLAG) > -1;
-  if (!hasDesignSystem) {
+  if (user.platform === LEGACY_PLATFORM) {
     return config.dashboard;
   }
 
@@ -24,7 +23,7 @@ const getLinkSet = (config, user) => {
   const brandConfig = _.assign(
     {},
     config,
-    config.brands ? config.brands[user.brand] : {},
+    config.brands ? config.brands[user.brand] : {}
   );
 
   // Shared
@@ -38,7 +37,7 @@ const getLinkSet = (config, user) => {
     menu.push({
       displayName: 'Available Students',
       host: brandConfig.lark.host,
-      url: `${brandConfig.lark.url}/available-students/`,
+      url: `${brandConfig.lark.url}/available-students/`
     });
   }
 
@@ -47,7 +46,7 @@ const getLinkSet = (config, user) => {
     menu.push({
       displayName: 'Student Search',
       host: brandConfig.lark.host,
-      url: `${brandConfig.lark.url}/student-search/`,
+      url: `${brandConfig.lark.url}/student-search/`
     });
   }
 
@@ -74,10 +73,10 @@ const getLinkSet = (config, user) => {
   return {
     home,
     main,
-    menu,
+    menu
   };
 };
 
 module.exports = {
-  getLinkSet,
+  getLinkSet
 };
