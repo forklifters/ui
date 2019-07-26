@@ -14,6 +14,8 @@ import Notifications from './notifications/Notifications';
 import UnauthedAppBar from './UnauthedAppBar';
 import { getLinkSet } from './linkSet';
 
+const LEGACY_PLATFORM = 'legacy';
+
 class AppBar extends React.Component {
   constructor(props) {
     super(props);
@@ -59,10 +61,7 @@ class AppBar extends React.Component {
   _shouldInitNotifications() {
     const { user } = this.props;
 
-    return (
-      !/mentor|admin/.test(user.role) &&
-      user.access.indexOf('design-system') === -1
-    );
+    return !/mentor|admin/.test(user.role) && user.platform === LEGACY_PLATFORM;
   }
 
   render() {

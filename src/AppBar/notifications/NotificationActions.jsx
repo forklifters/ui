@@ -4,7 +4,7 @@ const _ = require('lodash');
 
 const CONFIG = global.__env ? global.__env.config : null;
 const USER = global.__env ? global.__env.user : null;
-const DESIGN_SYS_FLAG = 'design-system';
+const LEGACY_PLATFORM = 'legacy';
 const NOTIFICATION_LIMIT = 5;
 
 const NotificationActions = Reflux.createActions({
@@ -19,12 +19,12 @@ let userFeed = null;
 
 const shouldInitNotifications = () => {
   // Initialize notifications if we have the token in config and the user
-  // is not on the design system
+  // is on the legacy platform
   return (
     CONFIG &&
     USER &&
     _.get(CONFIG, 'vendor.getstream.userFeedToken') &&
-    USER.access.indexOf(DESIGN_SYS_FLAG) === -1 &&
+    USER.platform === LEGACY_PLATFORM &&
     !/admin|mentor/.test(USER.role)
   );
 };
