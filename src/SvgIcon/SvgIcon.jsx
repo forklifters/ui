@@ -8,6 +8,8 @@ import Chat from './Icons/Chat';
 import Close from './Icons/Close';
 import MapMarker from './Icons/MapMarker';
 import Star from './Icons/Star';
+import ThumbsDown from './Icons/ThumbsDown';
+import ThumbsUp from './Icons/ThumbsUp';
 import VideoCamera from './Icons/VideoCamera';
 
 const NAME_TO_COMPONENT = {
@@ -17,6 +19,8 @@ const NAME_TO_COMPONENT = {
   close: Close,
   mapmarker: MapMarker,
   star: Star,
+  thumbsdown: ThumbsDown,
+  thumbsup: ThumbsUp,
   video: VideoCamera
 };
 
