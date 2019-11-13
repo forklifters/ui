@@ -5,7 +5,12 @@ import Gravatar from '../Gravatar';
 import Icon from '../Icon';
 
 const DesktopMenuToggle = ({ config, onClick }) => (
-  <a className="tui-app-nav-arrow" onClick={onClick} href="javascript:void(0)">
+  <a
+    className="tui-app-nav-arrow"
+    onClick={onClick}
+    href="javascript:void(0)"
+    aria-label="Toggle navigation links"
+  >
     <Icon name="navigatedown" />
     <Gravatar
       className="tui-app-nav-gravatar"

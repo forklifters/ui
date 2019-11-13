@@ -83,6 +83,7 @@
 }
 
 .tui-app-nav-list {
+  visibility: hidden;
   .box-shadow-heavy;
   position: absolute;
   background-color: @white;
@@ -95,7 +96,7 @@
   white-space: nowrap;
   opacity: 0;
   transform: translate(-100%, @nav-height);
-  transition: transform 0.35s ease, opacity 0.28s ease, max-width 0.35s ease,
+  transition: transform 0.35s ease, opacity 0.28s ease, visibility 0.28s ease, max-width 0.35s ease,
     max-height 0.22s ease;
   z-index: 0;
 
@@ -142,6 +143,7 @@
   transform: translate(0px, @nav-height);
   max-width: 768px;
   opacity: 1;
+  visibility: visible;
 
   @media @tablet {
     max-width: none;
