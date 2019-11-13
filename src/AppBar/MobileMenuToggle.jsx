@@ -4,7 +4,12 @@ import React from 'react';
 import SvgIcon from '../SvgIcon';
 
 const MobileMenuToggle = ({ isOpen, onClick }) => (
-  <a className="tui-app-nav-burger" onClick={onClick}>
+  <a
+    className="tui-app-nav-burger"
+    onClick={onClick}
+    href="javascript:void(0)"
+    aria-label="Toggle navigation links"
+  >
     {isOpen ? (
       <SvgIcon className="tui-app-nav-burger-close" name="close" size={16} />
     ) : (
