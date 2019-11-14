@@ -82,7 +82,7 @@
   position: relative;
 }
 
-.tui-app-nav-list {
+.tui-app-bar-modal {
   visibility: hidden;
   .box-shadow-heavy;
   position: absolute;
@@ -99,6 +99,16 @@
   transition: transform 0.35s ease, opacity 0.28s ease, visibility 0.28s ease, max-width 0.35s ease,
     max-height 0.22s ease;
   z-index: 0;
+}
+
+.tui-app-bar-modal__visible {
+  transform: translate(0px, @nav-height);
+  opacity: 1;
+  visibility: visible;
+}
+
+.tui-app-nav-list {
+  .tui-app-bar-modal;
 
   .nav-enrollment-switcher__static {
     display: none;
@@ -140,14 +150,34 @@
 }
 
 .tui-app-nav__visible .tui-app-nav-list {
-  transform: translate(0px, @nav-height);
+  .tui-app-bar-modal__visible;
   max-width: 768px;
-  opacity: 1;
-  visibility: visible;
 
   @media @tablet {
     max-width: none;
     max-height: 360px;
+  }
+}
+
+.tui-concierge-modal {
+  .tui-app-bar-modal;
+
+  @media @tablet {
+    right: 16px;
+    left: auto;
+    min-width: 320px;
+    transform: translate(0, @nav-height);
+    padding: 6px 0;
+  }
+}
+
+.tui-app-nav__concierge-visible .tui-concierge-modal {
+  .tui-app-bar-modal__visible;
+  max-width: 100%;
+  height: 420px;
+
+  @media @tablet {
+    max-width: 320px;
   }
 }
 
