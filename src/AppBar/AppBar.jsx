@@ -39,6 +39,9 @@ class AppBar extends React.Component {
     };
   }
 
+  // visibility of menu and concierge is mutually exclusive
+  // when opening menu or concierge, close the other one
+  // when closing menu or concierge, leave the other one alone
   _toggleMenu() {
     const { isMenuVisible, isConciergeVisible } = this.state;
     const newIsMenuVisible = !isMenuVisible;
@@ -131,7 +134,6 @@ class AppBar extends React.Component {
           />
           <ConciergeModal />
         </nav>
-        {`Concierge visible: ${isConciergeVisible}; menu visible: ${isMenuVisible}`}
       </div>
     );
   }

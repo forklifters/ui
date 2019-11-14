@@ -93,7 +93,6 @@
   max-width: 0;
   padding-top: 16px;
   overflow: hidden;
-  white-space: nowrap;
   opacity: 0;
   transform: translate(-100%, @nav-height);
   transition: transform 0.35s ease, opacity 0.28s ease, visibility 0.28s ease, max-width 0.35s ease,
@@ -109,6 +108,7 @@
 
 .tui-app-nav-list {
   .tui-app-bar-modal;
+  white-space: nowrap;
 
   .nav-enrollment-switcher__static {
     display: none;
@@ -161,13 +161,31 @@
 
 .tui-concierge-modal {
   .tui-app-bar-modal;
+  padding: 15px;
 
   @media @tablet {
     right: 16px;
     left: auto;
     min-width: 320px;
     transform: translate(0, @nav-height);
-    padding: 6px 0;
+  }
+
+  a, a:hover {
+    text-decoration: none;
+  }
+
+  h2 {
+    font-size: 30px;
+    line-height: 1.07;
+  }
+
+  h3 {
+    font-size: 14px;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: normal;
   }
 }
 
@@ -178,6 +196,28 @@
 
   @media @tablet {
     max-width: 320px;
+  }
+}
+
+.tui-concierge-option {
+  height: 48px;
+  margin: 12px 0;
+  padding: 6px 8px;
+  border-radius: 2px;
+
+  h4 {
+    font-family: 'MaisonNeue-Bold', 'Helvetica', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: normal;
+    color: @white;
+    margin-bottom: 0;
+  }
+
+  p {
+    font-size: 11px;
+    color: @white;
+    margin-bottom: 0;
   }
 }
 
