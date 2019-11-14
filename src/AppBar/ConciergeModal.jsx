@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const BetaBadge = () => (
+  <span className="tui-concierge-beta-badge">
+    Beta
+  </span>
+);
+
 const ConciergeOption = ({ title, subtitle, link, background }) => (
   <a href={link}>
     <div
@@ -28,7 +34,7 @@ ConciergeOption.defaultProps = {
 
 const ConciergeModal = () => (
   <div className="tui-concierge-modal">
-    <h2>Thinkful Concierge</h2>
+    <h2>Thinkful Concierge <BetaBadge /></h2>
     <p>
       Immediate resources when you need them most.
     </p>
