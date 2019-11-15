@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ConciergeImage from './ConciergeImage';
+import SvgIcon from '../SvgIcon';
 
 const BetaBadge = () => (
   <span className="tui-concierge-beta-badge">
@@ -34,8 +35,15 @@ ConciergeOption.defaultProps = {
   background: '#000',
 };
 
-const ConciergeModal = () => (
+const ConciergeModal = (toggleConcierge) => (
   <div className="tui-concierge-modal">
+    <button
+      className="button__link tui-concierge-close"
+      onClick={toggleConcierge}
+    >
+      <SvgIcon name="close" size={12} />
+    </button>
+
     <div className="tui-concierge-header">
       <div className="tui-concierge-header-image-container">
         <ConciergeImage />
@@ -73,5 +81,9 @@ const ConciergeModal = () => (
     </div>
   </div>
 );
+
+ConciergeModal.propTypes = {
+  toggleConcierge: PropTypes.func.isRequired,
+}
 
 export default ConciergeModal;

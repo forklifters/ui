@@ -132,7 +132,9 @@ class AppBar extends React.Component {
             onMouseEnter={this._handleMouseEnter}
             EnrollmentView={EnrollmentView}
           />
-          <ConciergeModal />
+          <ConciergeModal
+            toggleConcierge={this._toggleConcierge}
+          />
         </nav>
       </div>
     );
