@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import ConciergeImage from './ConciergeImage';
@@ -36,6 +36,8 @@ ConciergeOption.defaultProps = {
 };
 
 const ConciergeModal = ({ toggleConcierge }) => (
+  <Fragment>
+  <div className="tui-concierge-arrow" />
   <div className="tui-concierge-modal">
     <button
       className="button__link tui-concierge-close"
@@ -62,24 +64,25 @@ const ConciergeModal = ({ toggleConcierge }) => (
         title="Start a convo on Slack"
         subtitle="Pair with other students on the same topics"
         background="#1733ff"
-        link="https://thinkful.com"
+        link="https://thinkful.slack.com"
       />
 
       <ConciergeOption
         title="Chat with an expert"
         subtitle="Talk with a live tutor now"
         background="#03533d"
-        link="https://thinkful.com"
+        link="https://thinkful.slack.com"
       />
 
       <ConciergeOption
         title="Find a Q&amp;A Session"
         subtitle="Find a session related to what you're working on"
         background="#ff6b31"
-        link="https://thinkful.com"
+        link="https://thinkful.com/open-sessions/qa-sessions"
       />
     </div>
   </div>
+  </Fragment>
 );
 
 ConciergeModal.propTypes = {

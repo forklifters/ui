@@ -6,6 +6,7 @@ import Bell from './Icons/Bell';
 import Book from './Icons/Book';
 import Chat from './Icons/Chat';
 import Close from './Icons/Close';
+import Concierge from './Icons/Concierge';
 import MapMarker from './Icons/MapMarker';
 import Star from './Icons/Star';
 import ThumbsDown from './Icons/ThumbsDown';
@@ -17,6 +18,7 @@ const NAME_TO_COMPONENT = {
   book: Book,
   chat: Chat,
   close: Close,
+  concierge: Concierge,
   mapmarker: MapMarker,
   star: Star,
   thumbsdown: ThumbsDown,

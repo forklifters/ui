@@ -118,7 +118,10 @@ class AppBar extends React.Component {
               </ul>
             </div>
             <div className="tui-app-nav-right">
-              <ConciergeToggle onClick={this._toggleConcierge} />
+              <ConciergeToggle
+                conciergeVisible={isConciergeVisible}
+                onClick={this._toggleConcierge}
+              />
               {this._shouldInitNotifications() && <Notifications />}
               <DesktopMenuToggle onClick={this._toggleMenu} config={config} />
               <MobileMenuToggle
