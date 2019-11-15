@@ -35,7 +35,7 @@ ConciergeOption.defaultProps = {
   background: '#000',
 };
 
-const ConciergeModal = (toggleConcierge) => (
+const ConciergeModal = ({ toggleConcierge }) => (
   <div className="tui-concierge-modal">
     <button
       className="button__link tui-concierge-close"
