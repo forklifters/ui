@@ -139,6 +139,7 @@ class AppBar extends React.Component {
           />
           {_.includes(user.access, CONCIERGE_FLAG) && (
             <ConciergeModal
+              visible={isConciergeVisible}
               toggleConcierge={this._toggleConcierge}
             />
           )}
