@@ -1,4 +1,5 @@
 @import '~tfstyleguide/vars';
+@import './modal.less';
 
 @nav-height: 60px;
 @grid-width: 944px;
@@ -163,17 +164,37 @@
   }
 }
 
+.tui-concierge-curtain {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: @gray50;
+  opacity: .3;
+  z-index: 100;
+  display: none;
+}
+
+.tui-app-nav__concierge-visible .tui-concierge-curtain {
+  display: block;
+}
+
 .tui-concierge-modal {
   .tui-app-bar-modal;
   padding: 42px 15px;
   right: 16px;
   left: auto;
   min-width: 320px;
-  z-index: 3;
+  height: 420px; // nice
+  z-index: 101;
   transform: translate(0, @nav-height);
 
   @media @tiny {
     right: 0;
+    max-width: none;
   }
 
   a, a:hover {
@@ -199,12 +220,10 @@
 
 .tui-app-nav__concierge-visible .tui-concierge-modal {
   .tui-app-bar-modal__visible;
-  max-width: 320px;
-  height: 420px; // nice
+  width: 320px;
 
   @media @tiny {
     width: 100%;
-    max-width: 100%;
   }
 }
 
@@ -220,7 +239,8 @@
   border-bottom: @concierge-arrow-size solid @white;
   position: absolute;
   top: calc(@nav-height - @concierge-arrow-size);
-  z-index: 4;
+  z-index: 102; // this is +1 than the concierge's because we want the arrow
+                // to be above the box shadow
   visibility: hidden;
   right: 69px; // nice
 

@@ -6,7 +6,6 @@ import cx from 'classnames';
 import ConciergeModal from './ConciergeModal';
 import ConciergeToggle from './ConciergeToggle';
 import DesktopMenuToggle from './DesktopMenuToggle';
-import Icon from '../Icon';
 import Logo from '../Logo';
 import MenuList from './MenuList';
 import MobileMenuToggle from './MobileMenuToggle';
@@ -16,6 +15,7 @@ import UnauthedAppBar from './UnauthedAppBar';
 import { getLinkSet } from './linkSet';
 
 const LEGACY_PLATFORM = 'legacy';
+const CONCIERGE_FLAG = 'flexperiment-concierge';
 
 class AppBar extends React.Component {
   constructor(props) {
@@ -87,7 +87,7 @@ class AppBar extends React.Component {
   render() {
     const { brand, className, config, EnrollmentView, user } = this.props;
     const { isMenuVisible, isConciergeVisible, linkSet } = this.state;
-
+    
     if (!user) {
       return <UnauthedAppBar config={config} />;
     }
@@ -118,10 +118,12 @@ class AppBar extends React.Component {
               </ul>
             </div>
             <div className="tui-app-nav-right">
-              <ConciergeToggle
-                conciergeVisible={isConciergeVisible}
-                onClick={this._toggleConcierge}
-              />
+              {_.includes(user.access, CONCIERGE_FLAG) &&
+                <ConciergeToggle
+                  conciergeVisible={isConciergeVisible}
+                  onClick={this._toggleConcierge}
+                />
+              }
               {this._shouldInitNotifications() && <Notifications />}
               <DesktopMenuToggle onClick={this._toggleMenu} config={config} />
               <MobileMenuToggle
@@ -135,9 +137,11 @@ class AppBar extends React.Component {
             onMouseEnter={this._handleMouseEnter}
             EnrollmentView={EnrollmentView}
           />
-          <ConciergeModal
-            toggleConcierge={this._toggleConcierge}
-          />
+          {_.includes(user.access, CONCIERGE_FLAG) &&
+            <ConciergeModal
+              toggleConcierge={this._toggleConcierge}
+            />
+          }
         </nav>
       </div>
     );

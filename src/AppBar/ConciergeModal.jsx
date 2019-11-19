@@ -37,6 +37,9 @@ ConciergeOption.defaultProps = {
 
 const ConciergeModal = ({ toggleConcierge }) => (
   <Fragment>
+  <div className="tui-concierge-curtain"
+    onClick={toggleConcierge}
+  />
   <div className="tui-concierge-arrow" />
   <div className="tui-concierge-modal">
     <button
