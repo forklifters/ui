@@ -87,7 +87,7 @@ class AppBar extends React.Component {
   render() {
     const { brand, className, config, EnrollmentView, user } = this.props;
     const { isMenuVisible, isConciergeVisible, linkSet } = this.state;
-    
+
     if (!user) {
       return <UnauthedAppBar config={config} />;
     }
@@ -118,12 +118,12 @@ class AppBar extends React.Component {
               </ul>
             </div>
             <div className="tui-app-nav-right">
-              {_.includes(user.access, CONCIERGE_FLAG) &&
+              {_.includes(user.access, CONCIERGE_FLAG) && (
                 <ConciergeToggle
                   conciergeVisible={isConciergeVisible}
                   onClick={this._toggleConcierge}
                 />
-              }
+              )}
               {this._shouldInitNotifications() && <Notifications />}
               <DesktopMenuToggle onClick={this._toggleMenu} config={config} />
               <MobileMenuToggle
@@ -137,11 +137,11 @@ class AppBar extends React.Component {
             onMouseEnter={this._handleMouseEnter}
             EnrollmentView={EnrollmentView}
           />
-          {_.includes(user.access, CONCIERGE_FLAG) &&
+          {_.includes(user.access, CONCIERGE_FLAG) && (
             <ConciergeModal
               toggleConcierge={this._toggleConcierge}
             />
-          }
+          )}
         </nav>
       </div>
     );

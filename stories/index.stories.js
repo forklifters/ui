@@ -47,7 +47,7 @@ storiesOf('AppBar', module).add('Logged in', () => (
 storiesOf('AppBar', module).add('Concierge experiment', () => {
   const user = {
     ...env.user,
-    access: ['flexperiment-concierge'],
+    access: user.access.concat('flexperiment-concierge'),
   };
   return (<AppBar config={env.config} user={user} />);
 });

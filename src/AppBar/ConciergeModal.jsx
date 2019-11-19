@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import ConciergeImage from './ConciergeImage';
+import ConciergeOption from './ConciergeOption';
 import SvgIcon from '../SvgIcon';
 
 const BetaBadge = () => (
@@ -9,31 +10,6 @@ const BetaBadge = () => (
     Beta
   </span>
 );
-
-const ConciergeOption = ({ title, subtitle, link, background }) => (
-  <a href={link}>
-    <div
-      className="tui-concierge-option"
-      style={{
-        background: background,
-      }}
-    >
-      <h4>{title}</h4>
-      <p>{subtitle}</p>
-    </div>
-  </a>
-);
-
-ConciergeOption.propTypes = {
-  title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired,
-  background: PropTypes.string,
-}
-
-ConciergeOption.defaultProps = {
-  background: '#000',
-};
 
 const ConciergeModal = ({ toggleConcierge }) => (
   <Fragment>
