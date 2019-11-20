@@ -163,6 +163,44 @@
   }
 }
 
+.tui-concierge-tooltip {
+  .tui-app-bar-modal;
+  .tui-app-bar-modal__visible;
+  padding: 6px 8px;
+  background-color: @purple;
+  height: 49px;
+  width: 288px;
+  max-width: none;
+  right: 16px;
+  left: auto;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+
+  h2 {
+    font-size: 16px;
+    line-height: 21px;
+    margin: 0;
+    padding: 0;
+    color: @white;
+  }
+
+  p {
+    font-size: 11px;
+    line-height: 15px;
+    margin: 0;
+    padding: 0;
+    color: @white;
+  }
+
+  .tui-concierge-tooltip-left {
+    position: absolute;
+    left: 0;
+    margin-left: 8px;
+  }
+}
+
 .tui-concierge-modal {
   .tui-app-bar-modal;
   padding: 42px 15px;
@@ -170,12 +208,14 @@
   left: auto;
   min-width: 320px;
   height: 420px; // nice
+  border-radius: 2px;
   z-index: 101;
   transform: translate(0, @nav-height);
 
   @media @tiny {
     right: 0;
     max-width: none;
+    border-radius: 0;
   }
 
   a, a:hover {
@@ -208,20 +248,19 @@
   }
 }
 
-@concierge-arrow-size: 5px;
+@arrow-size: 5px;
 
-.tui-concierge-arrow {
+.modal-callout {
   .visibility-transition;
   .box-shadow-heavy;
   width: 0;
   height: 0;
-  border-left: @concierge-arrow-size solid transparent;
-  border-right: @concierge-arrow-size solid transparent;
-  border-bottom: @concierge-arrow-size solid @white;
+  border-left: @arrow-size solid transparent;
+  border-right: @arrow-size solid transparent;
+  border-bottom-width: @arrow-size;
+  border-bottom-style: solid;
   position: absolute;
-  top: calc(@nav-height - @concierge-arrow-size);
-  z-index: 102; // this is +1 than the concierge's because we want the arrow
-                // to be above the box shadow
+  top: calc(@nav-height - @arrow-size);
   visibility: hidden;
   right: 69px; // nice
 
@@ -230,8 +269,22 @@
   }
 }
 
+.tui-concierge-arrow {
+  .modal-callout;
+  border-bottom-color: @white;
+  z-index: 102; // this is +1 than the concierge's because we want the arrow
+                // to be above the box shadow
+}
+
 .tui-app-nav__concierge-visible .tui-concierge-arrow {
   visibility: visible;
+}
+
+.tui-concierge-tooltip-arrow {
+  .modal-callout;
+  border-bottom-color: @purple;
+  visibility: visible;
+  z-index: 0;
 }
 
 .tui-concierge-close {
@@ -268,6 +321,11 @@
   background: @purple;
   border-radius: 2px;
   vertical-align: middle;
+
+  &.inverted {
+    background: @white;
+    color: @purple;
+  }
 }
 
 .tui-concierge-options-container {

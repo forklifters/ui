@@ -5,6 +5,7 @@ import cx from 'classnames';
 
 import ConciergeModal from './ConciergeModal';
 import ConciergeToggle from './ConciergeToggle';
+import ConciergeTooltip from './ConciergeTooltip';
 import DesktopMenuToggle from './DesktopMenuToggle';
 import Logo from '../Logo';
 import MenuList from './MenuList';
@@ -143,6 +144,7 @@ class AppBar extends React.Component {
               toggleConcierge={this._toggleConcierge}
             />
           )}
+          <ConciergeTooltip />
         </nav>
       </div>
     );
