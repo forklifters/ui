@@ -82,8 +82,14 @@
   position: relative;
 }
 
-.tui-app-nav-list {
+.visibility-transition {
+  transition: transform 0.35s ease, opacity 0.28s ease, visibility 0.28s ease, max-width 0.35s ease,
+    max-height 0.22s ease;
+}
+
+.tui-app-bar-modal {
   visibility: hidden;
+  .visibility-transition;
   .box-shadow-heavy;
   position: absolute;
   background-color: @white;
@@ -93,12 +99,20 @@
   max-width: 0;
   padding-top: 16px;
   overflow: hidden;
-  white-space: nowrap;
   opacity: 0;
   transform: translate(-100%, @nav-height);
-  transition: transform 0.35s ease, opacity 0.28s ease, visibility 0.28s ease, max-width 0.35s ease,
-    max-height 0.22s ease;
   z-index: 0;
+}
+
+.tui-app-bar-modal__visible {
+  transform: translate(0px, @nav-height);
+  opacity: 1;
+  visibility: visible;
+}
+
+.tui-app-nav-list {
+  .tui-app-bar-modal;
+  white-space: nowrap;
 
   .nav-enrollment-switcher__static {
     display: none;
@@ -140,14 +154,145 @@
 }
 
 .tui-app-nav__visible .tui-app-nav-list {
-  transform: translate(0px, @nav-height);
+  .tui-app-bar-modal__visible;
   max-width: 768px;
-  opacity: 1;
-  visibility: visible;
 
   @media @tablet {
     max-width: none;
     max-height: 360px;
+  }
+}
+
+.tui-concierge-modal {
+  .tui-app-bar-modal;
+  padding: 42px 15px;
+  right: 16px;
+  left: auto;
+  min-width: 320px;
+  height: 420px; // nice
+  z-index: 101;
+  transform: translate(0, @nav-height);
+
+  @media @tiny {
+    right: 0;
+    max-width: none;
+  }
+
+  a, a:hover {
+    text-decoration: none;
+  }
+
+  h2 {
+    font-size: 30px;
+    line-height: 1.07;
+  }
+
+  h3 {
+    font-size: 14px;
+    line-height: normal;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: normal;
+  }
+}
+
+.tui-app-nav__concierge-visible .tui-concierge-modal {
+  .tui-app-bar-modal__visible;
+  width: 320px;
+
+  @media @tiny {
+    width: 100%;
+  }
+}
+
+@concierge-arrow-size: 5px;
+
+.tui-concierge-arrow {
+  .visibility-transition;
+  .box-shadow-heavy;
+  width: 0;
+  height: 0;
+  border-left: @concierge-arrow-size solid transparent;
+  border-right: @concierge-arrow-size solid transparent;
+  border-bottom: @concierge-arrow-size solid @white;
+  position: absolute;
+  top: calc(@nav-height - @concierge-arrow-size);
+  z-index: 102; // this is +1 than the concierge's because we want the arrow
+                // to be above the box shadow
+  visibility: hidden;
+  right: 69px; // nice
+
+  @media @tablet {
+    right: 99px;
+  }
+}
+
+.tui-app-nav__concierge-visible .tui-concierge-arrow {
+  visibility: visible;
+}
+
+.tui-concierge-close {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  height: 12px;
+  width: 12px;
+  line-height: 12px !important;
+  margin: 0;
+  visibility: hidden;
+
+  @media @tablet {
+    visibility: visible;
+  }
+}
+
+.tui-concierge-header {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  max-height: 142px;
+}
+
+.tui-concierge-header-image-container {
+  width: 112px;
+}
+
+.tui-concierge-beta-badge {
+  padding: 0 4px;
+  font-size: 11px;
+  font-family: 'MaisonNeue', 'Helvetica', sans-serif;
+  color: @white;
+  background: @purple;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+
+.tui-concierge-options-container {
+  flex-direction: column;
+}
+
+.tui-concierge-option {
+  height: 48px;
+  margin: 8px 0 12px;
+  padding: 6px 8px;
+  border-radius: 2px;
+
+  h4 {
+    font-family: 'MaisonNeue-Bold', 'Helvetica', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: normal;
+    color: @white;
+    margin-bottom: 0;
+  }
+
+  p {
+    font-size: 11px;
+    color: @white;
+    margin-bottom: 0;
   }
 }
 
@@ -254,6 +399,42 @@
 
   @media @tablet {
     display: initial;
+  }
+}
+
+@concierge-toggle-diameter: 32px;
+
+.tui-app-nav-concierge-toggle {
+  height: @concierge-toggle-diameter;
+  width: @concierge-toggle-diameter;
+  border-radius: 50%;
+  margin-right: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.concierge-visible {
+    background-color: @gray40;
+  }
+}
+
+.concierge-visible .tui-app-nav-concierge-icon-bell {
+  display: none;
+
+  @media @tablet {
+    display: block;
+  }
+}
+
+.tui-app-nav-concierge-icon-close {
+  display: none;
+}
+
+.concierge-visible .tui-app-nav-concierge-icon-close {
+  display: block;
+
+  @media @tablet {
+    display: none;
   }
 }
 

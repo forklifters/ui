@@ -44,6 +44,14 @@ storiesOf('AppBar', module).add('Logged in', () => (
   <AppBar config={env.config} user={env.user} />
 ));
 
+storiesOf('AppBar', module).add('Concierge experiment', () => {
+  const user = {
+    ...env.user,
+    access: user.access.concat('flexperiment-concierge'),
+  };
+  return (<AppBar config={env.config} user={user} />);
+});
+
 storiesOf('AvailabilityGrid', module)
   .add('Basic', () => (
     <AvailabilityGrid slotsHour={1} minHour={8} maxHour={23} />

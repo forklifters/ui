@@ -2,10 +2,10 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
-import moment from 'moment-timezone';
 
+import ConciergeModal from './ConciergeModal';
+import ConciergeToggle from './ConciergeToggle';
 import DesktopMenuToggle from './DesktopMenuToggle';
-import Icon from '../Icon';
 import Logo from '../Logo';
 import MenuList from './MenuList';
 import MobileMenuToggle from './MobileMenuToggle';
@@ -15,30 +15,50 @@ import UnauthedAppBar from './UnauthedAppBar';
 import { getLinkSet } from './linkSet';
 
 const LEGACY_PLATFORM = 'legacy';
+const CONCIERGE_FLAG = 'flexperiment-concierge';
 
 class AppBar extends React.Component {
   constructor(props) {
     super(props);
     this._toggleMenu = this._toggleMenu.bind(this);
+    this._toggleConcierge = this._toggleConcierge.bind(this);
     this._handleMouseEnter = this._handleMouseEnter.bind(this);
     this._handleMouseLeave = this._handleMouseLeave.bind(this);
     this._shouldInitNotifications = this._shouldInitNotifications.bind(this);
 
     this.state = {
       isMenuVisible: false,
-      linkSet: props.user ? getLinkSet(props.config, props.user) : null
+      isConciergeVisible: false,
+      linkSet: props.user ? getLinkSet(props.config, props.user) : null,
     };
   }
 
   getChildContext() {
     return {
-      user: this.props.user
+      user: this.props.user,
     };
   }
 
+  // visibility of menu and concierge is mutually exclusive
+  // when opening menu or concierge, close the other one
+  // when closing menu or concierge, leave the other one alone
   _toggleMenu() {
+    const { isMenuVisible, isConciergeVisible } = this.state;
+    const newIsMenuVisible = !isMenuVisible;
+    const newIsConciergeVisible = newIsMenuVisible ? false : isConciergeVisible;
     this.setState({
-      isMenuVisible: !this.state.isMenuVisible
+      isMenuVisible: newIsMenuVisible,
+      isConciergeVisible: newIsConciergeVisible,
+    });
+  }
+
+  _toggleConcierge() {
+    const { isMenuVisible, isConciergeVisible } = this.state;
+    const newIsConciergeVisible = !isConciergeVisible;
+    const newIsMenuVisible = newIsConciergeVisible ? false : isMenuVisible;
+    this.setState({
+      isConciergeVisible: newIsConciergeVisible,
+      isMenuVisible: newIsMenuVisible,
     });
   }
 
@@ -66,7 +86,7 @@ class AppBar extends React.Component {
 
   render() {
     const { brand, className, config, EnrollmentView, user } = this.props;
-    const { isMenuVisible, linkSet } = this.state;
+    const { isMenuVisible, isConciergeVisible, linkSet } = this.state;
 
     if (!user) {
       return <UnauthedAppBar config={config} />;
@@ -77,7 +97,8 @@ class AppBar extends React.Component {
         <nav
           onMouseLeave={this._handleMouseLeave}
           className={cx('tui-app-nav', {
-            'tui-app-nav__visible': isMenuVisible
+            'tui-app-nav__visible': isMenuVisible,
+            'tui-app-nav__concierge-visible': isConciergeVisible,
           })}
           key="main-navigation"
           rel="main-navigation"
@@ -97,6 +118,12 @@ class AppBar extends React.Component {
               </ul>
             </div>
             <div className="tui-app-nav-right">
+              {_.includes(user.access, CONCIERGE_FLAG) && (
+                <ConciergeToggle
+                  conciergeVisible={isConciergeVisible}
+                  onClick={this._toggleConcierge}
+                />
+              )}
               {this._shouldInitNotifications() && <Notifications />}
               <DesktopMenuToggle onClick={this._toggleMenu} config={config} />
               <MobileMenuToggle
@@ -110,6 +137,12 @@ class AppBar extends React.Component {
             onMouseEnter={this._handleMouseEnter}
             EnrollmentView={EnrollmentView}
           />
+          {_.includes(user.access, CONCIERGE_FLAG) && (
+            <ConciergeModal
+              visible={isConciergeVisible}
+              toggleConcierge={this._toggleConcierge}
+            />
+          )}
         </nav>
       </div>
     );
