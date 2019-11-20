@@ -22,37 +22,37 @@ class ConciergeModal extends React.Component {
   constructor(props) {
     super(props);
 
-    this.setWrapperRef = this.setWrapperRef.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
+    this.wrapperRef = React.createRef();
+    this.handleMouseup = this.handleMouseup.bind(this);
   }
 
   componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside);
+    global.addEventListener('mouseup', this.handleMouseup);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
+    global.removeEventListener('mouseup', this.handleMouseup);
   }
 
-  /**
-   * Set the wrapper ref
-   */
-  setWrapperRef(node) {
-    this.wrapperRef = node;
-  }
-
-  /**
-   * Alert if clicked on outside of element
-   */
-  handleClickOutside(event) {
+  handleMouseup(event) {
     const { visible, toggleConcierge } = this.props;
+    const parentClassName = get(event, 'target.parentElement.className', '');
+    const className = get(event, 'target.className', '');
+    if (
+      parentClassName instanceof SVGAnimatedString
+      || className instanceof SVGAnimatedString
+    ) {
+      return; // ignore SVG paths so we don't get a TypeError
+    }
     const eventComesFromOpenCloseButton =
-      get(event, 'target.parentElement.className', '').indexOf(FILTER_CLASS) >= 0
-      || get(event, 'target.className', '').indexOf(FILTER_CLASS) >= 0;
-    if (visible
-      && this.wrapperRef
-      && !this.wrapperRef.contains(event.target)
-      && !eventComesFromOpenCloseButton) {
+      parentClassName.indexOf(FILTER_CLASS) >= 0
+      || className.indexOf(FILTER_CLASS) >= 0;
+    if (
+      visible
+      && this.wrapperRef.current
+      && !this.wrapperRef.current.contains(event.target)
+      && !eventComesFromOpenCloseButton
+    ) {
       toggleConcierge();
     }
   }
@@ -60,7 +60,7 @@ class ConciergeModal extends React.Component {
   render() {
     const { toggleConcierge } = this.props;
     return (
-      <div ref={this.setWrapperRef}>
+      <div ref={this.wrapperRef}>
         <div className="tui-concierge-arrow" />
         <div className="tui-concierge-modal">
           <button
