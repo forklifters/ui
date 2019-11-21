@@ -1,6 +1,8 @@
 import _ from 'lodash';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
+import Cookies from 'universal-cookie';
 import cx from 'classnames';
 
 import ConciergeModal from './ConciergeModal';
@@ -17,6 +19,7 @@ import { getLinkSet } from './linkSet';
 
 const LEGACY_PLATFORM = 'legacy';
 const CONCIERGE_FLAG = 'flexperiment-concierge';
+const TOOLTIP_KEY = 'hasSeenConciergeTooltip';
 
 class AppBar extends React.Component {
   constructor(props) {
@@ -26,6 +29,9 @@ class AppBar extends React.Component {
     this._handleMouseEnter = this._handleMouseEnter.bind(this);
     this._handleMouseLeave = this._handleMouseLeave.bind(this);
     this._shouldInitNotifications = this._shouldInitNotifications.bind(this);
+    this._shouldShowTooltip = this._shouldShowTooltip.bind(this);
+    this._setTooltipDismissed = this._setTooltipDismissed.bind(this);
+    this.cookies = new Cookies();
 
     this.state = {
       isMenuVisible: false,
@@ -56,6 +62,9 @@ class AppBar extends React.Component {
 
   _toggleConcierge() {
     const { isMenuVisible, isConciergeVisible } = this.state;
+    if (this._shouldShowTooltip()) {
+      this._setTooltipDismissed();
+    }
     const newIsConciergeVisible = !isConciergeVisible;
     const newIsMenuVisible = newIsConciergeVisible ? false : isMenuVisible;
     this.setState({
@@ -85,6 +94,21 @@ class AppBar extends React.Component {
     const { user } = this.props;
 
     return !/mentor|admin/.test(user.role) && user.platform === LEGACY_PLATFORM;
+  }
+
+  _shouldShowTooltip() {
+    return !this.cookies.get(TOOLTIP_KEY);
+  }
+
+  _setTooltipDismissed() {
+    this.cookies.set(
+      TOOLTIP_KEY,
+      true,
+      {
+        path: '/',
+        expires: moment().add(1, 'month').toDate(),
+      },
+    );
   }
 
   render() {
@@ -158,7 +182,7 @@ class AppBar extends React.Component {
                 visible={isConciergeVisible}
                 toggleConcierge={this._toggleConcierge}
               />
-              <ConciergeTooltip />
+              {this._shouldShowTooltip() && <ConciergeTooltip />}
             </Fragment>
           )}
         </nav>
