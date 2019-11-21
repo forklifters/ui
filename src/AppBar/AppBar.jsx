@@ -1,10 +1,13 @@
 import _ from 'lodash';
+import moment from 'moment';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Fragment } from 'react';
+import Cookies from 'universal-cookie';
 import cx from 'classnames';
 
 import ConciergeModal from './ConciergeModal';
 import ConciergeToggle from './ConciergeToggle';
+import ConciergeTooltip from './ConciergeTooltip';
 import DesktopMenuToggle from './DesktopMenuToggle';
 import Logo from '../Logo';
 import MenuList from './MenuList';
@@ -16,6 +19,7 @@ import { getLinkSet } from './linkSet';
 
 const LEGACY_PLATFORM = 'legacy';
 const CONCIERGE_FLAG = 'flexperiment-concierge';
+const TOOLTIP_KEY = 'hasSeenConciergeTooltip';
 
 class AppBar extends React.Component {
   constructor(props) {
@@ -25,10 +29,14 @@ class AppBar extends React.Component {
     this._handleMouseEnter = this._handleMouseEnter.bind(this);
     this._handleMouseLeave = this._handleMouseLeave.bind(this);
     this._shouldInitNotifications = this._shouldInitNotifications.bind(this);
+    this._shouldShowTooltip = this._shouldShowTooltip.bind(this);
+    this._setTooltipDismissed = this._setTooltipDismissed.bind(this);
+    this.cookies = new Cookies();
 
     this.state = {
       isMenuVisible: false,
       isConciergeVisible: false,
+      isConciergeTooltipVisible: true,
       linkSet: props.user ? getLinkSet(props.config, props.user) : null,
     };
   }
@@ -54,11 +62,15 @@ class AppBar extends React.Component {
 
   _toggleConcierge() {
     const { isMenuVisible, isConciergeVisible } = this.state;
+    if (this._shouldShowTooltip()) {
+      this._setTooltipDismissed();
+    }
     const newIsConciergeVisible = !isConciergeVisible;
     const newIsMenuVisible = newIsConciergeVisible ? false : isMenuVisible;
     this.setState({
       isConciergeVisible: newIsConciergeVisible,
       isMenuVisible: newIsMenuVisible,
+      isConciergeTooltipVisible: false,
     });
   }
 
@@ -84,9 +96,35 @@ class AppBar extends React.Component {
     return !/mentor|admin/.test(user.role) && user.platform === LEGACY_PLATFORM;
   }
 
+  _shouldShowTooltip() {
+    return !this.cookies.get(TOOLTIP_KEY);
+  }
+
+  _setTooltipDismissed() {
+    this.cookies.set(
+      TOOLTIP_KEY,
+      true,
+      {
+        path: '/',
+        expires: moment().add(1, 'month').toDate(),
+      },
+    );
+  }
+
   render() {
-    const { brand, className, config, EnrollmentView, user } = this.props;
-    const { isMenuVisible, isConciergeVisible, linkSet } = this.state;
+    const {
+      brand,
+      className,
+      config,
+      EnrollmentView,
+      user,
+    } = this.props;
+    const {
+      isMenuVisible,
+      isConciergeVisible,
+      isConciergeTooltipVisible,
+      linkSet,
+    } = this.state;
 
     if (!user) {
       return <UnauthedAppBar config={config} />;
@@ -99,6 +137,7 @@ class AppBar extends React.Component {
           className={cx('tui-app-nav', {
             'tui-app-nav__visible': isMenuVisible,
             'tui-app-nav__concierge-visible': isConciergeVisible,
+            'tui-app-nav__concierge-tooltip-visible': isConciergeTooltipVisible,
           })}
           key="main-navigation"
           rel="main-navigation"
@@ -138,10 +177,13 @@ class AppBar extends React.Component {
             EnrollmentView={EnrollmentView}
           />
           {_.includes(user.access, CONCIERGE_FLAG) && (
-            <ConciergeModal
-              visible={isConciergeVisible}
-              toggleConcierge={this._toggleConcierge}
-            />
+            <Fragment>
+              <ConciergeModal
+                visible={isConciergeVisible}
+                toggleConcierge={this._toggleConcierge}
+              />
+              {this._shouldShowTooltip() && <ConciergeTooltip />}
+            </Fragment>
           )}
         </nav>
       </div>

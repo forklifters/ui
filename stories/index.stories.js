@@ -40,17 +40,17 @@ storiesOf('Headers', module)
   .add('h5', () => <h5>This is an h5</h5>)
   .add('h6', () => <h6>This is an h6</h6>);
 
-storiesOf('AppBar', module).add('Logged in', () => (
-  <AppBar config={env.config} user={env.user} />
-));
-
-storiesOf('AppBar', module).add('Concierge experiment', () => {
-  const user = {
-    ...env.user,
-    access: user.access.concat('flexperiment-concierge'),
-  };
-  return (<AppBar config={env.config} user={user} />);
-});
+storiesOf('AppBar', module)
+  .add('Logged in', () => (
+    <AppBar config={env.config} user={env.user} />
+  ))
+  .add('Concierge experiment', () => {
+    const user = {
+      ...env.user,
+      access: env.user.access.concat('flexperiment-concierge'),
+    };
+    return (<AppBar config={env.config} user={user} />);
+  });
 
 storiesOf('AvailabilityGrid', module)
   .add('Basic', () => (
