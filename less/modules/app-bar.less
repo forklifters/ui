@@ -101,7 +101,7 @@
   overflow: hidden;
   opacity: 0;
   transform: translate(-100%, @nav-height);
-  z-index: 0;
+  z-index: 5;
 }
 
 .tui-app-bar-modal__visible {
@@ -165,7 +165,6 @@
 
 .tui-concierge-tooltip {
   .tui-app-bar-modal;
-  .tui-app-bar-modal__visible;
   padding: 6px 8px;
   background-color: @purple;
   height: 49px;
@@ -177,6 +176,7 @@
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
+  z-index: 3;
 
   h2 {
     font-size: 16px;
@@ -201,6 +201,10 @@
   }
 }
 
+.tui-app-nav__concierge-tooltip-visible .tui-concierge-tooltip {
+  .tui-app-bar-modal__visible;
+}
+
 .tui-concierge-modal {
   .tui-app-bar-modal;
   padding: 42px 15px;
@@ -209,7 +213,7 @@
   min-width: 320px;
   height: 420px; // nice
   border-radius: 2px;
-  z-index: 101;
+  z-index: 5;
   transform: translate(0, @nav-height);
 
   @media @tiny {
@@ -272,8 +276,8 @@
 .tui-concierge-arrow {
   .modal-callout;
   border-bottom-color: @white;
-  z-index: 102; // this is +1 than the concierge's because we want the arrow
-                // to be above the box shadow
+  z-index: 6; // this is +1 than the concierge's because we want the arrow
+              // to be above the box shadow
 }
 
 .tui-app-nav__concierge-visible .tui-concierge-arrow {
@@ -283,8 +287,11 @@
 .tui-concierge-tooltip-arrow {
   .modal-callout;
   border-bottom-color: @purple;
+  z-index: 4;
+}
+
+.tui-app-nav__concierge-tooltip-visible .tui-concierge-tooltip-arrow {
   visibility: visible;
-  z-index: 0;
 }
 
 .tui-concierge-close {

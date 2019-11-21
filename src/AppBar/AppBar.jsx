@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Fragment } from 'react';
 import cx from 'classnames';
 
 import ConciergeModal from './ConciergeModal';
@@ -30,6 +30,7 @@ class AppBar extends React.Component {
     this.state = {
       isMenuVisible: false,
       isConciergeVisible: false,
+      isConciergeTooltipVisible: true,
       linkSet: props.user ? getLinkSet(props.config, props.user) : null,
     };
   }
@@ -60,6 +61,7 @@ class AppBar extends React.Component {
     this.setState({
       isConciergeVisible: newIsConciergeVisible,
       isMenuVisible: newIsMenuVisible,
+      isConciergeTooltipVisible: false,
     });
   }
 
@@ -86,8 +88,19 @@ class AppBar extends React.Component {
   }
 
   render() {
-    const { brand, className, config, EnrollmentView, user } = this.props;
-    const { isMenuVisible, isConciergeVisible, linkSet } = this.state;
+    const {
+      brand,
+      className,
+      config,
+      EnrollmentView,
+      user,
+    } = this.props;
+    const {
+      isMenuVisible,
+      isConciergeVisible,
+      isConciergeTooltipVisible,
+      linkSet,
+    } = this.state;
 
     if (!user) {
       return <UnauthedAppBar config={config} />;
@@ -100,6 +113,7 @@ class AppBar extends React.Component {
           className={cx('tui-app-nav', {
             'tui-app-nav__visible': isMenuVisible,
             'tui-app-nav__concierge-visible': isConciergeVisible,
+            'tui-app-nav__concierge-tooltip-visible': isConciergeTooltipVisible,
           })}
           key="main-navigation"
           rel="main-navigation"
@@ -139,12 +153,14 @@ class AppBar extends React.Component {
             EnrollmentView={EnrollmentView}
           />
           {_.includes(user.access, CONCIERGE_FLAG) && (
-            <ConciergeModal
-              visible={isConciergeVisible}
-              toggleConcierge={this._toggleConcierge}
-            />
+            <Fragment>
+              <ConciergeModal
+                visible={isConciergeVisible}
+                toggleConcierge={this._toggleConcierge}
+              />
+              <ConciergeTooltip />
+            </Fragment>
           )}
-          <ConciergeTooltip />
         </nav>
       </div>
     );
