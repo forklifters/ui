@@ -58,7 +58,7 @@ class ConciergeModal extends React.Component {
   }
 
   render() {
-    const { toggleConcierge } = this.props;
+    const { slackUrl, toggleConcierge } = this.props;
     return (
       <div ref={this.wrapperRef}>
         <div className="tui-concierge-arrow" />
@@ -88,14 +88,14 @@ class ConciergeModal extends React.Component {
               title="Start a convo on Slack"
               subtitle="Pair with other students on the same topics"
               background="#1733ff"
-              link="https://thinkful.slack.com"
+              link={slackUrl || "https://thinkful.slack.com"}
             />
 
             <ConciergeOption
               title="Chat with an expert"
               subtitle="Get help from our tutors"
               background="#03533d"
-              link="https://thinkful.slack.com"
+              link={slackUrl || "https://thinkful.slack.com"}
             />
 
             <ConciergeOption
@@ -112,6 +112,7 @@ class ConciergeModal extends React.Component {
 }
 
 ConciergeModal.propTypes = {
+  slackUrl: PropTypes.string,
   visible: PropTypes.bool.isRequired,
   toggleConcierge: PropTypes.func.isRequired,
 }

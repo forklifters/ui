@@ -15,6 +15,7 @@ import MobileMenuToggle from './MobileMenuToggle';
 import NavLink from './NavLink';
 import Notifications from './notifications/Notifications';
 import UnauthedAppBar from './UnauthedAppBar';
+import { getCurrentEnrollment } from './currentEnrollment';
 import { getLinkSet } from './linkSet';
 
 const LEGACY_PLATFORM = 'legacy';
@@ -24,6 +25,8 @@ const TOOLTIP_KEY = 'hasSeenConciergeTooltip';
 class AppBar extends React.Component {
   constructor(props) {
     super(props);
+    this._handleGetCurrentEnrollmentSucceeded = this._handleGetCurrentEnrollmentSucceeded.bind(this);
+    this._handleGetCurrentEnrollmentFailed = this._handleGetCurrentEnrollmentFailed.bind(this);
     this._toggleMenu = this._toggleMenu.bind(this);
     this._toggleConcierge = this._toggleConcierge.bind(this);
     this._handleMouseEnter = this._handleMouseEnter.bind(this);
@@ -37,6 +40,7 @@ class AppBar extends React.Component {
       isMenuVisible: false,
       isConciergeVisible: false,
       isConciergeTooltipVisible: true,
+      slackUrl: null,
       linkSet: props.user ? getLinkSet(props.config, props.user) : null,
     };
   }
@@ -45,6 +49,25 @@ class AppBar extends React.Component {
     return {
       user: this.props.user,
     };
+  }
+
+  componentDidMount() {
+    const {config, user} = this.props;
+    getCurrentEnrollment(
+      config,
+      user,
+      this._handleGetCurrentEnrollmentSucceeded,
+      this._handleGetCurrentEnrollmentFailed
+    );
+  }
+
+  _handleGetCurrentEnrollmentSucceeded(res) {
+    const slackUrl = _.get(res.body, 'enrollment.course.slack_channel_web_url', null);
+    this.setState({ slackUrl });
+  }
+
+  _handleGetCurrentEnrollmentFailed(err) {
+    console.warn(`getCurrentEnrollment failed: ${err}`);
   }
 
   // visibility of menu and concierge is mutually exclusive
@@ -124,6 +147,7 @@ class AppBar extends React.Component {
       isConciergeVisible,
       isConciergeTooltipVisible,
       linkSet,
+      slackUrl,
     } = this.state;
 
     if (!user) {
@@ -179,6 +203,7 @@ class AppBar extends React.Component {
           {_.includes(user.access, CONCIERGE_FLAG) && (
             <Fragment>
               <ConciergeModal
+                slackUrl={slackUrl}
                 visible={isConciergeVisible}
                 toggleConcierge={this._toggleConcierge}
               />
