@@ -25,8 +25,12 @@ const TOOLTIP_KEY = 'hasSeenConciergeTooltip';
 class AppBar extends React.Component {
   constructor(props) {
     super(props);
-    this._handleGetCurrentEnrollmentSucceeded = this._handleGetCurrentEnrollmentSucceeded.bind(this);
-    this._handleGetCurrentEnrollmentFailed = this._handleGetCurrentEnrollmentFailed.bind(this);
+    this._handleGetCurrentEnrollmentSucceeded = this._handleGetCurrentEnrollmentSucceeded.bind(
+      this
+    );
+    this._handleGetCurrentEnrollmentFailed = this._handleGetCurrentEnrollmentFailed.bind(
+      this
+    );
     this._toggleMenu = this._toggleMenu.bind(this);
     this._toggleConcierge = this._toggleConcierge.bind(this);
     this._handleMouseEnter = this._handleMouseEnter.bind(this);
@@ -52,7 +56,7 @@ class AppBar extends React.Component {
   }
 
   componentDidMount() {
-    const {config, user} = this.props;
+    const { config, user } = this.props;
     getCurrentEnrollment(
       config,
       user,
@@ -62,7 +66,11 @@ class AppBar extends React.Component {
   }
 
   _handleGetCurrentEnrollmentSucceeded(res) {
-    const slackUrl = _.get(res.body, 'enrollment.course.slack_channel_web_url', null);
+    const slackUrl = _.get(
+      res.body,
+      'enrollment.course.slack_channel_web_url',
+      null
+    );
     this.setState({ slackUrl });
   }
 
@@ -108,7 +116,7 @@ class AppBar extends React.Component {
     this.mouseTimeout = setTimeout(() => {
       this.setState({
         isMenuVisible: false,
-        isCourseDropdownVisible: false
+        isCourseDropdownVisible: false,
       });
     }, 400);
   }
@@ -124,24 +132,16 @@ class AppBar extends React.Component {
   }
 
   _setTooltipDismissed() {
-    this.cookies.set(
-      TOOLTIP_KEY,
-      true,
-      {
-        path: '/',
-        expires: moment().add(1, 'month').toDate(),
-      },
-    );
+    this.cookies.set(TOOLTIP_KEY, true, {
+      path: '/',
+      expires: moment()
+        .add(1, 'month')
+        .toDate(),
+    });
   }
 
   render() {
-    const {
-      brand,
-      className,
-      config,
-      EnrollmentView,
-      user,
-    } = this.props;
+    const { brand, className, config, EnrollmentView, user } = this.props;
     const {
       isMenuVisible,
       isConciergeVisible,
@@ -207,7 +207,9 @@ class AppBar extends React.Component {
                 visible={isConciergeVisible}
                 toggleConcierge={this._toggleConcierge}
               />
-              {this._shouldShowTooltip() && <ConciergeTooltip />}
+              {this._shouldShowTooltip() && (
+                <ConciergeTooltip toggleConcierge={this._toggleConcierge} />
+              )}
             </Fragment>
           )}
         </nav>
@@ -220,16 +222,16 @@ AppBar.propTypes = {
   brand: PropTypes.string,
   config: PropTypes.object.isRequired,
   EnrollmentView: PropTypes.object,
-  user: PropTypes.object
+  user: PropTypes.object,
 };
 
 AppBar.defaultProps = {
   brand: null,
-  EnrollmentView: null
+  EnrollmentView: null,
 };
 
 AppBar.childContextTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
 };
 
 module.exports = AppBar;
