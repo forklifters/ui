@@ -20,7 +20,8 @@ import { getLinkSet } from './linkSet';
 
 const LEGACY_PLATFORM = 'legacy';
 const CONCIERGE_FLAG = 'flexperiment-concierge';
-const TOOLTIP_KEY = 'hasSeenConciergeTooltip';
+const TOOLTIP_KEY_OLD = 'hasSeenConciergeTooltip';
+const TOOLTIP_KEY = 'hasSeenConcierge';
 
 class AppBar extends React.Component {
   constructor(props) {
@@ -127,17 +128,22 @@ class AppBar extends React.Component {
     return !/mentor|admin/.test(user.role) && user.platform === LEGACY_PLATFORM;
   }
 
-  _shouldShowTooltip() {
-    return !this.cookies.get(TOOLTIP_KEY);
-  }
-
   _setTooltipDismissed() {
     this.cookies.set(TOOLTIP_KEY, true, {
+      domain: location.hostname == 't.ful' ? 't.ful' : '.thinkful.com',
       path: '/',
       expires: moment()
         .add(1, 'month')
         .toDate(),
     });
+  }
+
+  _shouldShowTooltip() {
+    if (this.cookies.get(TOOLTIP_KEY_OLD)) {
+      this.cookies.remove(TOOLTIP_KEY_OLD, { path: '/' });
+      this._setTooltipDismissed();
+    }
+    return !this.cookies.get(TOOLTIP_KEY);
   }
 
   render() {
