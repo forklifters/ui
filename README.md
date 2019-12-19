@@ -36,10 +36,9 @@ If you want to work on UI components locally and see your changes in another app
 1. Bump the version in `thinkful-ui`'s `package.json`.
 2. in `Thinkful/ui`: `npm publish`
 3. in `Thinkful/assets`: bump the `thinkful-ui` version in `package.json` to the new version.
-4. in `Thinkful/assets`: Make a PR with that `package.json` change, and merge to `master`.
-5. in `Thinkful/seagull`: do the same steps as above.
-6. in `Thinkful`: `make build seagull && make upload seagull && make build assets && make upload assets`
-7. The previous step regenerated build hashes in `docker-compose.yml`, so make a PR with those changes and merge to `master`.
-8. You're done!
+4. in `Thinkful`: `make build assets && make upload assets`, which will regenerate build hashes in `docker-compose.yml`.
+5. in `Thinkful/assets`: Make a PR with that `package.json` change and `docker-compose.yml` updates, and merge to `master`.
+6. in `Thinkful/seagull`: do the same steps as above.
+7. You're done!
 
 Caveat: Make sure the `React` versions in `ui` and `assets` are at least roughly in sync.
