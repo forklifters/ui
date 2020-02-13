@@ -76,7 +76,7 @@ class AppBar extends React.Component {
     );
     const courseDeliveryFormatSlug = _.get(
       res.body,
-      'enrollment.enrollment.course.delivery_format.slug'
+      'enrollment.course.delivery_format.slug'
     );
 
     const isPrepUser = courseDeliveryFormatSlug === 'prep';
