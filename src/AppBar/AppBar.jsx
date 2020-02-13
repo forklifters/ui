@@ -4,10 +4,6 @@ import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import Cookies from 'universal-cookie';
 import cx from 'classnames';
-
-import ConciergeModal from './ConciergeModal';
-import ConciergeToggle from './ConciergeToggle';
-import ConciergeTooltip from './ConciergeTooltip';
 import DesktopMenuToggle from './DesktopMenuToggle';
 import Logo from '../Logo';
 import MenuList from './MenuList';
@@ -17,6 +13,11 @@ import Notifications from './notifications/Notifications';
 import UnauthedAppBar from './UnauthedAppBar';
 import { getCurrentEnrollment } from './currentEnrollment';
 import { getLinkSet } from './linkSet';
+import {
+  ConciergeModal,
+  ConciergeToggle,
+  ConciergeTooltip
+ } from '../Concierge';
 
 const LEGACY_PLATFORM = 'legacy';
 const CONCIERGE_FLAG = 'flexperiment-concierge';
