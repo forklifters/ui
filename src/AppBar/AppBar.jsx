@@ -203,7 +203,7 @@ class AppBar extends React.Component {
               </ul>
             </div>
             <div className="tui-app-nav-right">
-              { && (
+              {this._hasConciergeAccess(user) && (
                 <ConciergeToggle
                   conciergeVisible={isConciergeVisible}
                   onClick={this._toggleConcierge}
