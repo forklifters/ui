@@ -226,7 +226,7 @@ class AppBar extends React.Component {
           {_.includes(user.access, CONCIERGE_FLAG) && (
             <Fragment>
               <ConciergeModal
-                isPrepUser={true}
+                isPrepUser={isPrepUser}
                 slackUrl={slackUrl}
                 toggleConcierge={this._toggleConcierge}
                 visible={isConciergeVisible}

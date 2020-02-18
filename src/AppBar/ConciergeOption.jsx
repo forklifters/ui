@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { black } from '../styleguide';
 
 const ConciergeOption = ({ title, subtitle, link, background }) => (
-  <a href={link}>
+  <a href={link} className="tui-concierge-option-link">
     <div
       className="tui-concierge-option"
       style={{
