@@ -37,6 +37,7 @@ class AppBar extends React.Component {
     this._toggleConcierge = this._toggleConcierge.bind(this);
     this._handleMouseEnter = this._handleMouseEnter.bind(this);
     this._handleMouseLeave = this._handleMouseLeave.bind(this);
+    this._hasConciergeAccess = this._hasConciergeAccess.bind(this);
     this._shouldInitNotifications = this._shouldInitNotifications.bind(this);
     this._shouldShowTooltip = this._shouldShowTooltip.bind(this);
     this._setTooltipDismissed = this._setTooltipDismissed.bind(this);
@@ -222,7 +223,7 @@ class AppBar extends React.Component {
             onMouseEnter={this._handleMouseEnter}
             EnrollmentView={EnrollmentView}
           />
-          {_.includes(user.access, CONCIERGE_FLAG) && (
+          {this._hasConciergeAccess(user) && (
             <Fragment>
               <ConciergeModal
                 slackUrl={slackUrl}
