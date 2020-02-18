@@ -20,6 +20,7 @@ import { getLinkSet } from './linkSet';
 
 const LEGACY_PLATFORM = 'legacy';
 const CONCIERGE_FLAG = 'flexperiment-concierge';
+const PREP_CONCIERGE_FLAG = 'prep-concierge';
 const TOOLTIP_KEY_OLD = 'hasSeenConciergeTooltip';
 const TOOLTIP_KEY = 'hasSeenConcierge';
 
@@ -42,11 +43,12 @@ class AppBar extends React.Component {
     this.cookies = new Cookies();
 
     this.state = {
-      isMenuVisible: false,
       isConciergeVisible: false,
       isConciergeTooltipVisible: true,
-      slackUrl: null,
+      isMenuVisible: false,
+      isPrepUser: false,
       linkSet: props.user ? getLinkSet(props.config, props.user) : null,
+      slackUrl: null,
     };
   }
 
@@ -72,7 +74,13 @@ class AppBar extends React.Component {
       'enrollment.course.slack_channel_web_url',
       null
     );
-    this.setState({ slackUrl });
+    const courseDeliveryFormatSlug = _.get(
+      res.body,
+      'enrollment.course.delivery_format.slug'
+    );
+
+    const isPrepUser = courseDeliveryFormatSlug === 'prep';
+    this.setState({ isPrepUser, slackUrl });
   }
 
   _handleGetCurrentEnrollmentFailed(err) {
@@ -120,6 +128,14 @@ class AppBar extends React.Component {
         isCourseDropdownVisible: false,
       });
     }, 400);
+  }
+
+  _hasConciergeAccess(user) {
+    const { isPrepUser } = this.state;
+    return (
+      _.includes(user.access, CONCIERGE_FLAG) ||
+      (_.includes(user.access, PREP_CONCIERGE_FLAG) && isPrepUser)
+    );
   }
 
   _shouldInitNotifications() {
@@ -187,7 +203,7 @@ class AppBar extends React.Component {
               </ul>
             </div>
             <div className="tui-app-nav-right">
-              {_.includes(user.access, CONCIERGE_FLAG) && (
+              {this._hasConciergeAccess(user) && (
                 <ConciergeToggle
                   conciergeVisible={isConciergeVisible}
                   onClick={this._toggleConcierge}
