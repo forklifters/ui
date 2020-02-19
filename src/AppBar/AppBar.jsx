@@ -169,6 +169,7 @@ class AppBar extends React.Component {
       isMenuVisible,
       isConciergeVisible,
       isConciergeTooltipVisible,
+      isPrepUser,
       linkSet,
       slackUrl,
     } = this.state;
@@ -226,9 +227,10 @@ class AppBar extends React.Component {
           {this._hasConciergeAccess(user) && (
             <Fragment>
               <ConciergeModal
+                isPrepUser={isPrepUser}
                 slackUrl={slackUrl}
-                visible={isConciergeVisible}
                 toggleConcierge={this._toggleConcierge}
+                visible={isConciergeVisible}
               />
               {this._shouldShowTooltip() && (
                 <ConciergeTooltip toggleConcierge={this._toggleConcierge} />

@@ -212,7 +212,6 @@
   right: 16px;
   left: auto;
   min-width: 320px;
-  height: 420px; // nice
   border-radius: 2px;
   z-index: 5;
   transform: translate(0, @nav-height);
@@ -340,9 +339,17 @@
   flex-direction: column;
 }
 
+.tui-concierge-option-link {
+  display: block;
+  margin: 8px 0 12px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
 .tui-concierge-option {
   height: 48px;
-  margin: 8px 0 12px;
   padding: 6px 8px;
   border-radius: 2px;
 
@@ -359,6 +366,18 @@
     font-size: 11px;
     color: @white;
     margin-bottom: 0;
+  }
+}
+
+.tui-concierge-contact {
+  color: @gray75;
+  font-size: 14px;
+  padding-top: 22px;
+
+  a {
+    font-family: 'MaisonNeue-Bold';
+    color: @gray75;
+    font-size: 14px;
   }
 }
 
