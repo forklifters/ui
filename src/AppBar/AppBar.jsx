@@ -48,6 +48,7 @@ class AppBar extends React.Component {
       isMenuVisible: false,
       isPrepUser: false,
       linkSet: props.user ? getLinkSet(props.config, props.user) : null,
+      openSessionsUrl: null,
       slackUrl: null,
     };
   }
@@ -74,13 +75,18 @@ class AppBar extends React.Component {
       'enrollment.course.slack_channel_web_url',
       null
     );
+    const openSessionsUrl = _.get(
+      res.body,
+      'enrollment.course.default_open_sessions_url',
+      null
+    );
     const courseDeliveryFormatSlug = _.get(
       res.body,
       'enrollment.course.delivery_format.slug'
     );
 
     const isPrepUser = courseDeliveryFormatSlug === 'prep';
-    this.setState({ isPrepUser, slackUrl });
+    this.setState({ isPrepUser, openSessionsUrl, slackUrl });
   }
 
   _handleGetCurrentEnrollmentFailed(err) {
@@ -170,6 +176,7 @@ class AppBar extends React.Component {
       isConciergeTooltipVisible,
       isPrepUser,
       linkSet,
+      openSessionsUrl,
       slackUrl,
     } = this.state;
 
@@ -227,6 +234,7 @@ class AppBar extends React.Component {
             <Fragment>
               <ConciergeModal
                 isPrepUser={isPrepUser}
+                openSessionsUrl={openSessionsUrl}
                 slackUrl={slackUrl}
                 toggleConcierge={this._toggleConcierge}
                 visible={isConciergeVisible}

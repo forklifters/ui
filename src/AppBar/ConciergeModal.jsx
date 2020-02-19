@@ -58,7 +58,12 @@ class ConciergeModal extends React.Component {
   }
 
   render() {
-    const { isPrepUser, slackUrl, toggleConcierge } = this.props;
+    const {
+      isPrepUser,
+      openSessionsUrl,
+      slackUrl,
+      toggleConcierge,
+    } = this.props;
     return (
       <div ref={this.wrapperRef}>
         <div className="tui-concierge-arrow" />
@@ -102,7 +107,10 @@ class ConciergeModal extends React.Component {
               title="Find a Q&amp;A Session"
               subtitle="Find a session related to what you're working on"
               background="#ff6b31"
-              link="https://thinkful.com/open-sessions/qa-sessions"
+              link={
+                openSessionsUrl ||
+                'https://thinkful.com/open-sessions/qa-sessions'
+              }
             />
           </div>
 
@@ -120,12 +128,14 @@ class ConciergeModal extends React.Component {
 
 ConciergeModal.propTypes = {
   isPrepUser: PropTypes.bool.isRequired,
+  openSessionsUrl: PropTypes.string,
   slackUrl: PropTypes.string,
   toggleConcierge: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
 };
 
 ConciergeModal.defaultProps = {
+  openSessionsUrl: null,
   slackUrl: null,
 };
 
