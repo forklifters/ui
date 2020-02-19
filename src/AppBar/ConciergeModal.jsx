@@ -63,6 +63,7 @@ class ConciergeModal extends React.Component {
       isPrepUser,
       openSessionsUrl,
       slackUrl,
+      technicalSlackUrl,
       toggleConcierge,
     } = this.props;
     return (
