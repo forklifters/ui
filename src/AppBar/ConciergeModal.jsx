@@ -100,7 +100,7 @@ class ConciergeModal extends React.Component {
 
             <ConciergeOption
               title="Chat with a technical expert"
-              subtitle="Get  help from our curriculum tutors"
+              subtitle="Get help from our curriculum tutors"
               background="#03533d"
               link={technicalSlackUrl || BASE_SLACK_URL}
             />
