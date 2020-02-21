@@ -190,6 +190,7 @@ class AppBar extends React.Component {
       linkSet,
       openSessionsUrl,
       slackUrl,
+      technicalSlackUrl
     } = this.state;
 
     if (!user) {
