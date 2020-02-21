@@ -13,6 +13,7 @@ const BetaBadge = () => (
 );
 
 const FILTER_CLASS = 'tui-app-nav-concierge-toggle';
+const BASE_SLACK_URL = 'https://thinkful.slack.com';
 
 /**
  * Component that alerts if you click outside of it
@@ -62,6 +63,7 @@ class ConciergeModal extends React.Component {
       isPrepUser,
       openSessionsUrl,
       slackUrl,
+      technicalSlackUrl,
       toggleConcierge,
     } = this.props;
     return (
@@ -93,14 +95,14 @@ class ConciergeModal extends React.Component {
               title="Start a convo on Slack"
               subtitle="Pair with other students on the same topics"
               background="#1733ff"
-              link={slackUrl || "https://thinkful.slack.com"}
+              link={slackUrl || BASE_SLACK_URL}
             />
 
             <ConciergeOption
-              title="Chat with an expert"
-              subtitle="Get help from our tutors"
+              title="Chat with a technical expert"
+              subtitle="Get help from our curriculum tutors"
               background="#03533d"
-              link={slackUrl || "https://thinkful.slack.com"}
+              link={technicalSlackUrl || BASE_SLACK_URL}
             />
 
             <ConciergeOption
