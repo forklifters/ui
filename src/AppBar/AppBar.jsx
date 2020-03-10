@@ -20,7 +20,6 @@ import { getLinkSet } from './linkSet';
 
 const LEGACY_PLATFORM = 'legacy';
 const CONCIERGE_FLAG = 'flexperiment-concierge';
-const PREP_CONCIERGE_FLAG = 'prep-concierge';
 const TOOLTIP_KEY_OLD = 'hasSeenConciergeTooltip';
 const TOOLTIP_KEY = 'hasSeenConcierge';
 
@@ -151,8 +150,7 @@ class AppBar extends React.Component {
   _hasConciergeAccess(user) {
     const { isPrepUser } = this.state;
     return (
-      _.includes(user.access, CONCIERGE_FLAG) ||
-      (_.includes(user.access, PREP_CONCIERGE_FLAG) && isPrepUser)
+      _.includes(user.access, CONCIERGE_FLAG) || isPrepUser;
     );
   }
 
