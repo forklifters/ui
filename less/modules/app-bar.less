@@ -3,6 +3,8 @@
 @nav-height: 60px;
 @grid-width: 944px;
 
+@app-bar-modal-z-index: 5;
+
 .tui-app-nav-container {
   position: relative;
   z-index: 10;
@@ -101,7 +103,7 @@
   overflow: hidden;
   opacity: 0;
   transform: translate(-100%, @nav-height);
-  z-index: 5;
+  z-index: @app-bar-modal-z-index;
 }
 
 .tui-app-bar-modal__visible {
@@ -166,7 +168,7 @@
 .tui-concierge-tooltip {
   .tui-app-bar-modal;
   padding: 6px 8px;
-  background-color: @purple;
+  background-color: @backgroundOrange;
   height: 49px;
   width: 288px;
   max-width: none;
@@ -213,7 +215,7 @@
   left: auto;
   min-width: 320px;
   border-radius: 2px;
-  z-index: 5;
+  z-index: @app-bar-modal-z-index;
   transform: translate(0, @nav-height);
 
   @media @tiny {
@@ -276,8 +278,9 @@
 .tui-concierge-arrow {
   .modal-callout;
   border-bottom-color: @white;
-  z-index: 6; // this is +1 than the concierge's because we want the arrow
-              // to be above the box shadow
+  z-index: @app-bar-modal-z-index + 1;
+              // this is because we want the arrow
+              // to be above the modal's box shadow
 }
 
 .tui-app-nav__concierge-visible .tui-concierge-arrow {
@@ -286,7 +289,7 @@
 
 .tui-concierge-tooltip-arrow {
   .modal-callout;
-  border-bottom-color: @purple;
+  border-bottom-color: @backgroundOrange;
   z-index: 4;
 }
 
